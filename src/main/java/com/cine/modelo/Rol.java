@@ -1,4 +1,4 @@
 package com.cine.modelo;
 
-public class Rol {
+public abstract class Rol {
 }
