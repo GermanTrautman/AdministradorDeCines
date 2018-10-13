@@ -8,6 +8,7 @@ public class ControladorCine {
     private IServicioCine servicioCine;
 
     public Establecimiento crearEstablecimiento(){
+    	
         return servicioCine.crearEstablecimiento();
     }
 
