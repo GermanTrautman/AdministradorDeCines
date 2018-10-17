@@ -1,4 +1,4 @@
-package Persistencia;
+package com.cine.Persistencia;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
