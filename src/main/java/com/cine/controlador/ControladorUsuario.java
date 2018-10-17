@@ -12,7 +12,5 @@ public class ControladorUsuario {
 		cliente.setPassword(password);
 		cliente.setNombre(nombre);
 		cliente.setDomicilio(domicilio);
-		
-		
 	}
 }
