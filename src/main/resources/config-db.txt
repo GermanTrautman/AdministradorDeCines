@@ -2,4 +2,5 @@ jdbc=jdbc:sqlserver://
 servidor=cines.duckdns.org:1433
 usuario=sa
 password=Grupo1_UADE*2018
+databaseName=TPO
 conexiones=30
