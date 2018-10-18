@@ -12,5 +12,7 @@ public class ControladorUsuario {
 		usuario.setPassword(password);
 		usuario.setNombre(nombre);
 		usuario.setDomicilio(domicilio);
+		
+		usuario.buscarUsuario();
 	}
 }
