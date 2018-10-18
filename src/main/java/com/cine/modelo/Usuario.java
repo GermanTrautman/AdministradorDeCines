@@ -83,20 +83,15 @@ public class Usuario {
     }
 
     public ResultSet buscarUsuario() {
-
         PoolConnection poolConnection = PoolConnection.getPoolConnection();
-
-        Connection connection = poolConnection.getConnection(); //poolConnection.getConnection();
-
+        Connection connection = poolConnection.getConnection();
         try {
             Statement preparedStatement = connection.createStatement();
             ResultSet resultSet = preparedStatement.executeQuery("SELECT * FROM Usuario");
 
             return resultSet;
         } catch (Exception e) {
-
             System.out.println("Error Query: " + e.getMessage());
-
             return null;
         }
     }
