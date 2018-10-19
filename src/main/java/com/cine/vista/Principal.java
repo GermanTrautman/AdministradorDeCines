@@ -1,5 +1,6 @@
 package com.cine.vista;
 
+import com.cine.controlador.ControladorCine;
 import com.cine.controlador.ControladorUsuario;
 
 import javax.swing.*;
@@ -10,9 +11,13 @@ import java.awt.event.ActionListener;
 public class Principal {
 
 	private ControladorUsuario controladorUsuario = new ControladorUsuario();
+	private ControladorCine controladorCine = new ControladorCine();
 
 	public JFrame framePrincipal;
+	
 	private JPanel panel;
+	private JPanel panel_alta_establecimiento;
+	
 	private JTextField textField_nombre_de_usuario;
 	private JTextField textField_email;
 	private JTextField textField_password;
@@ -23,8 +28,6 @@ public class Principal {
 	private JTextField textField_establecimiento_cuit;
 	private JTextField textField_establecimiento_nombre;
 	private JTextField textField_establecimiento_direccion;
-	private JTextField textField_establecimiento_cantidad_salas;
-	private JTextField textField_establecimiento_capacidad_total;
 
 	public Principal() {
 		initialize();
@@ -59,21 +62,21 @@ public class Principal {
 
 		JMenuItem mntmModificacion = new JMenuItem("Modificacion");
 		mnUsuarios.add(mntmModificacion);
-		
+
 		JMenu mnEstablecimientos = new JMenu("Establecimientos");
 		menuBar.add(mnEstablecimientos);
-		
+
 		JMenuItem mntmAlta_1 = new JMenuItem("Alta");
 		mntmAlta_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				panel_alta_establecimiento.setVisible(true);
 			}
 		});
 		mnEstablecimientos.add(mntmAlta_1);
-		
+
 		JMenuItem mntmBaja_1 = new JMenuItem("Baja");
 		mnEstablecimientos.add(mntmBaja_1);
-		
+
 		JMenuItem mntmModificacion_1 = new JMenuItem("Modificacion");
 		mnEstablecimientos.add(mntmModificacion_1);
 
@@ -148,32 +151,45 @@ public class Principal {
 			}
 		});
 		panel.add(btnCrearUsuario);
-		
-		JPanel panel_alta_establecimiento = new JPanel();
+
+		panel_alta_establecimiento = new JPanel();
 		framePrincipal.getContentPane().add(panel_alta_establecimiento);
 		
+		panel_alta_establecimiento.setVisible(false);
+
 		JLabel lblCuit = new JLabel("CUIT");
 		panel_alta_establecimiento.add(lblCuit);
-		
+
 		textField_establecimiento_cuit = new JTextField();
 		panel_alta_establecimiento.add(textField_establecimiento_cuit);
 		textField_establecimiento_cuit.setColumns(10);
-		
+
 		JLabel lblNewLabel = new JLabel("Nombre");
 		panel_alta_establecimiento.add(lblNewLabel);
-		
+
 		textField_establecimiento_nombre = new JTextField();
 		panel_alta_establecimiento.add(textField_establecimiento_nombre);
 		textField_establecimiento_nombre.setColumns(10);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Domicilio");
 		panel_alta_establecimiento.add(lblNewLabel_1);
-		
+
 		textField_establecimiento_direccion = new JTextField();
 		panel_alta_establecimiento.add(textField_establecimiento_direccion);
 		textField_establecimiento_direccion.setColumns(10);
-		
+
 		JButton btnNewButton = new JButton("Crear establecimiento");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (textField_establecimiento_cuit.getText() != null
+						&& textField_establecimiento_nombre.getText() != null
+						&& textField_establecimiento_direccion.getText() != null) {
+					controladorCine.altaEstablecimiento(Integer.parseInt(textField_establecimiento_cuit.getText()),
+							textField_establecimiento_nombre.getText(), textField_establecimiento_direccion.getText());
+				}
+			}
+		});
 		panel_alta_establecimiento.add(btnNewButton);
 	}
 
