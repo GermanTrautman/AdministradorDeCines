@@ -20,6 +20,11 @@ public class Principal {
 	private JTextField textField_domicilio;
 	private JTextField textField_dni;
 	private JTextField textField_nacimiento;
+	private JTextField textField_establecimiento_cuit;
+	private JTextField textField_establecimiento_nombre;
+	private JTextField textField_establecimiento_direccion;
+	private JTextField textField_establecimiento_cantidad_salas;
+	private JTextField textField_establecimiento_capacidad_total;
 
 	public Principal() {
 		initialize();
@@ -31,7 +36,7 @@ public class Principal {
 	private void initialize() {
 
 		framePrincipal = new JFrame();
-		framePrincipal.setLayout(new GridLayout());
+		framePrincipal.getContentPane().setLayout(new GridLayout());
 		framePrincipal.setBounds(50, 50, 500, 500);
 		framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -54,6 +59,23 @@ public class Principal {
 
 		JMenuItem mntmModificacion = new JMenuItem("Modificacion");
 		mnUsuarios.add(mntmModificacion);
+		
+		JMenu mnEstablecimientos = new JMenu("Establecimientos");
+		menuBar.add(mnEstablecimientos);
+		
+		JMenuItem mntmAlta_1 = new JMenuItem("Alta");
+		mntmAlta_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		mnEstablecimientos.add(mntmAlta_1);
+		
+		JMenuItem mntmBaja_1 = new JMenuItem("Baja");
+		mnEstablecimientos.add(mntmBaja_1);
+		
+		JMenuItem mntmModificacion_1 = new JMenuItem("Modificacion");
+		mnEstablecimientos.add(mntmModificacion_1);
 
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
@@ -126,6 +148,47 @@ public class Principal {
 			}
 		});
 		panel.add(btnCrearUsuario);
+		
+		JPanel panel_alta_establecimiento = new JPanel();
+		framePrincipal.getContentPane().add(panel_alta_establecimiento);
+		
+		JLabel lblCuit = new JLabel("CUIT");
+		panel_alta_establecimiento.add(lblCuit);
+		
+		textField_establecimiento_cuit = new JTextField();
+		panel_alta_establecimiento.add(textField_establecimiento_cuit);
+		textField_establecimiento_cuit.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Nombre");
+		panel_alta_establecimiento.add(lblNewLabel);
+		
+		textField_establecimiento_nombre = new JTextField();
+		panel_alta_establecimiento.add(textField_establecimiento_nombre);
+		textField_establecimiento_nombre.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Domicilio");
+		panel_alta_establecimiento.add(lblNewLabel_1);
+		
+		textField_establecimiento_direccion = new JTextField();
+		panel_alta_establecimiento.add(textField_establecimiento_direccion);
+		textField_establecimiento_direccion.setColumns(10);
+		
+		JLabel lblCantidadDeSalas = new JLabel("Cantidad de salas");
+		panel_alta_establecimiento.add(lblCantidadDeSalas);
+		
+		textField_establecimiento_cantidad_salas = new JTextField();
+		panel_alta_establecimiento.add(textField_establecimiento_cantidad_salas);
+		textField_establecimiento_cantidad_salas.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Capacidad total");
+		panel_alta_establecimiento.add(lblNewLabel_2);
+		
+		textField_establecimiento_capacidad_total = new JTextField();
+		panel_alta_establecimiento.add(textField_establecimiento_capacidad_total);
+		textField_establecimiento_capacidad_total.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Crear establecimiento");
+		panel_alta_establecimiento.add(btnNewButton);
 	}
 
 }
