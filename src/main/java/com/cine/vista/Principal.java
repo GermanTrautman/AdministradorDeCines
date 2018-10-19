@@ -1,30 +1,18 @@
 package com.cine.vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import com.cine.controlador.ControladorUsuario;
 
-import javax.swing.JButton;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Principal {
 
 	private ControladorUsuario controladorUsuario = new ControladorUsuario();
 
-	private JFrame framePrincipal;
-
+	public JFrame framePrincipal;
 	private JPanel panel;
-
 	private JTextField textField_nombre_de_usuario;
 	private JTextField textField_email;
 	private JTextField textField_password;
@@ -33,25 +21,6 @@ public class Principal {
 	private JTextField textField_dni;
 	private JTextField textField_nacimiento;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Principal window = new Principal();
-					window.framePrincipal.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public Principal() {
 		initialize();
 	}
@@ -62,7 +31,8 @@ public class Principal {
 	private void initialize() {
 
 		framePrincipal = new JFrame();
-		framePrincipal.setBounds(100, 100, 1920, 1080);
+		framePrincipal.setLayout(new GridLayout());
+		framePrincipal.setBounds(50, 50, 500, 500);
 		framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -82,10 +52,12 @@ public class Principal {
 		JMenuItem mntmBaja = new JMenuItem("Baja");
 		mnUsuarios.add(mntmBaja);
 
-		JMenuItem mntmModificacion = new JMenuItem("Modificación");
+		JMenuItem mntmModificacion = new JMenuItem("Modificacion");
 		mnUsuarios.add(mntmModificacion);
 
 		panel = new JPanel();
+		panel.setLayout(new FlowLayout());
+		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		framePrincipal.getContentPane().add(panel, BorderLayout.SOUTH);
 
 		panel.setVisible(false);
