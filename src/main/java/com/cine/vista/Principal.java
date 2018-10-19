@@ -173,20 +173,6 @@ public class Principal {
 		panel_alta_establecimiento.add(textField_establecimiento_direccion);
 		textField_establecimiento_direccion.setColumns(10);
 		
-		JLabel lblCantidadDeSalas = new JLabel("Cantidad de salas");
-		panel_alta_establecimiento.add(lblCantidadDeSalas);
-		
-		textField_establecimiento_cantidad_salas = new JTextField();
-		panel_alta_establecimiento.add(textField_establecimiento_cantidad_salas);
-		textField_establecimiento_cantidad_salas.setColumns(10);
-		
-		JLabel lblNewLabel_2 = new JLabel("Capacidad total");
-		panel_alta_establecimiento.add(lblNewLabel_2);
-		
-		textField_establecimiento_capacidad_total = new JTextField();
-		panel_alta_establecimiento.add(textField_establecimiento_capacidad_total);
-		textField_establecimiento_capacidad_total.setColumns(10);
-		
 		JButton btnNewButton = new JButton("Crear establecimiento");
 		panel_alta_establecimiento.add(btnNewButton);
 	}
