@@ -1,8 +1,6 @@
 package com.cine.Persistencia;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -66,14 +64,13 @@ public class PoolConnection {
 
     public void getConfiguration() {
 
-        //String configuracion = "/home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/resources/config-db.txt";
-        String configuracion = "//config-db.txt";
+        String configuracion = "src/main/resources/config-db.txt";
         Properties propiedades;
 
         // Carga del fichero de propiedades
         try {
 
-          /*  FileInputStream f = new FileInputStream(configuracion);
+        	FileInputStream f = new FileInputStream(configuracion);
             propiedades = new Properties();
             propiedades.load(f);
             f.close();
@@ -85,7 +82,7 @@ public class PoolConnection {
             usuario = propiedades.getProperty("usuario");
             password = propiedades.getProperty("password");
             cantCon = Integer.parseInt(propiedades.getProperty("conexiones"));
-*/
+            
         } catch (Exception e) {
 
             System.out.println("Mensaje Error: " + e.getMessage());
