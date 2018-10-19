@@ -11,9 +11,16 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Usuario usr = new Usuario();
                     Principal window = new Principal();
                     window.framePrincipal.setVisible(true);
+                    Usuario usr = new Usuario();
+
+                    usr.setNombreDeUsuario("Macri");
+                    usr.setNombre("Gato");
+                    usr.setDni(23453432);
+                    usr.insertarUsuario(usr);
+
+                    usr.buscarUsuario(39459185);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

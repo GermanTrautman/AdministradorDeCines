@@ -7,12 +7,12 @@ public class ControladorCine {
 
     private IServicioCine servicioCine;
 
-    public Establecimiento crearEstablecimiento(){
-    	
+    public Establecimiento crearEstablecimiento() {
+
         return servicioCine.crearEstablecimiento();
     }
 
-    public Establecimiento modificarEstablecimiento(){
+    public Establecimiento modificarEstablecimiento() {
         return servicioCine.modificarEstablecimiento();
     }
 }

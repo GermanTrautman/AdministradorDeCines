@@ -13,6 +13,6 @@ public class ControladorUsuario {
 		usuario.setNombre(nombre);
 		usuario.setDomicilio(domicilio);
 		
-		usuario.buscarUsuario();
+		//usuario.buscarUsuario();
 	}
 }
