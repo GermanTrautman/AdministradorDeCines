@@ -1,18 +1,13 @@
 package com.cine.controlador;
 
 import com.cine.modelo.Establecimiento;
-import com.cine.servicio.IServicioCine;
 
 public class ControladorCine {
 
-    private IServicioCine servicioCine;
+	public void altaEstablecimiento(Integer cuit, String nombre, String domicilio, Integer capacidad) {
 
-    public Establecimiento crearEstablecimiento() {
-
-        return servicioCine.crearEstablecimiento();
-    }
-
-    public Establecimiento modificarEstablecimiento() {
-        return servicioCine.modificarEstablecimiento();
-    }
+		Establecimiento establecimiento = new Establecimiento(cuit, nombre, domicilio, capacidad);
+		
+		establecimiento.guardar(establecimiento);
+	}
 }
