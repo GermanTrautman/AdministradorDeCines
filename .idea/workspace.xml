@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd48b2c-4a01-4e75-9f64-c54f40345fba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cine/Dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sqljdbc4-2.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AdministradorDeCines.iml" beforeDir="false" afterPath="$PROJECT_DIR$/AdministradorDeCines.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorCine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorCine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/Dao/UserDao.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/modelo/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/modelo/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config-db.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config-db.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,20 +55,21 @@
     <session id="2042243186">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.0" value="2" />
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.0" value="3" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="3" />
           <entry key="form" value="2" />
-          <entry key="iml" value="3" />
-          <entry key="java" value="35" />
+          <entry key="iml" value="4" />
+          <entry key="java" value="44" />
           <entry key="txt" value="5" />
           <entry key="xml" value="5" />
         </counts>
@@ -78,23 +78,24 @@
         <counts>
           <entry key="CLASS" value="3" />
           <entry key="GUI_DESIGNER_FORM" value="2" />
-          <entry key="IDEA_MODULE" value="3" />
-          <entry key="JAVA" value="35" />
+          <entry key="IDEA_MODULE" value="4" />
+          <entry key="JAVA" value="44" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="XML" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3335" />
+          <entry key="dummy" value="1" />
+          <entry key="java" value="4194" />
           <entry key="txt" value="18" />
           <entry key="xml" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3335" />
-          <entry key="PLAIN_TEXT" value="18" />
+          <entry key="JAVA" value="4194" />
+          <entry key="PLAIN_TEXT" value="19" />
           <entry key="XML" value="36" />
         </counts>
       </usages-collector>
@@ -102,26 +103,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="75" column="57" selection-start-line="75" selection-start-column="57" selection-end-line="75" selection-end-column="57" />
+            <state relative-caret-position="1005">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#294#306#0" expanded="true" />
-                <element signature="e#3576#3577#0" expanded="true" />
-                <element signature="e#3610#3611#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="240">
+              <caret line="16" column="40" lean-forward="true" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -132,11 +130,61 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Usuario.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="149" selection-start-line="149" selection-end-line="149" />
+            <state relative-caret-position="216">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Dao/UsuarioPersistente.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="63" column="40" lean-forward="true" selection-start-line="63" selection-start-column="40" selection-end-line="63" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#241#242#0" expanded="true" />
+                <element signature="e#268#269#0" expanded="true" />
+                <element signature="e#392#393#0" expanded="true" />
+                <element signature="e#420#421#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/Principal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="871">
+              <caret line="118" column="34" selection-start-line="118" selection-start-column="34" selection-end-line="118" selection-end-column="34" />
+              <folding>
+                <element signature="e#648#649#0" expanded="true" />
+                <element signature="e#667#668#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Dao/Persistencia.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="17" column="39" lean-forward="true" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorUsuario.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -187,11 +235,15 @@
         <option value="$PROJECT_DIR$/AdministradorDeCines.iml" />
         <option value="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorUsuario.java" />
         <option value="$PROJECT_DIR$/src/main/resources/config-db.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cine/Dao/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorCine.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/Dao/UserDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/Dao/IUsuarioPersistente.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/modelo/IUsuario.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/Dao/Persistencia.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/Dao/UsuarioPersistente.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cine/modelo/Usuario.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cine/main/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java" />
       </list>
     </option>
   </component>
@@ -230,18 +282,19 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="-2" />
-    <option name="width" value="1920" />
-    <option name="height" value="1082" />
+    <option name="x" value="1" />
+    <option name="y" value="25" />
+    <option name="width" value="1365" />
+    <option name="height" value="743" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -282,7 +335,16 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="cine" type="462c0819:PsiDirectoryNode" />
-              <item name="modelo" type="462c0819:PsiDirectoryNode" />
+              <item name="Dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AdministradorDeCines" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AdministradorDeCines" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cine" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AdministradorDeCines" type="b2602c69:ProjectViewProjectNode" />
@@ -304,28 +366,31 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="main&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;pool&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Persistencia/PoolConnection.java&#10;MAIN&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;mai&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;da&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Dao/UserDao.java&#10;rena&#9;ACTION&#9;RenameElement&#10;usuario&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;dao&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Dao/UserDao.java&#10;poo&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Persistencia/PoolConnection.java&#10;mave&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;usua&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;pom&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/pom.xml&#10;usu&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;conf&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/resources/config-db.txt&#10;ma&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;prin&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/Principal.java&#10;userda&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Dao/UserDao.java&#10;contr&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorCine.java&#10;estable&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Establecimiento.java&#10;control&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorCine.java&#10;estableci&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Establecimiento.java&#10;rol&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Rol.java&#10;plug&#9;ACTION&#9;WelcomeScreen.Plugins&#10;con&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/resources/config-db.txt&#10;USUARIO&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;Config&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Persistencia/ConfigBD.txt&#10;conne&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Persistencia/PoolConnection.java&#10;maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;PELIC&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/Pelicula.java&#10;controla&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/controlador/ControladorCine.java&#10;peli&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/Pelicula.java&#10;asiento&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/AsientoVirtual.java&#10;asientofisico&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/AsientoFisico.java&#10;funcion&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/Funcion.java&#10;pelicula&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/Pelicula.java" />
+    <property name="SearchEverywhereHistoryKey" value="usuari&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;usuar&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;rename&#9;ACTION&#9;RenameElement&#10;IUsuario&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/IUsuario.java&#10;usuario&#9;PSI&#9;JAVA://com.cine.modelo.IUsuario&#10;controla&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorUsuario.java&#10;dao&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Dao/UserDao.java&#10;main&#9;RUN_CONFIGURATION&#9;Main&#10;pool&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Persistencia/PoolConnection.java&#10;MAIN&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;mai&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;da&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Dao/UserDao.java&#10;rena&#9;ACTION&#9;RenameElement&#10;poo&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Persistencia/PoolConnection.java&#10;mave&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;usua&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;pom&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/pom.xml&#10;usu&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;conf&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/resources/config-db.txt&#10;ma&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;prin&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/Principal.java&#10;userda&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Dao/UserDao.java&#10;contr&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorCine.java&#10;estable&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Establecimiento.java&#10;control&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorCine.java&#10;estableci&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Establecimiento.java&#10;rol&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Rol.java&#10;plug&#9;ACTION&#9;WelcomeScreen.Plugins&#10;con&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/resources/config-db.txt&#10;USUARIO&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;Config&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Persistencia/ConfigBD.txt&#10;conne&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/Persistencia/PoolConnection.java&#10;maven&#9;ACTION&#9;ActivateMavenProjectsToolWindow&#10;PELIC&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/Pelicula.java&#10;peli&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/Pelicula.java&#10;asiento&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/AsientoVirtual.java&#10;asientofisico&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/AsientoFisico.java&#10;funcion&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/Funcion.java&#10;pelicula&#9;FILE&#9;file:///home/gtrautman/Downloads/AdministradorDeCines/src/com/cine/modelo/Pelicula.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539913849886" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540064339929" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.cine.servicio" />
-      <recent name="com.cine.utilidades" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.cine.servicio" />
+      <recent name="com.cine.utilidades" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -409,18 +474,20 @@
       <workItem from="1538742094035" duration="1280000" />
       <workItem from="1539383888859" duration="965000" />
       <workItem from="1539832669672" duration="4439000" />
-      <workItem from="1539864581277" duration="12744000" />
+      <workItem from="1539864581277" duration="15751000" />
+      <workItem from="1539972713338" duration="5294000" />
+      <workItem from="1540060893242" duration="3445000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33667000" />
+    <option name="totallyTimeSpent" value="45413000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.3048683" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2330407" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -429,9 +496,9 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32952693" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32952693" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32952693" />
-      <window_info active="true" anchor="bottom" id="Debug" order="4" sideWeight="0.49960095" visible="true" weight="0.39967373" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49960095" weight="0.4290375" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
@@ -451,7 +518,7 @@
       <window_info anchor="right" id="Maven Projects" order="9" weight="0.32960895" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3048683" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22905028" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -462,7 +529,7 @@
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32952693" />
-      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49960095" visible="true" weight="0.39967373" />
+      <window_info active="true" anchor="bottom" id="Debug" order="4" sideWeight="0.49960095" visible="true" weight="0.6264274" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="7" />
@@ -493,31 +560,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java</url>
-          <line>128</line>
+          <line>125</line>
           <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Usuario.java</url>
-          <line>90</line>
-          <properties />
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Usuario.java</url>
-          <line>110</line>
-          <properties />
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cine/main/Main.java</url>
-          <line>20</line>
-          <properties />
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java</url>
-          <line>75</line>
+          <line>72</line>
           <properties />
           <option name="timeStamp" value="39" />
         </line-breakpoint>
@@ -721,31 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorUsuario.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/Principal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1222">
-          <caret line="118" column="34" selection-start-line="118" selection-start-column="34" selection-end-line="118" selection-end-column="34" />
-          <folding>
-            <element signature="e#648#649#0" expanded="true" />
-            <element signature="e#667#668#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AdministradorDeCines.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Rol.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -757,16 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="219" selection-start-line="219" selection-end-line="219" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Dao/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -788,10 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-          <folding>
-            <element signature="e#356#357#0" expanded="true" />
-            <element signature="e#418#419#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -802,35 +812,91 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/main/Main.java">
+    <entry file="file://$PROJECT_DIR$/AdministradorDeCines.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="210">
+          <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorUsuario.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Dao/IUsuarioPersistente.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="39" selection-start-line="8" selection-end-line="16" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Dao/Persistencia.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="17" column="39" lean-forward="true" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/Principal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="871">
+          <caret line="118" column="34" selection-start-line="118" selection-start-column="34" selection-end-line="118" selection-end-column="34" />
+          <folding>
+            <element signature="e#648#649#0" expanded="true" />
+            <element signature="e#667#668#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Usuario.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="149" selection-start-line="149" selection-end-line="149" />
+        <state relative-caret-position="216">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Dao/UsuarioPersistente.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="75" column="57" selection-start-line="75" selection-start-column="57" selection-end-line="75" selection-end-column="57" />
+        <state relative-caret-position="261">
+          <caret line="63" column="40" lean-forward="true" selection-start-line="63" selection-start-column="40" selection-end-line="63" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#294#306#0" expanded="true" />
-            <element signature="e#3576#3577#0" expanded="true" />
-            <element signature="e#3610#3611#0" expanded="true" />
+            <element signature="e#241#242#0" expanded="true" />
+            <element signature="e#268#269#0" expanded="true" />
+            <element signature="e#392#393#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/main/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="40" lean-forward="true" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
