@@ -28,6 +28,7 @@ public class Principal {
 	private JTextField textField_establecimiento_cuit;
 	private JTextField textField_establecimiento_nombre;
 	private JTextField textField_establecimiento_direccion;
+	private JTextField textField_establecimiento_capacidad;
 
 	public Principal() {
 		initialize();
@@ -186,10 +187,17 @@ public class Principal {
 						&& textField_establecimiento_nombre.getText() != null
 						&& textField_establecimiento_direccion.getText() != null) {
 					controladorCine.altaEstablecimiento(Integer.parseInt(textField_establecimiento_cuit.getText()),
-							textField_establecimiento_nombre.getText(), textField_establecimiento_direccion.getText());
+							textField_establecimiento_nombre.getText(), textField_establecimiento_direccion.getText(), Integer.parseInt(textField_establecimiento_capacidad.getText()));
 				}
 			}
 		});
+		
+		JLabel lblCapacidad = new JLabel("capacidad");
+		panel_alta_establecimiento.add(lblCapacidad);
+		
+		textField_establecimiento_capacidad = new JTextField();
+		panel_alta_establecimiento.add(textField_establecimiento_capacidad);
+		textField_establecimiento_capacidad.setColumns(10);
 		panel_alta_establecimiento.add(btnNewButton);
 	}
 

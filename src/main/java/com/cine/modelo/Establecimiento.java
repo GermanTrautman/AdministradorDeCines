@@ -10,17 +10,14 @@ public class Establecimiento {
     private Integer cuit;
     private String nombre;
     private String domicilio;
-    //private Integer cantidadSalas;
-    //private Integer capacidad;
+    private Integer capacidad;
 
-    public Establecimiento(Integer cuit, String nombre, String domicilio/*, Integer cantidadSalas, Integer capacidad*/) {
+    public Establecimiento(Integer cuit, String nombre, String domicilio, Integer capacidad) {
         this.cuit = cuit;
         this.nombre = nombre;
         this.domicilio = domicilio;
-        //this.cantidadSalas = cantidadSalas;
-        //this.capacidad = capacidad;
+        this.capacidad = capacidad;
     }
-
 
     public Integer getCuit() {
         return cuit;
@@ -46,15 +43,6 @@ public class Establecimiento {
         this.domicilio = domicilio;
     }
 
-    /*
-    public Integer getCantidadSalas() {
-        return cantidadSalas;
-    }
-
-    public void setCantidadSalas(Integer cantidadSalas) {
-        this.cantidadSalas = cantidadSalas;
-    }
-
     public Integer getCapacidad() {
         return capacidad;
     }
@@ -62,7 +50,6 @@ public class Establecimiento {
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
-    */
     
 	public void guardar(Establecimiento establecimiento) {
 
@@ -71,10 +58,11 @@ public class Establecimiento {
 		
 		try {
 			
-			PreparedStatement preparedStatement = connection.prepareStatement("insert into TPO.dbo.establecimiento (CUIT, Nombre, Domicilio) values (?, ?, ?)");
+			PreparedStatement preparedStatement = connection.prepareStatement("insert into TPO.dbo.establecimiento (CUIT, Nombre, Domicilio, Capacidad) values (?, ?, ?, ?)");
 			preparedStatement.setInt(1, establecimiento.getCuit());
 			preparedStatement.setString(2, establecimiento.getNombre());
 			preparedStatement.setString(3, establecimiento.getDomicilio());
+			preparedStatement.setInt(4, establecimiento.getCapacidad());
 			
 			preparedStatement.executeUpdate();
 		   			   
