@@ -1,18 +1,15 @@
 package com.cine.controlador;
 
+import com.cine.Dao.UsuarioPersistente;
 import com.cine.modelo.Usuario;
+
+import java.util.Date;
 
 public class ControladorUsuario {
 
-	public void altaUsuario(String nombreDeUsuario, String email, String password, String nombre, String domicilio, String dni, String fechaDeNacimiento) {
-		
-		Usuario usuario = new Usuario();
-		usuario.setNombreDeUsuario(nombreDeUsuario);
-		usuario.setEmail(email);
-		usuario.setPassword(password);
-		usuario.setNombre(nombre);
-		usuario.setDomicilio(domicilio);
-		
-		//usuario.buscarUsuario();
-	}
+    private UsuarioPersistente usuarioPersistente;
+
+    public void altaUsuario(String nombreDeUsuario, String email, String password, String nombre, String domicilio, Integer dni, Date fechaDeNacimiento) {
+        Usuario usuario = new Usuario(nombreDeUsuario,email,password,nombre,domicilio,dni,fechaDeNacimiento);
+    }
 }

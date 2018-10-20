@@ -115,14 +115,14 @@ public class Principal {
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (textField_nombre_de_usuario.getText() != null && textField_email.getText() != null
+			/*	if (textField_nombre_de_usuario.getText() != null && textField_email.getText() != null
 						&& textField_email.getText() != null && textField_password.getText() != null
 						&& textField_nombre.getText() != null && textField_domicilio.getText() != null
 						&& textField_dni.getText() != null && textField_nacimiento.getText() != null) {
 					controladorUsuario.altaUsuario(textField_nombre_de_usuario.getText(), textField_email.getText(),
 							textField_password.getText(), textField_nombre.getText(), textField_domicilio.getText(),
 							textField_dni.getText(), textField_nacimiento.getText());
-				}
+				}*/
 			}
 		});
 		panel.add(btnCrearUsuario);

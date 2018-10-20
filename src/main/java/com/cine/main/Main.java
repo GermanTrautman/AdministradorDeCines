@@ -1,7 +1,8 @@
 package com.cine.main;
 
-import com.cine.vista.Principal;
+import com.cine.vista.JFormularioPrincipal;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Main {
@@ -10,9 +11,8 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Principal window = new Principal();
-                    window.framePrincipal.setVisible(true);
-
+                    JFrame panel = new JFormularioPrincipal();
+                    panel.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
