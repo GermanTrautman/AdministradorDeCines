@@ -107,7 +107,8 @@ public class PoolConnection {
     }
 
     public Connection getConnection() {
-        Connection c = null;
+        
+    	Connection c = null;
         if (connections.size() > 0) {
             c = connections.remove(0);
         } else {
