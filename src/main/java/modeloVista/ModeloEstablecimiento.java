@@ -7,13 +7,13 @@ import javax.swing.table.AbstractTableModel;
 import com.cine.controlador.ControladorCine;
 import com.cine.modelo.Establecimiento;
 
-public class ModeloEstablecimientosABorrar extends AbstractTableModel  {
+public class ModeloEstablecimiento extends AbstractTableModel  {
 
 	private static final long serialVersionUID = -5065889673449492921L;
 
 	private List<Establecimiento> establecimientos;
 	
-	public ModeloEstablecimientosABorrar(ControladorCine controladorCine) {
+	public ModeloEstablecimiento(ControladorCine controladorCine) {
 		establecimientos = controladorCine.getEstablecimientos();
 	}
 	
@@ -56,4 +56,12 @@ public class ModeloEstablecimientosABorrar extends AbstractTableModel  {
 		
 		return "N/A";
 	}
+	
+	public void borrarEstablecimientos(int[] indices) {
+		
+		for (int indice : indices) {
+			establecimientos.remove(indice - 1);
+		}
+	}
+	
 }
