@@ -11,10 +11,25 @@ import com.cine.modelo.Establecimiento;
 
 public class EstablecimientoPersistente implements Persistencia {
 
+	private Establecimiento buscarEnMemoria(List<Establecimiento> establecimientos, Establecimiento establecimientoBuscado) {
+
+		Establecimiento establecimientoEncontrado = null;
+		
+		for (Establecimiento establecimiento : establecimientos) {
+			
+			if (establecimiento.getCuit().equals(establecimientoBuscado.getCuit())) {
+				establecimientoEncontrado = establecimiento;
+			}
+		}
+		
+		return establecimientoEncontrado;
+	}
+	
 	@Override
 	public Object buscar(Integer cuit) {
 		
 		try {
+			
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Establecimiento WHERE CUIT=" + cuit);
 
             Establecimiento establecimiento = null;
@@ -33,36 +48,61 @@ public class EstablecimientoPersistente implements Persistencia {
         }
 	}
 
-	@Override
-	public List<Object> listar() {
-		return null;
+	//@SuppressWarnings("unchecked")
+	//@Override
+	public boolean insertar(List<Establecimiento> establecimientos, Object objetoEstablecimiento) {
+		
+		boolean fueInsertado = false;
+		
+		Establecimiento establecimiento = (Establecimiento) objetoEstablecimiento;
+		
+		Establecimiento establecimientoEncontradoEnMemoria = buscarEnMemoria(establecimientos, establecimiento);
+		
+		if (establecimientoEncontradoEnMemoria == null) {
+			
+			Establecimiento establecimientoEncontradoEnLaBase = (Establecimiento) buscar(establecimiento.getCuit());
+			
+			if (establecimientoEncontradoEnLaBase == null) {
+				
+				insertarEnMemoria(establecimientos, establecimiento);
+				insertarEnLaBase(establecimientos, establecimiento);
+			
+			} else {
+				insertarEnMemoria(establecimientos, establecimientoEncontradoEnLaBase);
+			}
+			
+			fueInsertado = true;
+		}
+
+        return fueInsertado;
 	}
 
-	@Override
-	public boolean insertar(Object objetoEstablecimiento) {
+	private void insertarEnMemoria(List<Establecimiento> establecimientos, Establecimiento establecimiento) {
+		establecimientos.add(establecimiento);
+	}
+	
+	private void insertarEnLaBase(List<Establecimiento> establecimientos, Establecimiento establecimiento) {
 		
-        try {
-            Establecimiento establecimiento = (Establecimiento) objetoEstablecimiento;
-            PreparedStatement preparedStatement = conectarDb().prepareStatement("insert into TPO.dbo.establecimiento (CUIT, Nombre, Domicilio, Capacidad) values (?, ?, ?, ?)");
+		try {
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("insert into TPO.dbo.establecimiento (CUIT, Nombre, Domicilio, Capacidad) values (?, ?, ?, ?)");
 			preparedStatement.setInt(1, establecimiento.getCuit());
 			preparedStatement.setString(2, establecimiento.getNombre());
 			preparedStatement.setString(3, establecimiento.getDomicilio());
 			preparedStatement.setInt(4, establecimiento.getCapacidad());
 			
-            int filasAfectadas = preparedStatement.executeUpdate();
-
-            if (filasAfectadas == 0) {
-                return true;
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            cerrarConexion();
-
-        }
-
-        return false;
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+	}
+	
+	@Override
+	public List<Object> listar() {
+		return null;
 	}
 
 	@Override

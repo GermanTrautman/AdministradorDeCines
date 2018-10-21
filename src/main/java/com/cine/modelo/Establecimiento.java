@@ -1,10 +1,5 @@
 package com.cine.modelo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
-import com.cine.Persistencia.PoolConnection;
-
 public class Establecimiento {
 
     private Integer cuit;
@@ -50,26 +45,4 @@ public class Establecimiento {
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
-    
-	public void guardar(Establecimiento establecimiento) {
-
-		PoolConnection poolConnection = PoolConnection.getPoolConnection();
-		Connection connection = poolConnection.getConnection();
-		
-		try {
-			
-			PreparedStatement preparedStatement = connection.prepareStatement("insert into TPO.dbo.establecimiento (CUIT, Nombre, Domicilio, Capacidad) values (?, ?, ?, ?)");
-			preparedStatement.setInt(1, establecimiento.getCuit());
-			preparedStatement.setString(2, establecimiento.getNombre());
-			preparedStatement.setString(3, establecimiento.getDomicilio());
-			preparedStatement.setInt(4, establecimiento.getCapacidad());
-			
-			preparedStatement.executeUpdate();
-		   			   
-		} catch (Exception e) {
-			System.out.println("Error Query: " + e.getMessage());
-		} finally {
-			poolConnection.closeConnections();
-		}
-	}
 }
