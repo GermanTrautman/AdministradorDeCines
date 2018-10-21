@@ -5,7 +5,7 @@ import javax.swing.JTable;
 
 import com.cine.controlador.ControladorCine;
 
-import modeloVista.ModeloEstablecimientos;
+import modeloVista.ModeloEstablecimiento;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -16,7 +16,7 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 	private static final long serialVersionUID = 1488800648208098796L;
 	
 	private JTable table;
-	private ModeloEstablecimientos modeloEstablecimientosABorrar;
+	private ModeloEstablecimiento modeloEstablecimiento;
 
 	public JFormularioBajaEstablecimiento() {
 		
@@ -24,7 +24,7 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 		
 		ControladorCine controladorCine = ControladorCine.getInstance();
 		
-		table = new JTable(modeloEstablecimientosABorrar = new ModeloEstablecimientos(controladorCine));
+		table = new JTable(modeloEstablecimiento = new ModeloEstablecimiento(controladorCine));
 		table.setSize(200, 100);
 		getContentPane().add(table);
 		
@@ -32,7 +32,7 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 		btnBorrarEstablecimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int[] indices = table.getSelectedRows();
-				modeloEstablecimientosABorrar.borrarEstablecimientos(indices);
+				modeloEstablecimiento.borrarEstablecimientos(indices);
 			}
 		});
 		getContentPane().add(btnBorrarEstablecimiento);
