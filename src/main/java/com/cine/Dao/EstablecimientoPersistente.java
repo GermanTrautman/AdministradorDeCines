@@ -10,20 +10,6 @@ import java.util.List;
 import com.cine.modelo.Establecimiento;
 
 public class EstablecimientoPersistente implements Persistencia {
-
-	private Establecimiento buscarEnMemoria(List<Establecimiento> establecimientos, Establecimiento establecimientoBuscado) {
-
-		Establecimiento establecimientoEncontrado = null;
-		
-		for (Establecimiento establecimiento : establecimientos) {
-			
-			if (establecimiento.getCuit().equals(establecimientoBuscado.getCuit())) {
-				establecimientoEncontrado = establecimiento;
-			}
-		}
-		
-		return establecimientoEncontrado;
-	}
 	
 	@Override
 	public Object buscar(Integer cuit) {
@@ -47,58 +33,6 @@ public class EstablecimientoPersistente implements Persistencia {
             cerrarConexion();
         }
 	}
-
-	//@SuppressWarnings("unchecked")
-	//@Override
-	public boolean insertar(List<Establecimiento> establecimientos, Object objetoEstablecimiento) {
-		
-		boolean fueInsertado = false;
-		
-		Establecimiento establecimiento = (Establecimiento) objetoEstablecimiento;
-		
-		Establecimiento establecimientoEncontradoEnMemoria = buscarEnMemoria(establecimientos, establecimiento);
-		
-		if (establecimientoEncontradoEnMemoria == null) {
-			
-			Establecimiento establecimientoEncontradoEnLaBase = (Establecimiento) buscar(establecimiento.getCuit());
-			
-			if (establecimientoEncontradoEnLaBase == null) {
-				
-				insertarEnMemoria(establecimientos, establecimiento);
-				insertarEnLaBase(establecimientos, establecimiento);
-			
-			} else {
-				insertarEnMemoria(establecimientos, establecimientoEncontradoEnLaBase);
-			}
-			
-			fueInsertado = true;
-		}
-
-        return fueInsertado;
-	}
-
-	private void insertarEnMemoria(List<Establecimiento> establecimientos, Establecimiento establecimiento) {
-		establecimientos.add(establecimiento);
-	}
-	
-	private void insertarEnLaBase(List<Establecimiento> establecimientos, Establecimiento establecimiento) {
-		
-		try {
-			
-			PreparedStatement preparedStatement = conectarDb().prepareStatement("insert into TPO.dbo.establecimiento (CUIT, Nombre, Domicilio, Capacidad) values (?, ?, ?, ?)");
-			preparedStatement.setInt(1, establecimiento.getCuit());
-			preparedStatement.setString(2, establecimiento.getNombre());
-			preparedStatement.setString(3, establecimiento.getDomicilio());
-			preparedStatement.setInt(4, establecimiento.getCapacidad());
-			
-			preparedStatement.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			cerrarConexion();
-		}
-	}
 	
 	@Override
 	public List<Object> listar() {
@@ -106,7 +40,62 @@ public class EstablecimientoPersistente implements Persistencia {
 	}
 
 	@Override
-	public boolean actualizar(Object entidad) {
+	public boolean insertar(Object objetoEstablecimiento) {
+		
+		try {
+			
+			Establecimiento establecimiento = (Establecimiento) objetoEstablecimiento;
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("INSERT INTO TPO.dbo.establecimiento (CUIT, Nombre, Domicilio, Capacidad) values (?, ?, ?, ?)");
+			preparedStatement.setInt(1, establecimiento.getCuit());
+			preparedStatement.setString(2, establecimiento.getNombre());
+			preparedStatement.setString(3, establecimiento.getDomicilio());
+			preparedStatement.setInt(4, establecimiento.getCapacidad());
+			
+			preparedStatement.executeUpdate();
+			
+			int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                return true;
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean actualizar(Object objetoEstablecimiento) {
+
+		try {
+			
+			Establecimiento establecimiento = (Establecimiento) objetoEstablecimiento;
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.establecimiento SET Nombre = ?, Domicilio = ?, Capacidad = ? WHERE CUIT = ?");
+			preparedStatement.setString(1, establecimiento.getNombre());
+			preparedStatement.setString(2, establecimiento.getDomicilio());
+			preparedStatement.setInt(3, establecimiento.getCapacidad());
+			preparedStatement.setInt(4, establecimiento.getCuit());
+			
+			preparedStatement.executeUpdate();
+			
+			int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                return true;
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+		
 		return false;
 	}
 

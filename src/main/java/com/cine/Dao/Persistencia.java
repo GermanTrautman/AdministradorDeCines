@@ -13,7 +13,7 @@ public interface Persistencia {
 
     List<Object> listar();
 
-    //boolean insertar(List<Object> entidades, Object entidad);
+    boolean insertar(Object entidad);
 
     boolean actualizar(Object entidad);
 
