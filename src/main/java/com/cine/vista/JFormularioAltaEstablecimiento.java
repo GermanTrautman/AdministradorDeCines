@@ -1,42 +1,64 @@
 package com.cine.vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import com.cine.controlador.ControladorCine;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JFormularioAltaEstablecimiento extends JFormularioBase {
 
-	private JPanel contentPane;
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFormularioAltaEstablecimiento frame = new JFormularioAltaEstablecimiento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+	private JTextField cuit = new JTextField();
+	private JTextField nombre = new JTextField();
+	private JTextField domicilio = new JTextField();
+	private JTextField capacidad = new JTextField();
+	
+	private JButton btnAgregarEstablecimiento = new JButton("Agregar Establecimiento");
+
+	private ControladorCine controladorCine = ControladorCine.getInstance();
+
+	public JFormularioAltaEstablecimiento() {
+
+		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+
+		this.getContentPane().add(new JLabel("CUIT:"));
+		this.getContentPane().add(cuit);
+
+		this.getContentPane().add(new JLabel("Nombre :"));
+		this.getContentPane().add(nombre);
+
+		this.getContentPane().add(new JLabel("Domicilio :"));
+		this.getContentPane().add(domicilio);
+
+		this.getContentPane().add(new JLabel("Capacidad:"));
+		this.getContentPane().add(capacidad);
+
+		btnAgregarEstablecimiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (cuit.getText() != null && nombre.getText() != null && domicilio.getText() != null
+						&& capacidad.getText() != null) {
+					controladorCine.altaEstablecimiento(Integer.parseInt(cuit.getText()), nombre.getText(),
+							domicilio.getText(), Integer.parseInt(capacidad.getText()));
 				}
 			}
 		});
+		this.getContentPane().add(btnAgregarEstablecimiento);
+
+		btnAgregarEstablecimiento.setMaximumSize(getMaximumSize());
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public JFormularioAltaEstablecimiento() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-	}
+	public void reset() {
 
+		this.cuit.setText("");
+		this.nombre.setText("");
+		this.domicilio.setText("");
+		this.capacidad.setText("");
+	}
 }
