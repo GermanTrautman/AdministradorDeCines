@@ -13,26 +13,30 @@ public interface Persistencia {
 
     List<Object> listar();
 
-    boolean insertar(Object entidad);
+    //boolean insertar(List<Object> entidades, Object entidad);
 
     boolean actualizar(Object entidad);
 
     boolean borrar(Integer key);
 
     default Connection conectarDb() {
+    	
         PoolConnection pool = PoolConnection.getPoolConnection();
+        
         return pool.getConnection();
     }
 
     default ResultSet ejecutarSelect(String query) {
-        try {
+        
+    	try {
             Connection connection = conectarDb();
             return connection.createStatement().executeQuery(query);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             cerrarConexion();
         }
+        
         return null;
     }
 
