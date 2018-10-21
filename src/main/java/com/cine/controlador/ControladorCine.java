@@ -20,6 +20,11 @@ public class ControladorCine implements Cache {
 		return controladorCine;
 	}
 
+	@SuppressWarnings("unchecked")
+	private void obtenerEstablecimientos() {
+		establecimientos = (List<Establecimiento>) (Object) establecimientoPersistente.listar();
+	}
+
 	public void altaEstablecimiento(Integer cuit, String nombre, String domicilio, Integer capacidad) {
 
 		Establecimiento establecimiento = new Establecimiento(cuit, nombre, domicilio, capacidad);
@@ -96,5 +101,11 @@ public class ControladorCine implements Cache {
 		
 		borrarDeCache(establecimientoSinModificaciones.getCuit());
 		agregarACache(establecimientoModificado);
+	}
+	
+	public List<Establecimiento> getEstablecimientos() {
+		//Cambiar
+		obtenerEstablecimientos();
+		return establecimientos;
 	}
 }

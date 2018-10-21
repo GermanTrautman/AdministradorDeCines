@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cine.modelo.Establecimiento;
@@ -16,11 +17,11 @@ public class EstablecimientoPersistente implements Persistencia {
 		
 		try {
 			
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM Establecimiento WHERE CUIT=" + cuit);
-
             Establecimiento establecimiento = null;
+
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM Establecimiento WHERE CUIT=" + cuit);
             
-            if (resultSet != null) {
+            if (resultSet.next()) {
             	establecimiento = new Establecimiento(resultSet.getInt("CUIT"), resultSet.getString("Nombre"), resultSet.getString("Domicilio"), resultSet.getInt("Capacidad"));
             }
             
@@ -28,7 +29,7 @@ public class EstablecimientoPersistente implements Persistencia {
             
         } catch (SQLException e) {
             System.out.println("Error Query: " + e.getMessage());
-            throw new RuntimeException("Error intentando buscar usuario con dni " + cuit);
+            throw new RuntimeException("Error intentando buscar establecimiento con cuit " + cuit);
         } finally {
             cerrarConexion();
         }
@@ -36,7 +37,28 @@ public class EstablecimientoPersistente implements Persistencia {
 	
 	@Override
 	public List<Object> listar() {
-		return null;
+
+		try {
+			
+            List<Object> establecimientos = new ArrayList<Object>();
+            Establecimiento establecimiento = null;
+            
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM Establecimiento");
+            
+            while (resultSet.next()) {
+            	
+            	establecimiento = new Establecimiento(resultSet.getInt("CUIT"), resultSet.getString("Nombre"), resultSet.getString("Domicilio"), resultSet.getInt("Capacidad"));
+            	establecimientos.add(establecimiento);
+            }
+            
+            return establecimientos;
+            
+        } catch (SQLException e) {
+            System.out.println("Error Query: " + e.getMessage());
+            throw new RuntimeException("Error intentando buscar todos los establecimientos");
+        } finally {
+            cerrarConexion();
+        }
 	}
 
 	@Override
@@ -54,11 +76,7 @@ public class EstablecimientoPersistente implements Persistencia {
 			
 			preparedStatement.executeUpdate();
 			
-			int filasAfectadas = preparedStatement.executeUpdate();
-
-            if (filasAfectadas == 0) {
-                return true;
-            }
+			return true;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
