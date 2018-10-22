@@ -49,12 +49,33 @@ public class JFormularioPrincipal extends JFormularioBase {
         menu.add(mnEstablecimientos);
         
         JMenuItem mntmAlta = new JMenuItem("Alta");
+        mntmAlta.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        		JFrame formularioAltaEStablecimiento = new JFormularioAltaEstablecimiento();
+        		formularioAltaEStablecimiento.setVisible(true);
+        	}
+        });
         mnEstablecimientos.add(mntmAlta);
         
         JMenuItem mntmBaja = new JMenuItem("Baja");
+        mntmBaja.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		JFrame formularioBajaEStablecimiento = new JFormularioBajaEstablecimiento();
+        		formularioBajaEStablecimiento.setVisible(true);
+        	}
+        });
         mnEstablecimientos.add(mntmBaja);
         
         JMenuItem mntmModificacion = new JMenuItem("Modificacion");
+        mntmModificacion.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		JFrame formularioModificacionEStablecimiento = new JFormularioModificacionEstablecimiento();
+        		formularioModificacionEStablecimiento.setVisible(true);
+        	}
+        });
         mnEstablecimientos.add(mntmModificacion);
         
         JMenu mnNewMenu = new JMenu("Salas");

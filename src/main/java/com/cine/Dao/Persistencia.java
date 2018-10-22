@@ -20,19 +20,23 @@ public interface Persistencia {
     boolean borrar(Integer key);
 
     default Connection conectarDb() {
+    	
         PoolConnection pool = PoolConnection.getPoolConnection();
+        
         return pool.getConnection();
     }
 
     default ResultSet ejecutarSelect(String query) {
-        try {
+        
+    	try {
             Connection connection = conectarDb();
             return connection.createStatement().executeQuery(query);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             cerrarConexion();
         }
+        
         return null;
     }
 
