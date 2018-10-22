@@ -1,42 +1,27 @@
 package com.cine.vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import javax.swing.BoxLayout;
+import javax.swing.JTable;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import com.cine.controlador.ControladorCine;
+
+import modeloVista.ModeloEstablecimiento;
 
 public class JFormularioModificacionEstablecimiento extends JFormularioBase {
 
-	private JPanel contentPane;
+	private static final long serialVersionUID = 1488800648208098796L;
+	
+	private JTable table;
+	private ModeloEstablecimiento modeloEstablecimiento;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFormularioModificacionEstablecimiento frame = new JFormularioModificacionEstablecimiento();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public JFormularioModificacionEstablecimiento() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		
+		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+		
+		ControladorCine controladorCine = ControladorCine.getInstance();
+		
+		table = new JTable(modeloEstablecimiento = new ModeloEstablecimiento(controladorCine));
+		table.setSize(200, 100);
+		getContentPane().add(table);
 	}
-
 }

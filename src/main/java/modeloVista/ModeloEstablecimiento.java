@@ -63,5 +63,4 @@ public class ModeloEstablecimiento extends AbstractTableModel  {
 			establecimientos.remove(indice - 1);
 		}
 	}
-	
 }
