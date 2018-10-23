@@ -1,12 +1,11 @@
 package com.cine.vista;
 
-import javax.swing.BoxLayout;
-import javax.swing.JTable;
+import javax.swing.*;
 
 import com.cine.controlador.ControladorCine;
 
 import modeloVista.ModeloBajaEstablecimiento;
-import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -20,8 +19,6 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 
 	public JFormularioBajaEstablecimiento() {
 		
-		ControladorCine.getInstance().obtenerEstablecimientos();
-
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
 		table = new JTable(modeloBajaEstablecimiento = new ModeloBajaEstablecimiento());
@@ -42,6 +39,7 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 				}
 				
 				modeloBajaEstablecimiento.fireTableDataChanged();
+				JOptionPane.showMessageDialog(null, "Establecimiento borrado correctamente");
 			}
 		});
 		
