@@ -5,7 +5,7 @@ import javax.swing.JTable;
 
 import com.cine.controlador.ControladorCine;
 
-import modeloVista.ModeloEstablecimiento;
+import modeloVista.ModeloBajaEstablecimiento;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -16,7 +16,7 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 
 	private JTable table;
 	
-	private ModeloEstablecimiento modeloEstablecimiento;
+	private ModeloBajaEstablecimiento modeloBajaEstablecimiento;
 
 	public JFormularioBajaEstablecimiento() {
 		
@@ -24,7 +24,7 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
-		table = new JTable(modeloEstablecimiento = new ModeloEstablecimiento());
+		table = new JTable(modeloBajaEstablecimiento = new ModeloBajaEstablecimiento());
 		table.setSize(200, 100);
 		getContentPane().add(table);
 
@@ -41,7 +41,7 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 					ControladorCine.getInstance().bajaEstablecimiento(cuit);
 				}
 				
-				modeloEstablecimiento.fireTableDataChanged();
+				modeloBajaEstablecimiento.fireTableDataChanged();
 			}
 		});
 		
