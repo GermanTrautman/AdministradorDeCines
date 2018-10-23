@@ -3,8 +3,7 @@ package com.cine.vista;
 import javax.swing.*;
 
 import com.cine.controlador.ControladorCine;
-
-import modeloVista.ModeloBajaEstablecimiento;
+import com.cine.vista.modelo.ModeloTablaEstablecimiento;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,13 +14,13 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 
 	private JTable table;
 	
-	private ModeloBajaEstablecimiento modeloBajaEstablecimiento;
+	private ModeloTablaEstablecimiento modeloBajaEstablecimiento;
 
 	public JFormularioBajaEstablecimiento() {
 		
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
-		table = new JTable(modeloBajaEstablecimiento = new ModeloBajaEstablecimiento());
+		table = new JTable(modeloBajaEstablecimiento = new ModeloTablaEstablecimiento());
 		table.setSize(200, 100);
 		getContentPane().add(table);
 

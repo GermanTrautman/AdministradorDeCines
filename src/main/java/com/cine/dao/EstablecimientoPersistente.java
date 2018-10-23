@@ -1,4 +1,4 @@
-package com.cine.Dao;
+package com.cine.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -2,7 +2,7 @@ package com.cine.vista;
 
 import com.cine.controlador.ControladorCine;
 import com.cine.modelo.Establecimiento;
-import modeloVista.ModeloModificacionEstablecimiento;
+import com.cine.vista.modelo.ModeloTablaEstablecimiento;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +21,7 @@ public class JFormularioModificarEstablecimiento extends JFormularioBase {
 
 	private ControladorCine controladorCine = ControladorCine.getInstance();
 
-	public JFormularioModificarEstablecimiento(ModeloModificacionEstablecimiento modelo, Integer unCuit ) {
+	public JFormularioModificarEstablecimiento(ModeloTablaEstablecimiento modelo, Integer unCuit ) {
 
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
@@ -52,9 +52,10 @@ public class JFormularioModificarEstablecimiento extends JFormularioBase {
 					JOptionPane.showMessageDialog(null, "Establecimiento modificado correctamente");
 
 					reset();
-					modelo.fireTableDataChanged();
-					dispose();
 
+					modelo.fireTableDataChanged();
+					
+					dispose();
 				}
 			}
 		});

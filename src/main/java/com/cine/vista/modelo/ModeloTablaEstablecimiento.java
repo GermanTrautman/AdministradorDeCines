@@ -1,13 +1,13 @@
-package modeloVista;
+package com.cine.vista.modelo;
 
 import javax.swing.table.AbstractTableModel;
 
 import com.cine.controlador.ControladorCine;
 
-public class ModeloModificacionEstablecimiento extends AbstractTableModel {
+public class ModeloTablaEstablecimiento extends AbstractTableModel  {
 
-	private static final long serialVersionUID = 7504956578231838756L;
-
+	private static final long serialVersionUID = -5065889673449492921L;
+	
 	@Override
 	public int getColumnCount() {
 		return 4;
@@ -46,15 +46,5 @@ public class ModeloModificacionEstablecimiento extends AbstractTableModel {
 		}
 		
 		return "N/A";
-	}
-
-	@Override
-	public boolean isCellEditable(int fila, int columna) {
-
-		if (columna == 0) {
-			return false;
-		} else {
-			return true;
-		}
 	}
 }

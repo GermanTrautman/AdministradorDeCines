@@ -1,4 +1,4 @@
-package com.cine.Persistencia;
+package com.cine.persistencia;
 
 import java.io.FileInputStream;
 import java.sql.Connection;

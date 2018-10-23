@@ -1,6 +1,6 @@
 package com.cine.controlador;
 
-import com.cine.Dao.UsuarioPersistente;
+import com.cine.dao.UsuarioPersistente;
 import com.cine.modelo.Usuario;
 
 import java.util.Date;

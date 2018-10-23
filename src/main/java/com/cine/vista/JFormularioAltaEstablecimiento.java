@@ -6,7 +6,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.cine.controlador.ControladorCine;
-import com.cine.modelo.Establecimiento;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

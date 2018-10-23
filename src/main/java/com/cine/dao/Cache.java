@@ -1,4 +1,4 @@
-package com.cine.Dao;
+package com.cine.dao;
 
 public interface Cache {
 	

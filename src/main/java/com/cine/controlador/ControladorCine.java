@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.cine.Dao.Cache;
-import com.cine.Dao.EstablecimientoPersistente;
+import com.cine.dao.Cache;
+import com.cine.dao.EstablecimientoPersistente;
 import com.cine.modelo.Establecimiento;
 
 public class ControladorCine implements Cache {
