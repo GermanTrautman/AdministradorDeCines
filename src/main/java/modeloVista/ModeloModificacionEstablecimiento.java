@@ -1,0 +1,60 @@
+package modeloVista;
+
+import javax.swing.table.AbstractTableModel;
+
+import com.cine.controlador.ControladorCine;
+
+public class ModeloModificacionEstablecimiento extends AbstractTableModel {
+
+	private static final long serialVersionUID = 7504956578231838756L;
+
+	@Override
+	public int getColumnCount() {
+		return 4;
+	}
+
+	@Override
+	public int getRowCount() {
+		return ControladorCine.getInstance().getEstablecimientos().size() + 1;
+	}
+
+	@Override
+	public Object getValueAt(int fila, int columna) {
+
+		if (fila == 0) {
+			
+			if (columna == 0) {
+				return "CUIT";
+			} else if (columna == 1) {
+				return "Nombre";
+			} else if (columna == 2) {
+				return "Domicilio";
+			} else if (columna == 3) {
+				return "Capacidad";
+			}
+		} else {
+			
+			if (columna == 0) {
+				return (Integer) ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getCuit();
+			} else if (columna == 1) {
+				return ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getNombre();
+			} else if (columna == 2) {
+				return ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getDomicilio();
+			} else if (columna == 3) {
+				return (Integer) ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getCapacidad();
+			}
+		}
+		
+		return "N/A";
+	}
+
+	@Override
+	public boolean isCellEditable(int fila, int columna) {
+
+		if (columna == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+}

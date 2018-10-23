@@ -21,7 +21,7 @@ public class ControladorCine implements Cache {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void obtenerEstablecimientos() {
+	public void obtenerEstablecimientos() {
 		establecimientos = (List<Establecimiento>) (Object) establecimientoPersistente.listar();
 	}
 
@@ -104,8 +104,6 @@ public class ControladorCine implements Cache {
 	}
 	
 	public List<Establecimiento> getEstablecimientos() {
-		//Cambiar
-		obtenerEstablecimientos();
 		return establecimientos;
 	}
 }
