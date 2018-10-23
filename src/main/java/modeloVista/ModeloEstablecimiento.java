@@ -1,21 +1,12 @@
 package modeloVista;
 
-import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
 
 import com.cine.controlador.ControladorCine;
-import com.cine.modelo.Establecimiento;
 
 public class ModeloEstablecimiento extends AbstractTableModel  {
 
 	private static final long serialVersionUID = -5065889673449492921L;
-
-	private List<Establecimiento> establecimientos;
-	
-	public ModeloEstablecimiento(ControladorCine controladorCine) {
-		establecimientos = controladorCine.getEstablecimientos();
-	}
 	
 	@Override
 	public int getColumnCount() {
@@ -24,7 +15,7 @@ public class ModeloEstablecimiento extends AbstractTableModel  {
 
 	@Override
 	public int getRowCount() {
-		return this.establecimientos.size() + 1;
+		return ControladorCine.getInstance().getEstablecimientos().size() + 1;
 	}
 
 	@Override
@@ -44,23 +35,16 @@ public class ModeloEstablecimiento extends AbstractTableModel  {
 		} else {
 			
 			if (columna == 0) {
-				return (Integer) establecimientos.get(fila - 1).getCuit();
+				return (Integer) ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getCuit();
 			} else if (columna == 1) {
-				return establecimientos.get(fila - 1).getNombre();
+				return ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getNombre();
 			} else if (columna == 2) {
-				return establecimientos.get(fila - 1).getDomicilio();
+				return ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getDomicilio();
 			} else if (columna == 3) {
-				return (Integer) establecimientos.get(fila - 1).getCapacidad();
+				return (Integer) ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getCapacidad();
 			}
 		}
 		
 		return "N/A";
-	}
-	
-	public void borrarEstablecimientos(int[] indices) {
-		
-		for (int indice : indices) {
-			establecimientos.remove(indice - 1);
-		}
 	}
 }

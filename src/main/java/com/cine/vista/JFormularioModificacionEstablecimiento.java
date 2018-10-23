@@ -18,9 +18,7 @@ public class JFormularioModificacionEstablecimiento extends JFormularioBase {
 		
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		
-		ControladorCine controladorCine = ControladorCine.getInstance();
-		
-		table = new JTable(modeloEstablecimiento = new ModeloEstablecimiento(controladorCine));
+		table = new JTable(modeloEstablecimiento = new ModeloEstablecimiento());
 		table.setSize(200, 100);
 		getContentPane().add(table);
 	}
