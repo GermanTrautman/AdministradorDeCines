@@ -1,6 +1,6 @@
 package com.cine.modelo;
 
-import com.cine.utilidades.Estado;
+import com.cine.utilidades.EstadoActivoInactivo;
 
 public class Pelicula {
 
@@ -12,11 +12,11 @@ public class Pelicula {
     private Boolean subtitulos;
     private Float calificacion;
     private String observaciones;
-    private Estado estado;
+    private EstadoActivoInactivo estado;
 
 
     public Pelicula(String nombre, String director, String genero, Integer duracion, String idioma,
-                    Boolean subtitulos, Float calificacion, String observaciones, Estado estado) {
+                    Boolean subtitulos, Float calificacion, String observaciones, EstadoActivoInactivo estado) {
         this.nombre = nombre;
         this.director = director;
         this.genero = genero;
@@ -92,11 +92,11 @@ public class Pelicula {
         this.observaciones = observaciones;
     }
 
-    public Estado getEstado() {
+    public EstadoActivoInactivo getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(EstadoActivoInactivo estado) {
         this.estado = estado;
     }
 }
