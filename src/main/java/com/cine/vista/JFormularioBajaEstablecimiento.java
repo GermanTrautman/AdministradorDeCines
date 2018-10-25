@@ -2,7 +2,7 @@ package com.cine.vista;
 
 import javax.swing.*;
 
-import com.cine.controlador.ControladorCine;
+import com.cine.controlador.ControladorEstablecimiento;
 import com.cine.vista.modelo.ModeloTablaEstablecimiento;
 
 import java.awt.event.ActionListener;
@@ -34,7 +34,7 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 
 					int cuit = ((int) (table.getValueAt(fila, 0) != "N/A" ? table.getValueAt(fila, 0) : - 1));
 
-					ControladorCine.getInstance().bajaEstablecimiento(cuit);
+					ControladorEstablecimiento.getInstance().baja(cuit);
 				}
 				
 				modeloBajaEstablecimiento.fireTableDataChanged();

@@ -2,7 +2,7 @@ package com.cine.vista.modelo;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.cine.controlador.ControladorCine;
+import com.cine.controlador.ControladorEstablecimiento;
 
 public class ModeloTablaEstablecimiento extends AbstractTableModel  {
 
@@ -15,7 +15,7 @@ public class ModeloTablaEstablecimiento extends AbstractTableModel  {
 
 	@Override
 	public int getRowCount() {
-		return ControladorCine.getInstance().getEstablecimientos().size() + 1;
+		return ControladorEstablecimiento.getInstance().getEstablecimientos().size() + 1;
 	}
 
 	@Override
@@ -35,13 +35,13 @@ public class ModeloTablaEstablecimiento extends AbstractTableModel  {
 		} else {
 			
 			if (columna == 0) {
-				return (Integer) ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getCuit();
+				return (Integer) ControladorEstablecimiento.getInstance().getEstablecimientos().get(fila - 1).getCuit();
 			} else if (columna == 1) {
-				return ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getNombre();
+				return ControladorEstablecimiento.getInstance().getEstablecimientos().get(fila - 1).getNombre();
 			} else if (columna == 2) {
-				return ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getDomicilio();
+				return ControladorEstablecimiento.getInstance().getEstablecimientos().get(fila - 1).getDomicilio();
 			} else if (columna == 3) {
-				return (Integer) ControladorCine.getInstance().getEstablecimientos().get(fila - 1).getCapacidad();
+				return (Integer) ControladorEstablecimiento.getInstance().getEstablecimientos().get(fila - 1).getCapacidad();
 			}
 		}
 		

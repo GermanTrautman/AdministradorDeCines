@@ -8,7 +8,7 @@ import java.util.List;
 public class UsuarioPersistente implements Persistencia {
 
 
-    public Object buscar(Integer dni) {
+    public Object buscar(Object dni) {
         try {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE dni=" + dni);
             Usuario usuario = new Usuario();
@@ -61,7 +61,7 @@ public class UsuarioPersistente implements Persistencia {
         return false;
     }
 
-    public boolean borrar(Integer dni) {
+    public boolean borrar(Object dni) {
 
         try {
             Connection connection = conectarDb();
@@ -77,5 +77,4 @@ public class UsuarioPersistente implements Persistencia {
 
         return false;
     }
-
 }
