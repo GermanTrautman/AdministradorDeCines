@@ -1,8 +1,11 @@
 package com.cine.main;
 
-import com.cine.modelo.Usuario;
-import com.cine.vista.Principal;
+import com.cine.controlador.ControladorEstablecimiento;
+import com.cine.controlador.ControladorSala;
+import com.cine.controlador.ControladorUsuario;
+import com.cine.vista.JFormularioPrincipal;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Main {
@@ -11,9 +14,13 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Usuario usr = new Usuario();
-                    Principal window = new Principal();
-                    window.framePrincipal.setVisible(true);
+
+                    ControladorEstablecimiento.getInstance().obtenerEstablecimientos();
+                    ControladorSala.getInstance().obtenerSalas();
+                    ControladorUsuario.getInstance().obtenerUsuariosDb();
+                    JFrame panel = new JFormularioPrincipal();
+                    panel.setVisible(true);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

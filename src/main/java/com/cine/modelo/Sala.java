@@ -4,27 +4,17 @@ import com.cine.utilidades.Estado;
 
 public class Sala {
 
-    private Integer numero;
     private String nombre;
     private Integer capacidad;
     private Establecimiento establecimiento;
     private Estado estado;
 
-
-    public Sala(Integer numero, String nombre, Integer capacidad, Establecimiento establecimiento, Estado estado) {
-        this.numero = numero;
+    public Sala(String nombre, Integer capacidad, Establecimiento establecimiento, Estado estado) {
+    	
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.establecimiento = establecimiento;
         this.estado = estado;
-    }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
     }
 
     public String getNombre() {

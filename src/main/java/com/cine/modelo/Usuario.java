@@ -1,11 +1,7 @@
 package com.cine.modelo;
 
-import com.cine.Persistencia.PoolConnection;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 
 public class Usuario {
 
@@ -16,7 +12,20 @@ public class Usuario {
     private String domicilio;
     private Integer dni;
     private Date fechaDeNacimiento;
-    private Rol rol;
+    private List<Rol> rol;
+
+    public Usuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, Date fechaDeNacimiento) {
+        this.nombreDeUsuario = nombreDeUsuario;
+        this.email = email;
+        this.password = password;
+        this.nombre = nombre;
+        this.domicilio = domicilio;
+        this.dni = dni;
+        this.fechaDeNacimiento = fechaDeNacimiento;
+    }
+
+    public Usuario() {
+    }
 
     public String getNombreDeUsuario() {
         return nombreDeUsuario;
@@ -74,25 +83,25 @@ public class Usuario {
         this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
-    public Rol getRol() {
+    public List<Rol> getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(List<Rol> rol) {
         this.rol = rol;
     }
 
-    public ResultSet buscarUsuario() {
-        PoolConnection poolConnection = PoolConnection.getPoolConnection();
-        Connection connection = poolConnection.getConnection();
-        try {
-            Statement preparedStatement = connection.createStatement();
-            ResultSet resultSet = preparedStatement.executeQuery("SELECT * FROM Usuario");
-
-            return resultSet;
-        } catch (Exception e) {
-            System.out.println("Error Query: " + e.getMessage());
-            return null;
-        }
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombreDeUsuario='" + nombreDeUsuario + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", domicilio='" + domicilio + '\'' +
+                ", dni=" + dni +
+                ", fechaDeNacimiento=" + fechaDeNacimiento +
+                ", rol=" + rol +
+                '}';
     }
 }
