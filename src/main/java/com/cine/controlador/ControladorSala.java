@@ -57,6 +57,17 @@ public class ControladorSala implements Cache {
 		}
 	}
 	
+	public void modificacion(String nombre, Integer capacidad, Integer cuitEstablecimiento, String estadoEnLetras) {
+		
+		Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
+		Estado estado = Estado.valueOf(estadoEnLetras.toUpperCase());
+
+		Sala sala = new Sala(nombre, capacidad, establecimiento, estado);
+		
+		actualizarCache(sala);
+		salaPersistente.actualizar(sala);
+	}
+	
 	@Override
 	public Object buscarEnCache(Object nombre) {
 
@@ -94,7 +105,13 @@ public class ControladorSala implements Cache {
 	}
 
 	@Override
-	public void actualizarCache(Object entidad) {
-		// TODO Auto-generated method stub
+	public void actualizarCache(Object sala) {
+
+		Sala salaModificada = (Sala) sala;
+		
+		Sala salaSinModificaciones = (Sala) buscarEnCache(salaModificada.getNombre());
+		
+		borrarDeCache(salaSinModificaciones.getNombre());
+		agregarACache(salaModificada);
 	}
 }

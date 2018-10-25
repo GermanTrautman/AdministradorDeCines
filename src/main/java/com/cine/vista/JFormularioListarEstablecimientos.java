@@ -6,14 +6,14 @@ import javax.swing.event.ListSelectionListener;
 
 import com.cine.vista.modelo.ModeloTablaEstablecimiento;
 
-public class JFormularioListarEstablecimiento extends JFormularioBase {
+public class JFormularioListarEstablecimientos extends JFormularioBase {
 
     private static final long serialVersionUID = 1488800648208098796L;
 
     private JTable table;
     private ModeloTablaEstablecimiento modeloTablaEstablecimiento;
 
-    public JFormularioListarEstablecimiento() {
+    public JFormularioListarEstablecimientos() {
         getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
         table = new JTable(modeloTablaEstablecimiento = new ModeloTablaEstablecimiento());
@@ -34,9 +34,8 @@ public class JFormularioListarEstablecimiento extends JFormularioBase {
                                 "Confirmacion", JOptionPane.YES_NO_OPTION);
                         if (result == JOptionPane.YES_OPTION) {
 
-                            JFrame asd = new JFormularioModificarEstablecimiento(modeloTablaEstablecimiento, cuit);
-                            asd.setVisible(true);
-
+                            JFrame formularioModificarEstablecimiento = new JFormularioModificarEstablecimiento(modeloTablaEstablecimiento, cuit);
+                            formularioModificarEstablecimiento.setVisible(true);
                         }
                     }
                 }
