@@ -94,6 +94,9 @@ public class JFormularioPrincipal extends JFormularioBase {
         JMenuItem mntmBaja_1 = new JMenuItem("Baja");
         mntmBaja_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
+        		JFrame formularioBajaSala = new JFormularioBajaSala();
+        		formularioBajaSala.setVisible(true);
         	}
         });
         mnNewMenu.add(mntmBaja_1);

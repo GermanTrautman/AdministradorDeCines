@@ -1,6 +1,7 @@
 package com.cine.controlador;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.cine.dao.Cache;
@@ -20,6 +21,15 @@ public class ControladorSala implements Cache {
 	public static ControladorSala getInstance() {
 		return controladorSala;
 	}
+	
+	public List<Sala> getSalas() {
+		return salas;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void obtenerSalas() {
+		salas = (List<Sala>) (Object) salaPersistente.listar();
+	}
 
 	public void alta(String nombre, Integer capacidad, Integer cuitEstablecimiento, String estadoEnLetras) {
 		
@@ -38,6 +48,15 @@ public class ControladorSala implements Cache {
 		}
 	}
 
+	public void baja(String nombre) {
+
+		borrarDeCache(nombre);
+
+		if (salaPersistente.buscar(nombre) != null) {
+			salaPersistente.borrar(nombre);
+		}
+	}
+	
 	@Override
 	public Object buscarEnCache(Object nombre) {
 
@@ -59,14 +78,23 @@ public class ControladorSala implements Cache {
 	}
 
 	@Override
-	public void borrarDeCache(Object key) {
-		// TODO Auto-generated method stub
-		
+	public void borrarDeCache(Object nombre) {
+
+		if (buscarEnCache(nombre) != null) {
+
+			for (Iterator<Sala> iterator = salas.listIterator(); iterator.hasNext();) {
+				
+				Sala sala = iterator.next();
+				
+				if (sala.getNombre().equals(nombre)) {
+					iterator.remove();
+				}
+			}
+		}
 	}
 
 	@Override
 	public void actualizarCache(Object entidad) {
 		// TODO Auto-generated method stub
-		
 	}
 }

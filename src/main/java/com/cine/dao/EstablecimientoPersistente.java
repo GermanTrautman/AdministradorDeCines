@@ -40,10 +40,10 @@ public class EstablecimientoPersistente implements Persistencia {
 
 		try {
 			
-            List<Object> establecimientos = new ArrayList<Object>();
+            List<Object> establecimientos = new ArrayList<>();
             Establecimiento establecimiento = null;
             
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM Establecimiento");
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM TPO.dbo.Establecimiento");
             
             while (resultSet.next()) {
             	
@@ -124,7 +124,7 @@ public class EstablecimientoPersistente implements Persistencia {
         	
             Connection connection = conectarDb();
             Statement statement = connection.createStatement();
-            int filasAfectadas =  statement.executeUpdate("DELETE FROM Establecimiento where CUIT=" + cuit);
+            int filasAfectadas =  statement.executeUpdate("DELETE FROM TPO.dbo.Establecimiento where CUIT=" + cuit);
 
             if (filasAfectadas == 1){
                 return true;
