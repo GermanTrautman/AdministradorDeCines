@@ -18,15 +18,29 @@ public class JFormularioPrincipal extends JFormularioBase {
 
         JMenuItem opcAgregarUsuario = new JMenuItem("Alta");
         items.add(opcAgregarUsuario);
-        
-        JMenuItem mntmBaja_6 = new JMenuItem("Baja");
-        items.add(mntmBaja_6);
-        
-        JMenuItem mntmModificacion_6 = new JMenuItem("Modificacion");
-        items.add(mntmModificacion_6);
         opcAgregarUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 JFrame f = new JFormularioAltaUsuario();
+                f.setVisible(true);
+            }
+        });
+
+        JMenuItem bajaUsuario = new JMenuItem("Baja");
+        items.add(bajaUsuario);
+        bajaUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame f = new JFormularioBajaUsuario();
+                f.setVisible(true);
+            }
+        });
+        
+        JMenuItem modificarUsuario = new JMenuItem("Modificacion");
+        items.add(modificarUsuario);
+        modificarUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame f = new JFormularioListarUsuarios();
                 f.setVisible(true);
             }
         });

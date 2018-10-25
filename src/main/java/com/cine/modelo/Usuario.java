@@ -1,6 +1,6 @@
 package com.cine.modelo;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class Usuario {
@@ -14,7 +14,7 @@ public class Usuario {
     private Date fechaDeNacimiento;
     private List<Rol> rol;
 
-    public Usuario(String nombreDeUsuario, String email, String password, String nombre, String domicilio, Integer dni, Date fechaDeNacimiento) {
+    public Usuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, Date fechaDeNacimiento) {
         this.nombreDeUsuario = nombreDeUsuario;
         this.email = email;
         this.password = password;
