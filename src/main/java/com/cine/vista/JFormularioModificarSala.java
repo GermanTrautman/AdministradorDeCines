@@ -5,40 +5,46 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.cine.controlador.ControladorEstablecimiento;
 import com.cine.controlador.ControladorSala;
 import com.cine.modelo.Establecimiento;
+import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
 import com.cine.vista.modelo.ComboEstablecimiento;
 import com.cine.vista.modelo.ComboEstado;
+import com.cine.vista.modelo.ModeloTablaSala;
 
-import javax.swing.JComboBox;
+public class JFormularioModificarSala extends JFormularioBase {
 
-public class JFormularioAltaSala extends JFormularioBase {
-
-	private static final long serialVersionUID = 463503988391452862L;
+	private static final long serialVersionUID = 1L;
 
 	private JTextField nombre = new JTextField();
 	private JTextField capacidad = new JTextField();
 
 	private JComboBox<ComboEstablecimiento> comboEstablecimientos = new JComboBox<>();
 	private JComboBox<ComboEstado> comboEstados = new JComboBox<>();
+	
+	private JButton btnAgregarEstablecimiento = new JButton("Guardar cambios");
 
-	private JButton btnGuardarSala = new JButton("Guardar");
-
-	public JFormularioAltaSala() {
+	public JFormularioModificarSala(ModeloTablaSala modelo, String unNombre) {
 
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
-		this.getContentPane().add(new JLabel("Nombre:"));
-		this.getContentPane().add(nombre);
+		Sala sala = (Sala) ControladorSala.getInstance().buscarEnCache(unNombre);
 
-		this.getContentPane().add(new JLabel("Capacidad :"));
+		this.getContentPane().add(new JLabel("Nombre :"));
+		this.getContentPane().add(nombre).setEnabled(false);
+
+		this.getContentPane().add(new JLabel("Capacidad:"));
 		this.getContentPane().add(capacidad);
-
+		
+		popularNombreYCapacidad(sala);
+		
 		this.getContentPane().add(new JLabel("Establecimiento :"));
 		this.getContentPane().add(comboEstablecimientos);
 		
@@ -49,7 +55,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 		
 		popularEstado();
 
-		this.btnGuardarSala.addActionListener(new ActionListener() {
+		btnAgregarEstablecimiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				Object itemEstablecimiento = comboEstablecimientos.getSelectedItem();
@@ -57,29 +63,33 @@ public class JFormularioAltaSala extends JFormularioBase {
 				
 				Object itemEstado = comboEstados.getSelectedItem();
 				String estadoEnletras = ((ComboEstado)itemEstado).getEstado();
-				
+
 				if (nombre.getText() != null && capacidad.getText() != null
 						&& comboEstablecimientos.getSelectedItem() != null && comboEstados.getSelectedItem() != null) {
 					
-					ControladorSala.getInstance().alta(nombre.getText(), Integer.parseInt(capacidad.getText()),
+					ControladorSala.getInstance().modificacion(nombre.getText(), Integer.parseInt(capacidad.getText()),
 							idEstablecimiento, estadoEnletras);
-					
+
+					JOptionPane.showMessageDialog(null, "Sala modificada correctamente");
+
 					reset();
+
+					modelo.fireTableDataChanged();
+					
+					dispose();
 				}
 			}
 		});
+		this.getContentPane().add(btnAgregarEstablecimiento);
 
-		this.getContentPane().add(btnGuardarSala);
-
-		this.btnGuardarSala.setMaximumSize(getMaximumSize());
+		btnAgregarEstablecimiento.setMaximumSize(getMaximumSize());
 	}
 
-	public void reset() {
 
-		this.nombre.setText("");
-		this.capacidad.setText("");
-		this.comboEstablecimientos.setSelectedIndex(0);
-		this.comboEstados.setSelectedIndex(0);
+	private void popularNombreYCapacidad(Sala sala) {
+
+		this.nombre.setText(sala.getNombre());
+		this.capacidad.setText(sala.getCapacidad().toString());
 	}
 	
 	private void popularComboEstablecimientos() {
@@ -93,5 +103,11 @@ public class JFormularioAltaSala extends JFormularioBase {
 
 		comboEstados.addItem(new ComboEstado(Estado.ACTIVO.estado(), 1));
 		comboEstados.addItem(new ComboEstado(Estado.INACTIVO.estado(), 2));
+	}
+
+	public void reset() {
+
+		this.nombre.setText("");
+		this.capacidad.setText("");
 	}
 }

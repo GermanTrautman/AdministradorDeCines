@@ -24,13 +24,13 @@ public class ModeloTablaSala extends AbstractTableModel  {
 		if (fila == 0) {
 			
 			if (columna == 0) {
-				return "CUIT";
-			} else if (columna == 1) {
 				return "Nombre";
-			} else if (columna == 2) {
-				return "Domicilio";
-			} else if (columna == 3) {
+			} else if (columna == 1) {
 				return "Capacidad";
+			} else if (columna == 2) {
+				return "Nombre del establecimiento";
+			} else if (columna == 3) {
+				return "Estado";
 			}
 		} else {
 			

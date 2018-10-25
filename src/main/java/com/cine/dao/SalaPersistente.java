@@ -102,8 +102,32 @@ public class SalaPersistente implements Persistencia {
 	}
 
 	@Override
-	public boolean actualizar(Object entidad) {
-		// TODO Auto-generated method stub
+	public boolean actualizar(Object objetoSala) {
+
+		try {
+			
+			Sala sala = (Sala) objetoSala;
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.Sala SET Capacidad = ?, CUITEstablecimiento = ?, Estado = ? WHERE Nombre = ?");
+			preparedStatement.setInt(1, sala.getCapacidad());
+			preparedStatement.setInt(2, sala.getEstablecimiento().getCuit());
+			preparedStatement.setString(3, sala.getEstado().estado());
+			preparedStatement.setString(4, sala.getNombre());
+			
+			preparedStatement.executeUpdate();
+			
+			int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas == 0) {
+                return true;
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+		
 		return false;
 	}
 
