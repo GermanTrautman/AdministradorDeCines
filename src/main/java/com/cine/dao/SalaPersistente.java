@@ -1,8 +1,11 @@
 package com.cine.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cine.controlador.ControladorEstablecimiento;
@@ -26,7 +29,7 @@ public class SalaPersistente implements Persistencia {
             	Integer cuitEstablecimiento = resultSet.getInt("CuitEstablecimiento");
             	Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
 
-            	Estado estado = Estado.valueOf(resultSet.getString("Estado"));
+            	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	
             	sala = new Sala(resultSet.getString("Nombre"), resultSet.getInt("Capacidad"), establecimiento, estado);
             }
@@ -43,8 +46,33 @@ public class SalaPersistente implements Persistencia {
 
 	@Override
 	public List<Object> listar() {
-		// TODO Auto-generated method stub
-		return null;
+
+		try {
+			
+            List<Object> salas = new ArrayList<>();
+            Sala sala = null;
+            
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM TPO.dbo.Sala");
+            
+            while (resultSet.next()) {
+            	
+            	Integer cuitEstablecimiento = resultSet.getInt("CuitEstablecimiento");
+            	Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
+
+            	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
+            	
+            	sala = new Sala(resultSet.getString("Nombre"), resultSet.getInt("Capacidad"), establecimiento, estado);
+            	salas.add(sala);
+            }
+            
+            return salas;
+            
+        } catch (SQLException e) {
+            System.out.println("Error Query: " + e.getMessage());
+            throw new RuntimeException("Error intentando buscar todos las salas");
+        } finally {
+            cerrarConexion();
+        }
 	}
 
 	@Override
@@ -80,8 +108,22 @@ public class SalaPersistente implements Persistencia {
 	}
 
 	@Override
-	public boolean borrar(Object key) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean borrar(Object nombre) {
+
+		try {
+        	
+            Connection connection = conectarDb();
+            Statement statement = connection.createStatement();
+            int filasAfectadas =  statement.executeUpdate("DELETE FROM TPO.dbo.Sala where Nombre=" + "'" + nombre + "'");
+
+            if (filasAfectadas == 1){
+                return true;
+            }
+            
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return false;
 	}
 }

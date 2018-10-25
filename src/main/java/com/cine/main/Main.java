@@ -1,6 +1,7 @@
 package com.cine.main;
 
 import com.cine.controlador.ControladorEstablecimiento;
+import com.cine.controlador.ControladorSala;
 import com.cine.vista.JFormularioPrincipal;
 
 import javax.swing.*;
@@ -12,9 +13,13 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
+                	
                     ControladorEstablecimiento.getInstance().obtenerEstablecimientos();
+                    ControladorSala.getInstance().obtenerSalas();
+                    
                     JFrame panel = new JFormularioPrincipal();
                     panel.setVisible(true);
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

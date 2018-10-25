@@ -92,15 +92,15 @@ public class ControladorEstablecimiento implements Cache {
 	}
 
 	@Override
-	public void borrarDeCache(Object key) {
+	public void borrarDeCache(Object cuit) {
 
-		if (buscarEnCache(key) != null) {
+		if (buscarEnCache(cuit) != null) {
 
 			for (Iterator<Establecimiento> iterator = establecimientos.listIterator(); iterator.hasNext();) {
 				
 				Establecimiento establecimiento = iterator.next();
 				
-				if (establecimiento.getCuit().equals(key)) {
+				if (establecimiento.getCuit().equals(cuit)) {
 					iterator.remove();
 				}
 			}
