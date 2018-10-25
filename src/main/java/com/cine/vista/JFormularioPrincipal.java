@@ -72,8 +72,8 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioModificacionEStablecimiento = new JFormularioListarEstablecimiento();
-        		formularioModificacionEStablecimiento.setVisible(true);
+        		JFrame formularioModificacionEstablecimiento = new JFormularioListarEstablecimiento();
+        		formularioModificacionEstablecimiento.setVisible(true);
         	}
         });
         mnEstablecimientos.add(mntmModificacion);
@@ -82,12 +82,27 @@ public class JFormularioPrincipal extends JFormularioBase {
         menu.add(mnNewMenu);
         
         JMenuItem mntmAlta_1 = new JMenuItem("Alta");
+        mntmAlta_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        		JFrame formularioAltaSala = new JFormularioAltaSala();
+        		formularioAltaSala.setVisible(true);
+        	}
+        });
         mnNewMenu.add(mntmAlta_1);
         
         JMenuItem mntmBaja_1 = new JMenuItem("Baja");
+        mntmBaja_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         mnNewMenu.add(mntmBaja_1);
         
         JMenuItem mntmModificacion_1 = new JMenuItem("Modificacion");
+        mntmModificacion_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         mnNewMenu.add(mntmModificacion_1);
         
         JMenu mnPeliculas = new JMenu("Peliculas");

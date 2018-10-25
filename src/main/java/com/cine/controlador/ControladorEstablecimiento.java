@@ -8,16 +8,20 @@ import com.cine.dao.Cache;
 import com.cine.dao.EstablecimientoPersistente;
 import com.cine.modelo.Establecimiento;
 
-public class ControladorCine implements Cache {
+public class ControladorEstablecimiento implements Cache {
 
-	private static final ControladorCine controladorCine = new ControladorCine();
+	private static final ControladorEstablecimiento controladorEstablecimiento = new ControladorEstablecimiento();
 
-	private List<Establecimiento> establecimientos = new ArrayList<Establecimiento>();
+	private List<Establecimiento> establecimientos = new ArrayList<>();
 
 	private EstablecimientoPersistente establecimientoPersistente = new EstablecimientoPersistente();
 
-	public static ControladorCine getInstance() {
-		return controladorCine;
+	public static ControladorEstablecimiento getInstance() {
+		return controladorEstablecimiento;
+	}
+	
+	public List<Establecimiento> getEstablecimientos() {
+		return establecimientos;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -25,7 +29,18 @@ public class ControladorCine implements Cache {
 		establecimientos = (List<Establecimiento>) (Object) establecimientoPersistente.listar();
 	}
 
-	public void altaEstablecimiento(Integer cuit, String nombre, String domicilio, Integer capacidad) {
+	public Establecimiento buscar(Integer cuit) {
+		
+		Establecimiento establecimiento = (Establecimiento) buscarEnCache(cuit);
+		
+		if (establecimiento == null) {
+			establecimientoPersistente.buscar(cuit);
+		}
+	
+		return establecimiento;
+	}
+	
+	public void alta(Integer cuit, String nombre, String domicilio, Integer capacidad) {
 
 		Establecimiento establecimiento = new Establecimiento(cuit, nombre, domicilio, capacidad);
 
@@ -39,7 +54,7 @@ public class ControladorCine implements Cache {
 		}
 	}
 
-	public void bajaEstablecimiento(Integer cuit) {
+	public void baja(Integer cuit) {
 
 		borrarDeCache(cuit);
 
@@ -48,7 +63,7 @@ public class ControladorCine implements Cache {
 		}
 	}
 	
-	public void modificacionEstablecimiento(Integer cuit, String nombre, String domicilio, Integer capacidad) {
+	public void modificacion(Integer cuit, String nombre, String domicilio, Integer capacidad) {
 		
 		Establecimiento establecimiento = new Establecimiento(cuit, nombre, domicilio, capacidad);
 		
@@ -57,13 +72,13 @@ public class ControladorCine implements Cache {
 	}
 
 	@Override
-	public Object buscarEnCache(Integer key) {
+	public Object buscarEnCache(Object cuit) {
 
 		Establecimiento establecimientoEncontrado = null;
 
 		for (Establecimiento establecimiento : establecimientos) {
 
-			if (establecimiento.getCuit().equals(key)) {
+			if (establecimiento.getCuit().equals(cuit)) {
 				establecimientoEncontrado = establecimiento;
 			}
 		}
@@ -72,12 +87,12 @@ public class ControladorCine implements Cache {
 	}
 
 	@Override
-	public void agregarACache(Object entidad) {
-		establecimientos.add((Establecimiento) entidad);
+	public void agregarACache(Object establecimiento) {
+		establecimientos.add((Establecimiento) establecimiento);
 	}
 
 	@Override
-	public void borrarDeCache(Integer key) {
+	public void borrarDeCache(Object key) {
 
 		if (buscarEnCache(key) != null) {
 
@@ -101,9 +116,5 @@ public class ControladorCine implements Cache {
 		
 		borrarDeCache(establecimientoSinModificaciones.getCuit());
 		agregarACache(establecimientoModificado);
-	}
-	
-	public List<Establecimiento> getEstablecimientos() {
-		return establecimientos;
 	}
 }

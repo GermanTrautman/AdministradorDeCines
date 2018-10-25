@@ -13,13 +13,13 @@ import com.cine.modelo.Establecimiento;
 public class EstablecimientoPersistente implements Persistencia {
 	
 	@Override
-	public Object buscar(Integer cuit) {
+	public Object buscar(Object cuit) {
 		
 		try {
 			
             Establecimiento establecimiento = null;
 
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM Establecimiento WHERE CUIT=" + cuit);
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM TPO.dbo.Establecimiento WHERE CUIT=" + cuit);
             
             if (resultSet.next()) {
             	establecimiento = new Establecimiento(resultSet.getInt("CUIT"), resultSet.getString("Nombre"), resultSet.getString("Domicilio"), resultSet.getInt("Capacidad"));
@@ -118,7 +118,7 @@ public class EstablecimientoPersistente implements Persistencia {
 	}
 
 	@Override
-	public boolean borrar(Integer cuit) {
+	public boolean borrar(Object cuit) {
 
         try {
         	

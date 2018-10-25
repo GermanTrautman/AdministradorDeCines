@@ -2,9 +2,9 @@ package com.cine.dao;
 
 public interface Cache {
 	
-    Object buscarEnCache(Integer key);
+    Object buscarEnCache(Object key);
 
     void agregarACache(Object entidad);
-    void borrarDeCache(Integer key);
+    void borrarDeCache(Object key);
     void actualizarCache(Object entidad);
 }
