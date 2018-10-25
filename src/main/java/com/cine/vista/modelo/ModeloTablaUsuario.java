@@ -1,6 +1,5 @@
 package com.cine.vista.modelo;
 
-import com.cine.controlador.ControladorCine;
 import com.cine.controlador.ControladorUsuario;
 
 import javax.swing.table.AbstractTableModel;
@@ -16,7 +15,7 @@ public class ModeloTablaUsuario extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return ControladorCine.getInstance().getEstablecimientos().size() + 1;
+        return ControladorUsuario.getInstance().getUsuarios().size() + 1;
     }
 
     @Override

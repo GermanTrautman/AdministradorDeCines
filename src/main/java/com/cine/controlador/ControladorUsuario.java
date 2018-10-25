@@ -53,7 +53,7 @@ public class ControladorUsuario implements Cache {
 
 
     @Override
-    public Object buscarEnCache(Integer key) {
+    public Object buscarEnCache(Object key) {
         return usuarioList.stream()
                 .filter(usuario -> usuario.getDni().equals(key))
                 .findAny()
@@ -66,7 +66,7 @@ public class ControladorUsuario implements Cache {
     }
 
     @Override
-    public void borrarDeCache(Integer key) {
+    public void borrarDeCache(Object key) {
         this.usuarioList.removeIf(usuario -> usuario.getDni().equals(key));
 
     }
