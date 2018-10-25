@@ -1,8 +1,6 @@
 package com.cine.vista;
 
-import com.cine.controlador.ControladorCine;
 import com.cine.controlador.ControladorUsuario;
-import com.cine.vista.JFormularioBase;
 import com.cine.vista.modelo.ModeloTablaUsuario;
 
 import javax.swing.*;
