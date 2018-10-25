@@ -12,7 +12,7 @@ public class ControladorCine implements Cache {
 
 	private static final ControladorCine controladorCine = new ControladorCine();
 
-	private List<Establecimiento> establecimientos = new ArrayList<Establecimiento>();
+	private List<Establecimiento> establecimientos = new ArrayList<>();
 
 	private EstablecimientoPersistente establecimientoPersistente = new EstablecimientoPersistente();
 

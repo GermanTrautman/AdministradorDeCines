@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.cine.modelo.Usuario;
 import com.cine.persistencia.PoolConnection;
 
 public interface Persistencia {

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cine.modelo.Establecimiento;
+import com.cine.modelo.Usuario;
 
 public class EstablecimientoPersistente implements Persistencia {
 	
