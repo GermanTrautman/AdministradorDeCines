@@ -18,15 +18,29 @@ public class JFormularioPrincipal extends JFormularioBase {
 
         JMenuItem opcAgregarUsuario = new JMenuItem("Alta");
         items.add(opcAgregarUsuario);
-        
-        JMenuItem mntmBaja_6 = new JMenuItem("Baja");
-        items.add(mntmBaja_6);
-        
-        JMenuItem mntmModificacion_6 = new JMenuItem("Modificacion");
-        items.add(mntmModificacion_6);
         opcAgregarUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 JFrame f = new JFormularioAltaUsuario();
+                f.setVisible(true);
+            }
+        });
+
+        JMenuItem bajaUsuario = new JMenuItem("Baja");
+        items.add(bajaUsuario);
+        bajaUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame f = new JFormularioBajaUsuario();
+                f.setVisible(true);
+            }
+        });
+        
+        JMenuItem modificarUsuario = new JMenuItem("Modificacion");
+        items.add(modificarUsuario);
+        modificarUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame f = new JFormularioListarUsuarios();
                 f.setVisible(true);
             }
         });
@@ -72,8 +86,8 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioModificacionEStablecimiento = new JFormularioListarEstablecimiento();
-        		formularioModificacionEStablecimiento.setVisible(true);
+        		JFrame formularioModificacionEstablecimiento = new JFormularioListarEstablecimientos();
+        		formularioModificacionEstablecimiento.setVisible(true);
         	}
         });
         mnEstablecimientos.add(mntmModificacion);
@@ -82,12 +96,33 @@ public class JFormularioPrincipal extends JFormularioBase {
         menu.add(mnNewMenu);
         
         JMenuItem mntmAlta_1 = new JMenuItem("Alta");
+        mntmAlta_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        		JFrame formularioAltaSala = new JFormularioAltaSala();
+        		formularioAltaSala.setVisible(true);
+        	}
+        });
         mnNewMenu.add(mntmAlta_1);
         
         JMenuItem mntmBaja_1 = new JMenuItem("Baja");
+        mntmBaja_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		JFrame formularioBajaSala = new JFormularioBajaSala();
+        		formularioBajaSala.setVisible(true);
+        	}
+        });
         mnNewMenu.add(mntmBaja_1);
         
         JMenuItem mntmModificacion_1 = new JMenuItem("Modificacion");
+        mntmModificacion_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		JFrame formularioListarSalas = new JFormularioListarSalas();
+        		formularioListarSalas.setVisible(true);
+        	}
+        });
         mnNewMenu.add(mntmModificacion_1);
         
         JMenu mnPeliculas = new JMenu("Peliculas");

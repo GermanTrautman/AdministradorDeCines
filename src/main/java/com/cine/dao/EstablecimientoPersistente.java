@@ -9,17 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cine.modelo.Establecimiento;
+import com.cine.modelo.Usuario;
 
 public class EstablecimientoPersistente implements Persistencia {
 	
 	@Override
-	public Object buscar(Integer cuit) {
+	public Object buscar(Object cuit) {
 		
 		try {
 			
             Establecimiento establecimiento = null;
 
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM Establecimiento WHERE CUIT=" + cuit);
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM TPO.dbo.Establecimiento WHERE CUIT=" + cuit);
             
             if (resultSet.next()) {
             	establecimiento = new Establecimiento(resultSet.getInt("CUIT"), resultSet.getString("Nombre"), resultSet.getString("Domicilio"), resultSet.getInt("Capacidad"));
@@ -40,10 +41,10 @@ public class EstablecimientoPersistente implements Persistencia {
 
 		try {
 			
-            List<Object> establecimientos = new ArrayList<Object>();
+            List<Object> establecimientos = new ArrayList<>();
             Establecimiento establecimiento = null;
             
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM Establecimiento");
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM TPO.dbo.Establecimiento");
             
             while (resultSet.next()) {
             	
@@ -118,13 +119,13 @@ public class EstablecimientoPersistente implements Persistencia {
 	}
 
 	@Override
-	public boolean borrar(Integer cuit) {
+	public boolean borrar(Object cuit) {
 
         try {
         	
             Connection connection = conectarDb();
             Statement statement = connection.createStatement();
-            int filasAfectadas =  statement.executeUpdate("DELETE FROM Establecimiento where CUIT=" + cuit);
+            int filasAfectadas =  statement.executeUpdate("DELETE FROM TPO.dbo.Establecimiento where CUIT=" + cuit);
 
             if (filasAfectadas == 1){
                 return true;

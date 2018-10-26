@@ -54,7 +54,7 @@ public class ControladorPelicula implements Cache {
 	}
 
 	@Override
-	public Object buscarEnCache(Integer key) {
+	public Object buscarEnCache(Object key) {
 		Pelicula peliculaEncontrada = null;
 		for (Pelicula pelicula : peliculas) {
 			if (pelicula.getId().equals(key)) {
@@ -69,7 +69,8 @@ public class ControladorPelicula implements Cache {
 
 	}
 
-	public void borrarDeCache(Integer key) {
+	@Override
+	public void borrarDeCache(Object key) {
 		if (buscarEnCache(key) != null) {
 			for (Iterator<Pelicula> iterator = peliculas.listIterator(); iterator.hasNext();) {
 				Pelicula pelicula = iterator.next();

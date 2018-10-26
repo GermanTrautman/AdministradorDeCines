@@ -1,6 +1,6 @@
 package com.cine.vista;
 
-import com.cine.controlador.ControladorCine;
+import com.cine.controlador.ControladorEstablecimiento;
 import com.cine.modelo.Establecimiento;
 import com.cine.vista.modelo.ModeloTablaEstablecimiento;
 
@@ -19,7 +19,7 @@ public class JFormularioModificarEstablecimiento extends JFormularioBase {
 
 	private JButton btnAgregarEstablecimiento = new JButton("Guardar cambios");
 
-	private ControladorCine controladorCine = ControladorCine.getInstance();
+	private ControladorEstablecimiento controladorCine = ControladorEstablecimiento.getInstance();
 
 	public JFormularioModificarEstablecimiento(ModeloTablaEstablecimiento modelo, Integer unCuit ) {
 
@@ -46,7 +46,7 @@ public class JFormularioModificarEstablecimiento extends JFormularioBase {
 
 				if (cuit.getText() != null && nombre.getText() != null && domicilio.getText() != null
 						&& capacidad.getText() != null) {
-					controladorCine.modificacionEstablecimiento(Integer.parseInt(cuit.getText()), nombre.getText(),
+					controladorCine.modificacion(Integer.parseInt(cuit.getText()), nombre.getText(),
 							domicilio.getText(), Integer.parseInt(capacidad.getText()));
 
 					JOptionPane.showMessageDialog(null, "Establecimiento modificado correctamente");

@@ -14,14 +14,14 @@ import com.cine.utilidades.EstadoActivoInactivo;
 public class PeliculaPersistente implements Persistencia {
 
 	@Override
-	public Object buscar(Integer key) {
+	public Object buscar(Object key) {
 		try {
 
 			Pelicula pelicula = null;
 
 			if (key != null) {
 				PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM Pelicula WHERE ID = ?");
-				preparedStatement.setInt(1, key);
+				preparedStatement.setInt(1, (int) key);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
 					EstadoActivoInactivo estadoPelicula;
@@ -161,7 +161,8 @@ public class PeliculaPersistente implements Persistencia {
 
 	}
 
-	public boolean borrar(Integer key) {
+	@Override
+	public boolean borrar(Object key) {
 		try {
 
 			Connection connection = conectarDb();

@@ -3,9 +3,10 @@ package com.cine.vista;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.cine.controlador.ControladorCine;
+import com.cine.controlador.ControladorEstablecimiento;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,12 +22,9 @@ public class JFormularioAltaEstablecimiento extends JFormularioBase {
 	
 	private JButton btnAgregarEstablecimiento = new JButton("Agregar Establecimiento");
 
-	private ControladorCine controladorCine = ControladorCine.getInstance();
-
 	public JFormularioAltaEstablecimiento() {
 
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-
 
 		this.getContentPane().add(new JLabel("CUIT:"));
 		this.getContentPane().add(cuit);
@@ -45,8 +43,13 @@ public class JFormularioAltaEstablecimiento extends JFormularioBase {
 
 				if (cuit.getText() != null && nombre.getText() != null && domicilio.getText() != null
 						&& capacidad.getText() != null) {
-					controladorCine.altaEstablecimiento(Integer.parseInt(cuit.getText()), nombre.getText(),
+					
+					ControladorEstablecimiento.getInstance().alta(Integer.parseInt(cuit.getText()), nombre.getText(),
 							domicilio.getText(), Integer.parseInt(capacidad.getText()));
+					
+					JOptionPane.showMessageDialog(null, "Establecimiento creado correctamente");
+
+					reset();
 				}
 			}
 		});

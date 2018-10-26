@@ -5,11 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.cine.modelo.Usuario;
 import com.cine.persistencia.PoolConnection;
 
 public interface Persistencia {
 
-    Object buscar(Integer key);
+    Object buscar(Object key);
 
     List<Object> listar();
 
@@ -17,7 +18,7 @@ public interface Persistencia {
 
     boolean actualizar(Object entidad);
 
-    boolean borrar(Integer key);
+    boolean borrar(Object key);
 
     default Connection conectarDb() {
     	
