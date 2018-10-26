@@ -87,7 +87,7 @@ public class UsuarioPersistente implements Persistencia {
     public boolean actualizar(Object usuario) {
         try {
             Usuario usr = (Usuario) usuario;
-            PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE Usuario SET NombreDeUsuario=?,Email=?,Password=?,Nombre=?,Domicilio=?,FechaDeNacimiento=?");
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE Usuario SET NombreDeUsuario=?,Email=?,Password=?,Nombre=?,Domicilio=?,FechaDeNacimiento=? WHERE DNI=" + ((Usuario) usuario).getDni());
             preparedStatement.setString(1, usr.getNombreDeUsuario());
             preparedStatement.setString(2, usr.getEmail());
             preparedStatement.setString(3, usr.getPassword());

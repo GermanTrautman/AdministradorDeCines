@@ -1,6 +1,7 @@
 package com.cine.main;
 
 import com.cine.controlador.ControladorEstablecimiento;
+import com.cine.controlador.ControladorRol;
 import com.cine.controlador.ControladorSala;
 import com.cine.controlador.ControladorUsuario;
 import com.cine.vista.JFormularioPrincipal;
@@ -18,6 +19,7 @@ public class Main {
                     ControladorEstablecimiento.getInstance().obtenerEstablecimientos();
                     ControladorSala.getInstance().obtenerSalas();
                     ControladorUsuario.getInstance().obtenerUsuariosDb();
+                    ControladorRol.getInstance().obtenerRolesDb();
                     JFrame panel = new JFormularioPrincipal();
                     panel.setVisible(true);
 

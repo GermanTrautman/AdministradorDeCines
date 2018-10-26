@@ -13,11 +13,11 @@ public class JFormularioPrincipal extends JFormularioBase {
 
         JMenuBar menu = new JMenuBar();
 
-        JMenu items = new JMenu("Usuarios");
-        menu.add(items);
+        JMenu abmUsuarios = new JMenu("Usuarios");
+        menu.add(abmUsuarios);
 
         JMenuItem opcAgregarUsuario = new JMenuItem("Alta");
-        items.add(opcAgregarUsuario);
+        abmUsuarios.add(opcAgregarUsuario);
         opcAgregarUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 JFrame f = new JFormularioAltaUsuario();
@@ -26,7 +26,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         });
 
         JMenuItem bajaUsuario = new JMenuItem("Baja");
-        items.add(bajaUsuario);
+        abmUsuarios.add(bajaUsuario);
         bajaUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,7 +36,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         });
         
         JMenuItem modificarUsuario = new JMenuItem("Modificacion");
-        items.add(modificarUsuario);
+        abmUsuarios.add(modificarUsuario);
         modificarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,17 +47,24 @@ public class JFormularioPrincipal extends JFormularioBase {
 
         this.setJMenuBar(menu);
         
-        JMenu mnRoles = new JMenu("Roles");
-        menu.add(mnRoles);
+        JMenu abmRol = new JMenu("Roles");
+        menu.add(abmRol);
         
-        JMenuItem mntmAlta_4 = new JMenuItem("Alta");
-        mnRoles.add(mntmAlta_4);
+        JMenuItem altaRol = new JMenuItem("Alta");
+        abmRol.add(altaRol);
+        altaRol.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame f = new JFormularioAltaRol();
+                f.setVisible(true);
+            }
+        });
         
-        JMenuItem mntmBaja_4 = new JMenuItem("Baja");
-        mnRoles.add(mntmBaja_4);
+        JMenuItem bajaRol = new JMenuItem("Baja");
+        abmRol.add(bajaRol);
         
-        JMenuItem mntmModificacion_4 = new JMenuItem("Modificacion");
-        mnRoles.add(mntmModificacion_4);
+        JMenuItem modificacionRol = new JMenuItem("Modificacion");
+        abmRol.add(modificacionRol);
         
         JMenu mnEstablecimientos = new JMenu("Establecimientos");
         menu.add(mnEstablecimientos);
