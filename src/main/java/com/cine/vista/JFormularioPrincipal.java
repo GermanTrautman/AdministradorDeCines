@@ -117,7 +117,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioModificacionPelicula = new JFormularioModificacionPelicula();
+        		JFrame formularioModificacionPelicula = new JFormularioListarPelicula();
         		formularioModificacionPelicula.setVisible(true);
         	}
         });

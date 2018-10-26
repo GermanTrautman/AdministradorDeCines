@@ -13,33 +13,35 @@ import com.cine.utilidades.EstadoActivoInactivo;
 
 public class PeliculaPersistente implements Persistencia {
 
-	public Object buscar(String nombre) {
+	@Override
+	public Object buscar(Integer key) {
 		try {
 
 			Pelicula pelicula = null;
 
-			PreparedStatement preparedStatement = conectarDb()
-					.prepareStatement("SELECT * FROM Pelicula WHERE Nombre= ?");
-			preparedStatement.setString(1, nombre);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				EstadoActivoInactivo estadoPelicula;
-				if (resultSet.getInt("Estado") == 1) {
-					estadoPelicula = EstadoActivoInactivo.ACTIVO;
-				} else
-					estadoPelicula = EstadoActivoInactivo.INACTIVO;
+			if (key != null) {
+				PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM Pelicula WHERE ID = ?");
+				preparedStatement.setInt(1, key);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					EstadoActivoInactivo estadoPelicula;
+					if (resultSet.getInt("Estado") == 1) {
+						estadoPelicula = EstadoActivoInactivo.ACTIVO;
+					} else
+						estadoPelicula = EstadoActivoInactivo.INACTIVO;
 
-				pelicula = new Pelicula(resultSet.getString("Nombre"), resultSet.getString("Director"),
-						resultSet.getString("Genero"), resultSet.getInt("Duracion"), resultSet.getString("Idioma"),
-						resultSet.getString("Subtitulo").equals("Y"), resultSet.getFloat("Clasificacion"),
-						resultSet.getString("Observaciones"), estadoPelicula);
+					pelicula = new Pelicula(resultSet.getString("Nombre"), resultSet.getString("Director"),
+							resultSet.getString("Genero"), resultSet.getInt("Duracion"), resultSet.getString("Idioma"),
+							resultSet.getString("Subtitulos").equals("Y"), resultSet.getFloat("Calificacion"),
+							resultSet.getString("Observaciones"), estadoPelicula);
+					pelicula.setId(resultSet.getInt("Id"));
+				}
 			}
-
 			return pelicula;
 
 		} catch (SQLException e) {
 			System.out.println("Error Query: " + e.getMessage());
-			throw new RuntimeException("Error intentando buscar Pelicula con Nombre " + nombre);
+			throw new RuntimeException("Error intentando buscar Pelicula con Id " + key);
 		} finally {
 			cerrarConexion();
 		}
@@ -63,8 +65,9 @@ public class PeliculaPersistente implements Persistencia {
 
 				pelicula = new Pelicula(resultSet.getString("Nombre"), resultSet.getString("Director"),
 						resultSet.getString("Genero"), resultSet.getInt("Duracion"), resultSet.getString("Idioma"),
-						resultSet.getString("Subtitulo").equals("Y"), resultSet.getFloat("Clasificacion"),
+						resultSet.getString("Subtitulos").equals("Y"), resultSet.getFloat("Calificacion"),
 						resultSet.getString("Observaciones"), estadoPelicula);
+				pelicula.setId(resultSet.getInt("Id"));
 				peliculas.add(pelicula);
 			}
 
@@ -86,7 +89,8 @@ public class PeliculaPersistente implements Persistencia {
 			Pelicula pelicula = (Pelicula) objetoPelicula;
 
 			PreparedStatement preparedStatement = conectarDb().prepareStatement(
-					"INSERT INTO TPO.dbo.Pelicula (Nombre, Director, Genero, Duracion, Idioma, Subtitulos, Clasificacion, Observaciones, Estado ) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					"INSERT INTO TPO.dbo.Pelicula (Nombre, Director, Genero, Duracion, Idioma, Subtitulos, Calificacion, Observaciones, Estado ) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
 			preparedStatement.setString(1, pelicula.getNombre());
 			preparedStatement.setString(2, pelicula.getDirector());
 			preparedStatement.setString(3, pelicula.getGenero());
@@ -125,24 +129,24 @@ public class PeliculaPersistente implements Persistencia {
 			Pelicula pelicula = (Pelicula) objetoPelicula;
 
 			PreparedStatement preparedStatement = conectarDb().prepareStatement(
-					"UPDATE TPO.dbo.Pelicula SET Director = ?, Genero = ?, Duracion = ?, Idioma = ?, Subtitulos = ?, Clasificacion = ?, Observaciones = ?, Estado = ? WHERE Nombre = ?)");
-
-			preparedStatement.setString(1, pelicula.getDirector());
-			preparedStatement.setString(2, pelicula.getGenero());
-			preparedStatement.setInt(3, pelicula.getDuracion());
-			preparedStatement.setString(4, pelicula.getIdioma());
+					"UPDATE TPO.dbo.Pelicula SET Nombre = ?, Director = ?, Genero = ?, Duracion = ?, Idioma = ?, Subtitulos = ?, Calificacion = ?, Observaciones = ?, Estado = ? WHERE ID = ?");
+			preparedStatement.setString(1, pelicula.getNombre());
+			preparedStatement.setString(2, pelicula.getDirector());
+			preparedStatement.setString(3, pelicula.getGenero());
+			preparedStatement.setInt(4, pelicula.getDuracion());
+			preparedStatement.setString(5, pelicula.getIdioma());
 			if (pelicula.getSubtitulos()) {
-				preparedStatement.setInt(5, 1);
+				preparedStatement.setInt(6, 1);
 
 			} else
-				preparedStatement.setInt(5, 0);
-			preparedStatement.setFloat(6, pelicula.getCalificacion());
-			preparedStatement.setString(7, pelicula.getObservaciones());
+				preparedStatement.setInt(6, 0);
+			preparedStatement.setFloat(7, pelicula.getCalificacion());
+			preparedStatement.setString(8, pelicula.getObservaciones());
 			if (pelicula.getEstado().equals(EstadoActivoInactivo.ACTIVO)) {
-				preparedStatement.setInt(8, 1);
+				preparedStatement.setInt(9, 1);
 			} else
-				preparedStatement.setInt(8, 1);
-			preparedStatement.setString(9, pelicula.getNombre());
+				preparedStatement.setInt(9, 0);
+			preparedStatement.setInt(10, pelicula.getId());
 			int filasAfectadas = preparedStatement.executeUpdate();
 			if (filasAfectadas != 0)
 				return true;
@@ -157,12 +161,12 @@ public class PeliculaPersistente implements Persistencia {
 
 	}
 
-	public boolean borrar(String nombre) {
+	public boolean borrar(Integer key) {
 		try {
 
 			Connection connection = conectarDb();
 			Statement statement = connection.createStatement();
-			int filasAfectadas = statement.executeUpdate("DELETE FROM Pelicula where Nombre=" + nombre);
+			int filasAfectadas = statement.executeUpdate("DELETE FROM Pelicula where Id=" + key);
 
 			if (filasAfectadas == 1) {
 				return true;
@@ -174,17 +178,25 @@ public class PeliculaPersistente implements Persistencia {
 
 		return false;
 	}
-
-	@Override
-	public Object buscar(Integer key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean borrar(Integer key) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public Integer getIdPelicula(String nombre) {
+		Integer id = null;
+		try {
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT Id FROM Pelicula WHERE Nombre = ?");
+			preparedStatement.setString(1, nombre);
+			ResultSet resultSet = preparedStatement.executeQuery();
+//			ResultSet resultset = ejecutarSelect("Select Id FROM Pelicula WHERE Nombre = " + nombre);
+			if (resultSet.next()) {
+				id = resultSet.getInt("Id");
+			}
+		}catch (SQLException e) {
+			System.out.println("Error Query: " + e.getMessage());
+			throw new RuntimeException("Error intentando buscar Pelicula con nombre " + nombre);
+		} finally {
+			cerrarConexion();
+		}
+		return id;
 	}
 
 }

@@ -1,42 +1,48 @@
 package com.cine.vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import com.cine.controlador.ControladorPelicula;
+import com.cine.vista.modelo.ModeloTablePelicula;
 
 public class JFormularioBajaPelicula extends JFormularioBase {
 
-	private JPanel contentPane;
-
 	/**
-	 * Launch the application.
+	 * 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFormularioBajaPelicula frame = new JFormularioBajaPelicula();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static final long serialVersionUID = 1L;
+	private JTable tabla;
+	private ModeloTablePelicula modeloBajaPelicula;
 
 	/**
 	 * Create the frame.
 	 */
 	public JFormularioBajaPelicula() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
+		tabla = new JTable(modeloBajaPelicula= new ModeloTablePelicula());
+		tabla.setSize(200, 200);
+		getContentPane().add(tabla);
+		JButton btnBorrarPelicula = new JButton("Borrar Pelicula");
+		btnBorrarPelicula.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				int[] filasSeleccionadas = tabla.getSelectedRows();
+				for(int fila: filasSeleccionadas) {
+					int id = ((int) (tabla.getValueAt(fila, 0)!= "N/A" ? tabla.getValueAt(fila, 0):-1));
+					ControladorPelicula.getInstance().bajaPelicula(id);
+				}
+				modeloBajaPelicula.fireTableDataChanged();
+				JOptionPane.showMessageDialog(null, "Pelicula Borrada Correctamente");
+			}
+		});
+		getContentPane().add(btnBorrarPelicula);
+		
+	
 	}
 
 }

@@ -3,7 +3,8 @@ package com.cine.modelo;
 import com.cine.utilidades.EstadoActivoInactivo;
 
 public class Pelicula {
-
+	
+	private Integer id = null;
     private String nombre;
     private String director;
     private String genero;
@@ -17,7 +18,8 @@ public class Pelicula {
 
     public Pelicula(String nombre, String director, String genero, Integer duracion, String idioma,
                     Boolean subtitulos, Float calificacion, String observaciones, EstadoActivoInactivo estado) {
-        this.nombre = nombre;
+//        this.setId(id);
+    	this.nombre = nombre;
         this.director = director;
         this.genero = genero;
         this.duracion = duracion;
@@ -28,7 +30,15 @@ public class Pelicula {
         this.estado = estado;
     }
 
-    public String getNombre() {
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
         return nombre;
     }
 
