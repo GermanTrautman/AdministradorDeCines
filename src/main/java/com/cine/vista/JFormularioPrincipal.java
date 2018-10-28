@@ -86,7 +86,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioModificacionEstablecimiento = new JFormularioListarEstablecimientos();
+        		JFrame formularioModificacionEstablecimiento = new JFormularioModificarEstablecimiento();
         		formularioModificacionEstablecimiento.setVisible(true);
         	}
         });

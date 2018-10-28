@@ -106,12 +106,14 @@ public class EstablecimientoPersistente implements Persistencia {
 	}
 
 	@Override
-	public void borrar(Object cuit) {
+	public void borrar(Object objectoEstablecimiento) {
 
         try {
         	
+        	Establecimiento establecimiento = (Establecimiento) objectoEstablecimiento;
+        	
         	PreparedStatement preparedStatement = conectarDb().prepareStatement("DELETE FROM TPO.dbo.Establecimiento WHERE CUIT=?");
-			preparedStatement.setInt(1, (int) cuit);
+			preparedStatement.setInt(1, establecimiento.getCuit());
 			preparedStatement.executeUpdate();
             
         }catch (SQLException e){
