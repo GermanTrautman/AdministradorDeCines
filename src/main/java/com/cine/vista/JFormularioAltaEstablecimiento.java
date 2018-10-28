@@ -27,7 +27,7 @@ public class JFormularioAltaEstablecimiento extends JFormularioBase {
 
 		getContentPane().setLayout(null);
 		
-		JLabel lblAltasalas = new JLabel("Alta Establecimientos");
+		JLabel lblAltasalas = new JLabel("Alta Establecimiento");
 		lblAltasalas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAltasalas.setFont(new Font("Tahoma", Font.BOLD, 26));
 		lblAltasalas.setBounds(0, 122, 1024, 38);
