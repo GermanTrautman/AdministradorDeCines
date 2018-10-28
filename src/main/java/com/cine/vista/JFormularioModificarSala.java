@@ -21,7 +21,7 @@ import com.cine.vista.modelo.ComboEstado;
 
 public class JFormularioModificarSala extends JFormularioBase {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5710795622494956896L;
 
 	private JTextField nombre = new JTextField();
 	private JTextField capacidad = new JTextField();
