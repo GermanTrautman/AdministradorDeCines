@@ -119,7 +119,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioListarSalas = new JFormularioListarSalas();
+        		JFrame formularioListarSalas = new JFormularioModificarSala();
         		formularioListarSalas.setVisible(true);
         	}
         });

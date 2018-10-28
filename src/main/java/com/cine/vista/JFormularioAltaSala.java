@@ -1,12 +1,14 @@
 package com.cine.vista;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.cine.controlador.ControladorEstablecimiento;
 import com.cine.controlador.ControladorSala;
@@ -27,29 +29,53 @@ public class JFormularioAltaSala extends JFormularioBase {
 	private JComboBox<ComboEstablecimiento> comboEstablecimientos = new JComboBox<>();
 	private JComboBox<ComboEstado> comboEstados = new JComboBox<>();
 
-	private JButton btnGuardarSala = new JButton("Guardar");
+	private JButton btnGuardar = new JButton("Guardar");
 
 	public JFormularioAltaSala() {
 
-		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+		this.getContentPane().setLayout(null);
+		
+		JLabel lblAltaSalas = new JLabel("Alta Sala");
+		lblAltaSalas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltaSalas.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblAltaSalas.setBounds(0, 122, 1024, 38);
+		this.getContentPane().add(lblAltaSalas);
 
-		this.getContentPane().add(new JLabel("Nombre:"));
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(223, 244, 229, 20);
+		this.getContentPane().add(lblNombre);
+		
+		this.nombre.setBounds(467, 238, 256, 26);
+		this.nombre.setColumns(10);
 		this.getContentPane().add(nombre);
+		
+		JLabel lblCapacidad = new JLabel("Capacidad");
+		lblCapacidad.setBounds(223, 286, 229, 20);
+		this.getContentPane().add(lblCapacidad);
 
-		this.getContentPane().add(new JLabel("Capacidad :"));
+		this.capacidad.setBounds(467, 280, 256, 26);
+		this.capacidad.setColumns(10);
 		this.getContentPane().add(capacidad);
+		
+		JLabel lblEstablecimiento = new JLabel("Establecimiento");
+		lblEstablecimiento.setBounds(223, 328, 225, 20);
+		this.getContentPane().add(lblEstablecimiento);
 
-		this.getContentPane().add(new JLabel("Establecimiento :"));
+		this.comboEstablecimientos.setBounds(467, 322, 256, 26);
 		this.getContentPane().add(comboEstablecimientos);
 		
 		popularComboEstablecimientos();
+		
+		JLabel lblNewLabel = new JLabel("Estado");
+		lblNewLabel.setBounds(223, 370, 229, 20);
+		this.getContentPane().add(lblNewLabel);
 
-		this.getContentPane().add(new JLabel("Estado :"));
+		this.comboEstados.setBounds(467, 364, 256, 26);
 		this.getContentPane().add(comboEstados);
 		
 		popularEstado();
 
-		this.btnGuardarSala.addActionListener(new ActionListener() {
+		this.btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				Object itemEstablecimiento = comboEstablecimientos.getSelectedItem();
@@ -64,14 +90,14 @@ public class JFormularioAltaSala extends JFormularioBase {
 					ControladorSala.getInstance().alta(nombre.getText(), Integer.parseInt(capacidad.getText()),
 							idEstablecimiento, estadoEnletras);
 					
+					JOptionPane.showMessageDialog(null, "Sala creada correctamente");
+					
 					reset();
 				}
 			}
 		});
-
-		this.getContentPane().add(btnGuardarSala);
-
-		this.btnGuardarSala.setMaximumSize(getMaximumSize());
+		this.btnGuardar.setBounds(223, 670, 115, 29);
+		this.getContentPane().add(btnGuardar);
 	}
 
 	public void reset() {
@@ -83,6 +109,8 @@ public class JFormularioAltaSala extends JFormularioBase {
 	}
 	
 	private void popularComboEstablecimientos() {
+		
+		ControladorEstablecimiento.getInstance().obtenerEstablecimientos();
 		
 		for (Establecimiento establecimiento : ControladorEstablecimiento.getInstance().getEstablecimientos()) {
 			comboEstablecimientos.addItem(new ComboEstablecimiento(establecimiento.getCuit(), establecimiento.getNombre()));

@@ -1,10 +1,8 @@
 package com.cine.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,9 @@ public class SalaPersistente implements Persistencia {
 			
             Sala sala = null;
 
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM TPO.dbo.Sala WHERE Nombre=" + "'" + nombre + "'");
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.Sala WHERE Nombre = ?");
+			preparedStatement.setString(1, (String) nombre);
+			ResultSet resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
             	
@@ -40,7 +40,7 @@ public class SalaPersistente implements Persistencia {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar sala con nombre " + nombre);
         } finally {
-            cerrarConexion();
+            liberarConexion();
         }
 	}
 
@@ -71,7 +71,7 @@ public class SalaPersistente implements Persistencia {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar todos las salas");
         } finally {
-            cerrarConexion();
+        	liberarConexion();
         }
 	}
 
@@ -93,7 +93,7 @@ public class SalaPersistente implements Persistencia {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			cerrarConexion();
+			liberarConexion();
 		}
 	}
 
@@ -115,21 +115,25 @@ public class SalaPersistente implements Persistencia {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			cerrarConexion();
+			liberarConexion();
 		}
 	}
 
 	@Override
-	public void borrar(Object nombre) {
+	public void borrar(Object objectoSala) {
 
 		try {
-        	
-            Connection connection = conectarDb();
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM TPO.dbo.Sala where Nombre=" + "'" + nombre + "'");
+			
+			Sala sala = (Sala) objectoSala;
+            
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("DELETE FROM TPO.dbo.Sala where Nombre = ?");
+			preparedStatement.setString(1, sala.getNombre());
+			preparedStatement.executeUpdate();
 
         }catch (SQLException e){
             e.printStackTrace();
-        }
+        } finally {
+			liberarConexion();
+		}
 	}
 }

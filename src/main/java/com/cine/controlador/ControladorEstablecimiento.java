@@ -81,7 +81,7 @@ public class ControladorEstablecimiento implements Cache {
 	public Object buscarEnCache(Object cuit) {
 
 		return establecimientos.stream()
-                .filter(usuario -> usuario.getCuit().equals(cuit))
+                .filter(establecimiento -> establecimiento.getCuit().equals(cuit))
                 .findAny()
                 .orElse(null);
 	}
@@ -93,10 +93,7 @@ public class ControladorEstablecimiento implements Cache {
 
 	@Override
 	public void borrarDeCache(Object cuit) {
-
-		if (buscarEnCache(cuit) != null) {
-			this.establecimientos.removeIf(usuario -> usuario.getCuit().equals(cuit));
-		}
+		this.establecimientos.removeIf(usuario -> usuario.getCuit().equals(cuit));
 	}
 
 	@Override
