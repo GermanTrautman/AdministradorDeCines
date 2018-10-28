@@ -76,7 +76,7 @@ public class SalaPersistente implements Persistencia {
 	}
 
 	@Override
-	public boolean insertar(Object objectoSala) {
+	public void insertar(Object objectoSala) {
 
 		try {
 			
@@ -90,19 +90,15 @@ public class SalaPersistente implements Persistencia {
 			
 			preparedStatement.executeUpdate();
 			
-			return true;
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			cerrarConexion();
 		}
-		
-		return false;
 	}
 
 	@Override
-	public boolean actualizar(Object objetoSala) {
+	public void actualizar(Object objetoSala) {
 
 		try {
 			
@@ -116,38 +112,24 @@ public class SalaPersistente implements Persistencia {
 			
 			preparedStatement.executeUpdate();
 			
-			int filasAfectadas = preparedStatement.executeUpdate();
-
-            if (filasAfectadas == 0) {
-                return true;
-            }
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			cerrarConexion();
 		}
-		
-		return false;
 	}
 
 	@Override
-	public boolean borrar(Object nombre) {
+	public void borrar(Object nombre) {
 
 		try {
         	
             Connection connection = conectarDb();
             Statement statement = connection.createStatement();
-            int filasAfectadas =  statement.executeUpdate("DELETE FROM TPO.dbo.Sala where Nombre=" + "'" + nombre + "'");
+            statement.executeUpdate("DELETE FROM TPO.dbo.Sala where Nombre=" + "'" + nombre + "'");
 
-            if (filasAfectadas == 1){
-                return true;
-            }
-            
         }catch (SQLException e){
             e.printStackTrace();
         }
-
-        return false;
 	}
 }

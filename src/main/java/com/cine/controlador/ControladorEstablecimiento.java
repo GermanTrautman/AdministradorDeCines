@@ -1,7 +1,6 @@
 package com.cine.controlador;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.cine.dao.Cache;
@@ -28,13 +27,18 @@ public class ControladorEstablecimiento implements Cache {
 	public void obtenerEstablecimientos() {
 		establecimientos = (List<Establecimiento>) (Object) establecimientoPersistente.listar();
 	}
-
+	
 	public Establecimiento buscar(Integer cuit) {
 		
 		Establecimiento establecimiento = (Establecimiento) buscarEnCache(cuit);
 		
 		if (establecimiento == null) {
-			establecimientoPersistente.buscar(cuit);
+			
+			establecimiento = (Establecimiento) establecimientoPersistente.buscar(cuit);
+			
+			if (establecimiento != null) {
+				agregarACache(establecimiento);
+			}
 		}
 	
 		return establecimiento;
@@ -49,7 +53,7 @@ public class ControladorEstablecimiento implements Cache {
 			agregarACache(establecimiento);
 
 			if (establecimientoPersistente.buscar(establecimiento.getCuit()) == null) {
-				establecimientoPersistente.insertar(establecimiento);
+				establecimiento.insertar();
 			}
 		}
 	}
@@ -58,32 +62,28 @@ public class ControladorEstablecimiento implements Cache {
 
 		borrarDeCache(cuit);
 
-		if (establecimientoPersistente.buscar(cuit) != null) {
-			establecimientoPersistente.borrar(cuit);
+		Establecimiento establecimiento = (Establecimiento) establecimientoPersistente.buscar(cuit);
+		
+		if (establecimiento != null) {
+			establecimiento.eliminar();
 		}
 	}
 	
 	public void modificacion(Integer cuit, String nombre, String domicilio, Integer capacidad) {
 		
-		Establecimiento establecimiento = new Establecimiento(cuit, nombre, domicilio, capacidad);
+		Establecimiento establecimientoModificado = new Establecimiento(cuit, nombre, domicilio, capacidad);
 		
-		actualizarCache(establecimiento);
-		establecimientoPersistente.actualizar(establecimiento);
+		actualizarCache(establecimientoModificado);
+		establecimientoModificado.actualizar(cuit, nombre, domicilio, capacidad);
 	}
 
 	@Override
 	public Object buscarEnCache(Object cuit) {
 
-		Establecimiento establecimientoEncontrado = null;
-
-		for (Establecimiento establecimiento : establecimientos) {
-
-			if (establecimiento.getCuit().equals(cuit)) {
-				establecimientoEncontrado = establecimiento;
-			}
-		}
-
-		return establecimientoEncontrado;
+		return establecimientos.stream()
+                .filter(usuario -> usuario.getCuit().equals(cuit))
+                .findAny()
+                .orElse(null);
 	}
 
 	@Override
@@ -95,26 +95,34 @@ public class ControladorEstablecimiento implements Cache {
 	public void borrarDeCache(Object cuit) {
 
 		if (buscarEnCache(cuit) != null) {
-
-			for (Iterator<Establecimiento> iterator = establecimientos.listIterator(); iterator.hasNext();) {
-				
-				Establecimiento establecimiento = iterator.next();
-				
-				if (establecimiento.getCuit().equals(cuit)) {
-					iterator.remove();
-				}
-			}
+			this.establecimientos.removeIf(usuario -> usuario.getCuit().equals(cuit));
 		}
 	}
 
 	@Override
-	public void actualizarCache(Object entidad) {
+	public void actualizarCache(Object objetoEstablecimientoModificado) {
 
-		Establecimiento establecimientoModificado = (Establecimiento) entidad;
+		Establecimiento establecimientoModificado = (Establecimiento) objetoEstablecimientoModificado;
 		
-		Establecimiento establecimientoSinModificaciones = (Establecimiento) buscarEnCache(establecimientoModificado.getCuit());
-		
-		borrarDeCache(establecimientoSinModificaciones.getCuit());
-		agregarACache(establecimientoModificado);
+		if (buscar(establecimientoModificado.getCuit()) != null) {
+			
+			for (Establecimiento establecimiento : establecimientos) {
+				
+				if (establecimiento.getCuit().equals(establecimientoModificado.getCuit())) {
+					
+					if (!establecimiento.getNombre().equals(establecimientoModificado.getNombre())) {
+						establecimiento.setNombre(establecimientoModificado.getNombre());
+					}
+					
+					if (!establecimiento.getDomicilio().equals(establecimientoModificado.getDomicilio())) {
+						establecimiento.setDomicilio(establecimientoModificado.getDomicilio());
+					}
+					
+					if (!establecimiento.getCapacidad().equals(establecimientoModificado.getCapacidad())) {
+						establecimiento.setCapacidad(establecimientoModificado.getCapacidad());
+					}
+				}
+			}
+		}
 	}
 }
