@@ -55,7 +55,7 @@ public class UsuarioPersistente implements Persistencia {
         }
     }
 
-    public boolean insertar(Object usuario) {
+    public void insertar(Object usuario) {
         try {
             Usuario usr = (Usuario) usuario;
             PreparedStatement preparedStatement = conectarDb().prepareStatement(
@@ -67,24 +67,18 @@ public class UsuarioPersistente implements Persistencia {
             preparedStatement.setString(5, usr.getNombre());
             preparedStatement.setString(6, usr.getDomicilio());
             preparedStatement.setDate(7, usr.getFechaDeNacimiento());
-            int filasAfectadas = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
-
-            if (filasAfectadas == 1) {
-                return true;
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             cerrarConexion();
 
         }
-
-        return false;
     }
 
 
-    public boolean actualizar(Object usuario) {
+    public void actualizar(Object usuario) {
         try {
             Usuario usr = (Usuario) usuario;
             PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE Usuario SET NombreDeUsuario=?,Email=?,Password=?,Nombre=?,Domicilio=?,FechaDeNacimiento=?");
@@ -94,34 +88,23 @@ public class UsuarioPersistente implements Persistencia {
             preparedStatement.setString(4, usr.getNombre());
             preparedStatement.setString(5, usr.getDomicilio());
             preparedStatement.setDate(6, usr.getFechaDeNacimiento());
-            int filasAfectadas = preparedStatement.executeUpdate();
-
-            if (filasAfectadas == 0) {
-                return true;
-            }
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;
     }
 
-    public boolean borrar(Object dni) {
+    public void borrar(Object dni) {
 
         try {
             Connection connection = conectarDb();
             Statement statement = connection.createStatement();
-            int filasAfectadas = statement.executeUpdate("DELETE FROM Usuario where dni=" + dni);
+            statement.executeUpdate("DELETE FROM Usuario where dni=" + dni);
 
-            if (filasAfectadas == 1) {
-                return true;
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;
     }
 
 }

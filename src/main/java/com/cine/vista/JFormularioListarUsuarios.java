@@ -1,6 +1,5 @@
 package com.cine.vista;
 
-import com.cine.vista.modelo.ModeloTablaEstablecimiento;
 import com.cine.vista.modelo.ModeloTablaUsuario;
 
 import javax.swing.*;

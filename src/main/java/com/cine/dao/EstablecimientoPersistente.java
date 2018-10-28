@@ -1,15 +1,12 @@
 package com.cine.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.cine.modelo.Establecimiento;
-import com.cine.modelo.Usuario;
 
 public class EstablecimientoPersistente implements Persistencia {
 	
@@ -19,8 +16,10 @@ public class EstablecimientoPersistente implements Persistencia {
 		try {
 			
             Establecimiento establecimiento = null;
-
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM TPO.dbo.Establecimiento WHERE CUIT=" + cuit);
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.Establecimiento WHERE CUIT=?");
+			preparedStatement.setInt(1, (int) cuit);
+			ResultSet resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
             	establecimiento = new Establecimiento(resultSet.getInt("CUIT"), resultSet.getString("Nombre"), resultSet.getString("Domicilio"), resultSet.getInt("Capacidad"));
@@ -63,7 +62,7 @@ public class EstablecimientoPersistente implements Persistencia {
 	}
 
 	@Override
-	public boolean insertar(Object objetoEstablecimiento) {
+	public void insertar(Object objetoEstablecimiento) {
 		
 		try {
 			
@@ -76,20 +75,16 @@ public class EstablecimientoPersistente implements Persistencia {
 			preparedStatement.setInt(4, establecimiento.getCapacidad());
 			
 			preparedStatement.executeUpdate();
-			
-			return true;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			cerrarConexion();
 		}
-		
-		return false;
 	}
 
 	@Override
-	public boolean actualizar(Object objetoEstablecimiento) {
+	public void actualizar(Object objetoEstablecimiento) {
 
 		try {
 			
@@ -103,38 +98,26 @@ public class EstablecimientoPersistente implements Persistencia {
 			
 			preparedStatement.executeUpdate();
 			
-			int filasAfectadas = preparedStatement.executeUpdate();
-
-            if (filasAfectadas == 0) {
-                return true;
-            }
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			cerrarConexion();
 		}
-		
-		return false;
 	}
 
 	@Override
-	public boolean borrar(Object cuit) {
+	public void borrar(Object objectoEstablecimiento) {
 
         try {
         	
-            Connection connection = conectarDb();
-            Statement statement = connection.createStatement();
-            int filasAfectadas =  statement.executeUpdate("DELETE FROM TPO.dbo.Establecimiento where CUIT=" + cuit);
-
-            if (filasAfectadas == 1){
-                return true;
-            }
+        	Establecimiento establecimiento = (Establecimiento) objectoEstablecimiento;
+        	
+        	PreparedStatement preparedStatement = conectarDb().prepareStatement("DELETE FROM TPO.dbo.Establecimiento WHERE CUIT=?");
+			preparedStatement.setInt(1, establecimiento.getCuit());
+			preparedStatement.executeUpdate();
             
         }catch (SQLException e){
             e.printStackTrace();
         }
-
-        return false;
 	}
 }

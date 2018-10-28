@@ -1,9 +1,7 @@
 package com.cine.vista;
 
 import com.cine.controlador.ControladorUsuario;
-import com.cine.modelo.Establecimiento;
 import com.cine.modelo.Usuario;
-import com.cine.vista.modelo.ModeloTablaEstablecimiento;
 import com.cine.vista.modelo.ModeloTablaUsuario;
 
 import javax.swing.*;
