@@ -40,7 +40,12 @@ public interface Persistencia {
         return null;
     }
 
+    default void liberarConexion() {
+    	PoolConnection.getPoolConnection().realeaseConnection(PoolConnection.getPoolConnection().getConnection());
+    }
+    
     default void cerrarConexion() {
+    	
         try {
             conectarDb().close();
         } catch (SQLException e) {

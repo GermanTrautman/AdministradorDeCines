@@ -1,7 +1,6 @@
 package com.cine.controlador;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.cine.dao.Cache;
@@ -31,6 +30,22 @@ public class ControladorSala implements Cache {
 		salas = (List<Sala>) (Object) salaPersistente.listar();
 	}
 
+	public Sala buscar(String nombre) {
+		
+		Sala sala = (Sala) buscarEnCache(nombre);
+		
+		if (sala == null) {
+			
+			sala = (Sala) salaPersistente.buscar(nombre);
+			
+			if (sala != null) {
+				agregarACache(sala);
+			}
+		}
+	
+		return sala;
+	}
+	
 	public void alta(String nombre, Integer capacidad, Integer cuitEstablecimiento, String estadoEnLetras) {
 		
 		Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
@@ -43,7 +58,7 @@ public class ControladorSala implements Cache {
 			agregarACache(sala);
 
 			if (salaPersistente.buscar(sala.getNombre()) == null) {
-				salaPersistente.insertar(sala);
+				sala.insertar();
 			}
 		}
 	}
@@ -51,9 +66,11 @@ public class ControladorSala implements Cache {
 	public void baja(String nombre) {
 
 		borrarDeCache(nombre);
+		
+		Sala sala = (Sala) salaPersistente.buscar(nombre);
 
-		if (salaPersistente.buscar(nombre) != null) {
-			salaPersistente.borrar(nombre);
+		if (sala != null) {
+			sala.borrar();
 		}
 	}
 	
@@ -62,25 +79,19 @@ public class ControladorSala implements Cache {
 		Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
 		Estado estado = Estado.valueOf(estadoEnLetras.toUpperCase());
 
-		Sala sala = new Sala(nombre, capacidad, establecimiento, estado);
+		Sala salaModificada = new Sala(nombre, capacidad, establecimiento, estado);
 		
-		actualizarCache(sala);
-		salaPersistente.actualizar(sala);
+		actualizarCache(salaModificada);
+		salaModificada.actualizar(nombre, capacidad, establecimiento, estado);
 	}
 	
 	@Override
 	public Object buscarEnCache(Object nombre) {
 
-		Sala salaEncontrada = null;
-
-		for (Sala sala : salas) {
-
-			if (sala.getNombre().equals(nombre)) {
-				salaEncontrada = sala;
-			}
-		}
-
-		return salaEncontrada;
+		return salas.stream()
+                .filter(sala -> sala.getNombre().equals(nombre))
+                .findAny()
+                .orElse(null);
 	}
 
 	@Override
@@ -90,28 +101,33 @@ public class ControladorSala implements Cache {
 
 	@Override
 	public void borrarDeCache(Object nombre) {
-
-		if (buscarEnCache(nombre) != null) {
-
-			for (Iterator<Sala> iterator = salas.listIterator(); iterator.hasNext();) {
-				
-				Sala sala = iterator.next();
-				
-				if (sala.getNombre().equals(nombre)) {
-					iterator.remove();
-				}
-			}
-		}
+		this.salas.removeIf(sala -> sala.getNombre().equals(nombre));
 	}
 
 	@Override
-	public void actualizarCache(Object sala) {
+	public void actualizarCache(Object objetoSalaModificada) {
 
-		Sala salaModificada = (Sala) sala;
+		Sala salaModificada = (Sala) objetoSalaModificada;
 		
-		Sala salaSinModificaciones = (Sala) buscarEnCache(salaModificada.getNombre());
-		
-		borrarDeCache(salaSinModificaciones.getNombre());
-		agregarACache(salaModificada);
+		if (buscar(salaModificada.getNombre()) != null) {
+			
+			for (Sala sala : salas) {
+				
+				if (sala.getNombre().equals(salaModificada.getNombre())) {
+					
+					if (!sala.getCapacidad().equals(salaModificada.getCapacidad())) {
+						sala.setCapacidad(salaModificada.getCapacidad());
+					}
+					
+					if (!sala.getEstablecimiento().getCuit().equals(salaModificada.getEstablecimiento().getCuit())) {
+						sala.setEstablecimiento(salaModificada.getEstablecimiento());
+					}
+					
+					if (!sala.getEstado().equals(salaModificada.getEstado())) {
+						sala.setEstado(salaModificada.getEstado());
+					}
+				}
+			}
+		}
 	}
 }

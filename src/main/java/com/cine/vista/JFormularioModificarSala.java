@@ -17,7 +17,6 @@ import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
 import com.cine.vista.modelo.ComboEstablecimiento;
 import com.cine.vista.modelo.ComboEstado;
-import com.cine.vista.modelo.ModeloTablaSala;
 
 public class JFormularioModificarSala extends JFormularioBase {
 
@@ -31,11 +30,11 @@ public class JFormularioModificarSala extends JFormularioBase {
 	
 	private JButton btnAgregarEstablecimiento = new JButton("Guardar cambios");
 
-	public JFormularioModificarSala(ModeloTablaSala modelo, String unNombre) {
+	public JFormularioModificarSala() {
 
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
-		Sala sala = (Sala) ControladorSala.getInstance().buscarEnCache(unNombre);
+		Sala sala = (Sala) ControladorSala.getInstance().buscarEnCache(1);
 
 		this.getContentPane().add(new JLabel("Nombre :"));
 		this.getContentPane().add(nombre).setEnabled(false);
@@ -74,8 +73,6 @@ public class JFormularioModificarSala extends JFormularioBase {
 
 					reset();
 
-					modelo.fireTableDataChanged();
-					
 					dispose();
 				}
 			}

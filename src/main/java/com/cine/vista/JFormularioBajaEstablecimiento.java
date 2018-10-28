@@ -71,9 +71,9 @@ public class JFormularioBajaEstablecimiento extends JFormularioBase {
 		this.domicilio.setColumns(10);
 		this.getContentPane().add(this.domicilio);
 		
-		JLabel lblCapacidadTotal = new JLabel("Capacidad");
-		lblCapacidadTotal.setBounds(223, 321, 229, 20);
-		this.getContentPane().add(lblCapacidadTotal);
+		JLabel lblCapacidad = new JLabel("Capacidad");
+		lblCapacidad.setBounds(223, 321, 229, 20);
+		this.getContentPane().add(lblCapacidad);
 		
 		this.capacidad = new JTextField();
 		this.capacidad.setEnabled(false);

@@ -31,8 +31,8 @@ public class EstablecimientoPersistente implements Persistencia {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar establecimiento con cuit " + cuit);
         } finally {
-            cerrarConexion();
-        }
+			liberarConexion();
+		}
 	}
 	
 	@Override
@@ -57,8 +57,8 @@ public class EstablecimientoPersistente implements Persistencia {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar todos los establecimientos");
         } finally {
-            cerrarConexion();
-        }
+			liberarConexion();
+		}
 	}
 
 	@Override
@@ -78,8 +78,8 @@ public class EstablecimientoPersistente implements Persistencia {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			cerrarConexion();
+        } finally {
+			liberarConexion();
 		}
 	}
 
@@ -116,8 +116,10 @@ public class EstablecimientoPersistente implements Persistencia {
 			preparedStatement.setInt(1, establecimiento.getCuit());
 			preparedStatement.executeUpdate();
             
-        }catch (SQLException e){
+        } catch (SQLException e){
             e.printStackTrace();
-        }
+        } finally {
+			liberarConexion();
+		}
 	}
 }
