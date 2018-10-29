@@ -13,15 +13,29 @@ import com.cine.utilidades.EstadoActivoInactivo;
 
 public class PeliculaPersistente implements Persistencia {
 
+	private static PeliculaPersistente instancia;
+
+	private PeliculaPersistente() {
+
+	}
+
+	public static PeliculaPersistente getInstance() {
+		if (instancia == null) {
+			instancia = new PeliculaPersistente();
+		}
+		return instancia;
+	}
+
 	@Override
-	public Object buscar(Object key) {
+	public Object buscar(Object nombre) {
 		try {
 
 			Pelicula pelicula = null;
 
-			if (key != null) {
-				PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM Pelicula WHERE ID = ?");
-				preparedStatement.setInt(1, (int) key);
+			if (nombre != null) {
+				PreparedStatement preparedStatement = conectarDb()
+						.prepareStatement("SELECT * FROM Pelicula WHERE Nombre = ?");
+				preparedStatement.setString(1, (String) nombre);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
 					EstadoActivoInactivo estadoPelicula;
@@ -41,7 +55,7 @@ public class PeliculaPersistente implements Persistencia {
 
 		} catch (SQLException e) {
 			System.out.println("Error Query: " + e.getMessage());
-			throw new RuntimeException("Error intentando buscar Pelicula con Id " + key);
+			throw new RuntimeException("Error intentando buscar Pelicula con Nombre " + nombre);
 		} finally {
 			cerrarConexion();
 		}
@@ -163,19 +177,20 @@ public class PeliculaPersistente implements Persistencia {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Integer getIdPelicula(String nombre) {
 		Integer id = null;
 		try {
-			
-			PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT Id FROM Pelicula WHERE Nombre = ?");
+
+			PreparedStatement preparedStatement = conectarDb()
+					.prepareStatement("SELECT Id FROM Pelicula WHERE Nombre = ?");
 			preparedStatement.setString(1, nombre);
 			ResultSet resultSet = preparedStatement.executeQuery();
 //			ResultSet resultset = ejecutarSelect("Select Id FROM Pelicula WHERE Nombre = " + nombre);
 			if (resultSet.next()) {
 				id = resultSet.getInt("Id");
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error Query: " + e.getMessage());
 			throw new RuntimeException("Error intentando buscar Pelicula con nombre " + nombre);
 		} finally {

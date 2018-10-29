@@ -10,71 +10,81 @@ import com.cine.modelo.Pelicula;
 import com.cine.utilidades.EstadoActivoInactivo;
 
 public class ControladorPelicula implements Cache {
-	private static final ControladorPelicula controladorPelicula = new ControladorPelicula();
-	private List<Pelicula> peliculas = new ArrayList<Pelicula>();
-	private PeliculaPersistente peliculaPersistente = new PeliculaPersistente();
+	private static ControladorPelicula instancia;
+	private List<Pelicula> peliculas;
+//	private PeliculaPersistente peliculaPersistente = new PeliculaPersistente();
+
+	private ControladorPelicula() {
+		this.peliculas = new ArrayList<Pelicula>();
+	}
 
 	public static ControladorPelicula getInstance() {
-		return controladorPelicula;
+		if (ControladorPelicula.instancia == null) {
+			ControladorPelicula.instancia = new ControladorPelicula();
+		}
+		return ControladorPelicula.instancia;
 	}
 
-	@SuppressWarnings("unchecked")
-	public void obtenerPeliculas() {
-		peliculas = (List<Pelicula>) (Object) peliculaPersistente.listar();
-	}
+//	@SuppressWarnings("unchecked")
+//	public void obtenerPeliculas() {
+//		peliculas = (List<Pelicula>) (Object) peliculaPersistente.listar();
+//	}
 
 	public void altaPelicula(String nombre, String director, String genero, Integer duracion, String idioma,
 			Boolean subtitulos, Float calificacion, String observaciones, EstadoActivoInactivo estado) {
+
 		Pelicula pelicula = new Pelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion,
 				observaciones, estado);
-		if (buscarEnCache(pelicula.getId()) == null) {
-			
-			if (peliculaPersistente.buscar(pelicula.getId()) == null) {
-				peliculaPersistente.insertar(pelicula);
-				pelicula.setId(peliculaPersistente.getIdPelicula(nombre));
-				agregarACache(pelicula);
-			}
-		}
+		pelicula.insertarPelicula();
+		agregarACache(pelicula);
+
 	}
 
-	public void bajaPelicula(Integer id) {
-		borrarDeCache(id);
-		if (peliculaPersistente.buscar(id) != null) {
-			peliculaPersistente.borrar(id);
+	public void bajaPelicula(String nombre) {
+		Pelicula pelicula = (Pelicula) buscarEnCache(nombre);
+
+		if (pelicula != null) {
+			pelicula.eliminarPelicula();
+			peliculas.remove(pelicula);
 		}
 	}
 
 	public void modificarPelicula(Integer id, String nombre, String director, String genero, Integer duracion,
 			String idioma, Boolean subtitulos, Float calificacion, String observaciones, EstadoActivoInactivo estado) {
-		Pelicula pelicula = new Pelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion,
-				observaciones, estado);
-		pelicula.setId(id);
+		Pelicula pelicula = (Pelicula) buscarEnCache(nombre);
+		
+		pelicula.actualizarPelicula(id, nombre, director, genero, duracion, idioma, subtitulos, calificacion, observaciones, estado);
 		actualizarCache(pelicula);
-		peliculaPersistente.actualizar(pelicula);
+		
 	}
 
 	@Override
-	public Object buscarEnCache(Object key) {
-		Pelicula peliculaEncontrada = null;
+	public Object buscarEnCache(Object nombre) {
+
 		for (Pelicula pelicula : peliculas) {
-			if (pelicula.getId().equals(key)) {
-				peliculaEncontrada = pelicula;
+			if (pelicula.getNombre().equals(nombre)) {
+				return pelicula;
 			}
 		}
-		return peliculaEncontrada;
+		Pelicula pelicula = (Pelicula) PeliculaPersistente.getInstance().buscar(nombre);
+		if (pelicula != null) {
+			peliculas.add(pelicula);
+			return pelicula;
+		}
+		return null;
 	}
 
-	public void agregarACache(Object entidad) {
-		peliculas.add((Pelicula) entidad);
-
-	}
+//	public void agregarACache(Object entidad) {
+//		peliculas.add((Pelicula) entidad);
+//
+//	}
 
 	@Override
-	public void borrarDeCache(Object key) {
-		if (buscarEnCache(key) != null) {
+	public void borrarDeCache(Object nombre) {
+		if (buscarEnCache(nombre) != null) {
 			for (Iterator<Pelicula> iterator = peliculas.listIterator(); iterator.hasNext();) {
 				Pelicula pelicula = iterator.next();
-				if (pelicula.getId().equals(key)) {
+				if (pelicula.getNombre().equals(nombre)) {
 					iterator.remove();
 				}
 
@@ -86,11 +96,17 @@ public class ControladorPelicula implements Cache {
 	public void actualizarCache(Object entidad) {
 		Pelicula peliculaModificada = (Pelicula) entidad;
 		Pelicula PeliculaSinModificar = (Pelicula) buscarEnCache(peliculaModificada.getId());
-		borrarDeCache(PeliculaSinModificar.getId());
+		borrarDeCache(PeliculaSinModificar.getNombre());
 		agregarACache(peliculaModificada);
 	}
 
 	public List<Pelicula> getPeliculas() {
 		return peliculas;
+	}
+
+	@Override
+	public void agregarACache(Object entidad) {
+		peliculas.add((Pelicula) entidad);
+		
 	}
 }

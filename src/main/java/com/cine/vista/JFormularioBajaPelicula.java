@@ -34,7 +34,7 @@ public class JFormularioBajaPelicula extends JFormularioBase {
 				int[] filasSeleccionadas = tabla.getSelectedRows();
 				for(int fila: filasSeleccionadas) {
 					int id = ((int) (tabla.getValueAt(fila, 0)!= "N/A" ? tabla.getValueAt(fila, 0):-1));
-					ControladorPelicula.getInstance().bajaPelicula(id);
+//					ControladorPelicula.getInstance().bajaPelicula(id);
 				}
 				modeloBajaPelicula.fireTableDataChanged();
 				JOptionPane.showMessageDialog(null, "Pelicula Borrada Correctamente");
