@@ -10,50 +10,53 @@ import java.util.List;
 
 public class ControladorUsuario implements Cache {
 
-    private static final ControladorUsuario controladorUsuario = new ControladorUsuario();
+    public List<Usuario> usuarioList;
+    private static ControladorUsuario instancia;
 
-    private List<Usuario> usuarioList = new ArrayList<>();
-
-    private UsuarioPersistente usuarioPersistente = new UsuarioPersistente();
-
-    public static ControladorUsuario getInstance() {
-        return controladorUsuario;
+    public ControladorUsuario() {
+        this.usuarioList = new ArrayList<>();
     }
 
+    public static ControladorUsuario getInstance() {
+        if (ControladorUsuario.instancia == null) {
+            ControladorUsuario.instancia = new ControladorUsuario();
+        }
+        return ControladorUsuario.instancia;
+    }
 
     public void altaUsuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, Date fechaDeNacimiento) {
 
-        if (buscarEnCache(dni) == null){
+        if (buscarEnCache(dni) == null) {
 
             Usuario usuario = new Usuario(dni, nombreDeUsuario, email, password, nombre, domicilio, fechaDeNacimiento);
             usuarioList.add(usuario);
-            usuarioPersistente.insertar(usuario);
-        }else {
+            usuario.insertarUsuario();
+        } else {
             throw new RuntimeException("No se permiten usuarios duplicados");
         }
     }
 
 
     public void bajaUsuario(Integer dni) {
-
         borrarDeCache(dni);
+        Usuario usuario = (Usuario) UsuarioPersistente.getInstance().buscar(dni);
 
-        if (usuarioPersistente.buscar(dni) != null) {
-            usuarioPersistente.borrar(dni);
+        if (usuario != null) {
+            UsuarioPersistente.getInstance().borrar(dni);
         }
     }
 
     public void modificacionUsuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, Date fechaDeNacimiento) {
 
-        Usuario usuario = new Usuario(dni,nombreDeUsuario,email,password,nombre,domicilio,fechaDeNacimiento);
+        Usuario usuario = new Usuario(dni, nombreDeUsuario, email, password, nombre, domicilio, fechaDeNacimiento);
 
         actualizarCache(usuario);
-        usuarioPersistente.actualizar(usuario);
+        usuario.actualizarUsuario(usuario);
     }
 
 
     @Override
-    public Object buscarEnCache(Object key) {
+    public Usuario buscarEnCache(Object key) {
         return usuarioList.stream()
                 .filter(usuario -> usuario.getDni().equals(key))
                 .findAny()
@@ -78,11 +81,4 @@ public class ControladorUsuario implements Cache {
         this.usuarioList.add(usuario);
     }
 
-    public void obtenerUsuariosDb() {
-        usuarioList = (List<Usuario>) (Object) usuarioPersistente.listar();
-    }
-
-    public List<Usuario> getUsuarios(){
-        return usuarioList;
-    }
 }

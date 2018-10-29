@@ -8,6 +8,19 @@ import java.util.List;
 
 public class UsuarioPersistente implements Persistencia {
 
+    public static UsuarioPersistente instancia;
+
+    public UsuarioPersistente() {
+    }
+
+    public static UsuarioPersistente getInstance(){
+        if (instancia == null){
+            instancia = new UsuarioPersistente();
+        }
+        return instancia;
+    }
+
+    @Override
     public Object buscar(Object dni) {
         try {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE dni=" + dni);
@@ -30,7 +43,7 @@ public class UsuarioPersistente implements Persistencia {
         }
     }
 
-
+    @Override
     public List<Object> listar() {
         try {
 
@@ -55,6 +68,7 @@ public class UsuarioPersistente implements Persistencia {
         }
     }
 
+    @Override
     public void insertar(Object usuario) {
         try {
             Usuario usr = (Usuario) usuario;
@@ -77,7 +91,7 @@ public class UsuarioPersistente implements Persistencia {
         }
     }
 
-
+    @Override
     public void actualizar(Object usuario) {
         try {
             Usuario usr = (Usuario) usuario;
@@ -95,6 +109,7 @@ public class UsuarioPersistente implements Persistencia {
         }
     }
 
+    @Override
     public void borrar(Object dni) {
 
         try {

@@ -1,5 +1,7 @@
 package com.cine.modelo;
 
+import com.cine.dao.UsuarioPersistente;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -103,5 +105,19 @@ public class Usuario {
                 ", fechaDeNacimiento=" + fechaDeNacimiento +
                 ", rol=" + rol +
                 '}';
+    }
+
+
+
+    public void insertarUsuario(){
+        UsuarioPersistente.getInstance().insertar(this);
+    }
+
+    public void borrarUsuario(){
+        UsuarioPersistente.getInstance().borrar(this.getDni());
+    }
+
+    public void actualizarUsuario(Usuario usuario){
+        UsuarioPersistente.getInstance().actualizar(usuario);
     }
 }

@@ -5,7 +5,7 @@ import com.cine.controlador.ControladorUsuario;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -52,10 +52,11 @@ public class JFormularioAltaUsuario extends JFormularioBase {
                         && nombre.getText() != null && password.getText() != null && fecha.getText() != null) {
 
                     controladorUsuario.altaUsuario(Integer.parseInt(dni.getText()), nombreDeUsuario.getText(), email.getText(), password.getText(),
-                            nombre.getText(), domicilio.getText(), null);
+                            nombre.getText(), domicilio.getText(), Date.valueOf(fecha.getText()));
 
                 }
                 JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
+                reset();
             }
         });
 
@@ -65,9 +66,13 @@ public class JFormularioAltaUsuario extends JFormularioBase {
     }
 
     public void reset() {
-
         this.nombre.setText("");
         this.dni.setText("");
+        this.nombreDeUsuario.setText("");
+        this.email.setText("");
+        this.password.setText("");
+        this.domicilio.setText("");
+        this.fecha.setText("");
     }
 
 }
