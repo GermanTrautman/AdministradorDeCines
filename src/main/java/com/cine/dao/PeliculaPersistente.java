@@ -97,7 +97,7 @@ public class PeliculaPersistente implements Persistencia {
 	}
 
 	@Override
-	public boolean insertar(Object objetoPelicula) {
+	public void insertar(Object objetoPelicula) {
 		try {
 
 			Pelicula pelicula = (Pelicula) objetoPelicula;
@@ -123,21 +123,16 @@ public class PeliculaPersistente implements Persistencia {
 				preparedStatement.setInt(9, 1);
 
 			preparedStatement.executeUpdate();
-			
-			return true;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			cerrarConexion();
 		}
-
-		return false;
-
 	}
 
 	@Override
-	public boolean actualizar(Object objetoPelicula) {
+	public void actualizar(Object objetoPelicula) {
 		try {
 
 			Pelicula pelicula = (Pelicula) objetoPelicula;
@@ -161,37 +156,26 @@ public class PeliculaPersistente implements Persistencia {
 			} else
 				preparedStatement.setInt(9, 0);
 			preparedStatement.setInt(10, pelicula.getId());
-			int filasAfectadas = preparedStatement.executeUpdate();
-			if (filasAfectadas != 0)
-				return true;
-
+			preparedStatement.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			cerrarConexion();
 		}
-
-		return false;
-
 	}
 
 	@Override
-	public boolean borrar(Object key) {
+	public void borrar(Object key) {
 		try {
 
 			Connection connection = conectarDb();
 			Statement statement = connection.createStatement();
-			int filasAfectadas = statement.executeUpdate("DELETE FROM Pelicula where Id=" + key);
-
-			if (filasAfectadas == 1) {
-				return true;
-			}
+			statement.executeUpdate("DELETE FROM Pelicula where Id=" + key);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return false;
 	}
 
 	public Integer getIdPelicula(String nombre) {

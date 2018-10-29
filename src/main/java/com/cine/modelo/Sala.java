@@ -1,5 +1,6 @@
 package com.cine.modelo;
 
+import com.cine.dao.SalaPersistente;
 import com.cine.utilidades.Estado;
 
 public class Sala {
@@ -48,4 +49,24 @@ public class Sala {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+	public void insertar() {
+
+		SalaPersistente salaPersistente = new SalaPersistente();
+		salaPersistente.insertar(this);
+	}
+
+	public void borrar() {
+
+		SalaPersistente salaPersistente = new SalaPersistente();
+		salaPersistente.borrar(this);
+	}
+
+	public void actualizar(String nombre, Integer capacidad, Establecimiento establecimiento, Estado estado) {
+
+		Sala sala = new Sala(nombre, capacidad, establecimiento, estado);
+		
+		SalaPersistente salaPersistente = new SalaPersistente();
+		salaPersistente.actualizar(sala);
+	}
 }

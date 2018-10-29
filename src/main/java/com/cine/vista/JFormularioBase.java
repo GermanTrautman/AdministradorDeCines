@@ -7,13 +7,9 @@ public abstract class JFormularioBase
 
     private static final long serialVersionUID = 1L;
 
-
     public JFormularioBase(){
 
-        this.setSize(640, 480);
+        this.setSize(1024, 768);
         this.setLocationRelativeTo(null);
     }
-
-
-
 }

@@ -1,14 +1,15 @@
 package com.cine.vista;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.cine.controlador.ControladorEstablecimiento;
 
 import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 
 public class JFormularioAltaEstablecimiento extends JFormularioBase {
@@ -20,22 +21,48 @@ public class JFormularioAltaEstablecimiento extends JFormularioBase {
 	private JTextField domicilio = new JTextField();
 	private JTextField capacidad = new JTextField();
 	
-	private JButton btnAgregarEstablecimiento = new JButton("Agregar Establecimiento");
+	private JButton btnAgregarEstablecimiento = new JButton("Guardar");
 
 	public JFormularioAltaEstablecimiento() {
 
-		getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+		getContentPane().setLayout(null);
+		
+		JLabel lblAltasalas = new JLabel("Alta Establecimiento");
+		lblAltasalas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAltasalas.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblAltasalas.setBounds(0, 122, 1024, 38);
+		this.getContentPane().add(lblAltasalas);
 
-		this.getContentPane().add(new JLabel("CUIT:"));
+		JLabel lblCuit = new JLabel("CUIT");
+		lblCuit.setBounds(223, 195, 229, 20);
+		this.getContentPane().add(lblCuit);
+		
+		this.cuit.setBounds(467, 195, 256, 26);
+		this.cuit.setColumns(10);
 		this.getContentPane().add(cuit);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(223, 237, 229, 20);
+		this.getContentPane().add(lblNombre);
 
-		this.getContentPane().add(new JLabel("Nombre :"));
+		this.nombre.setBounds(467, 237, 256, 26);
+		this.nombre.setColumns(10);
 		this.getContentPane().add(nombre);
 
-		this.getContentPane().add(new JLabel("Domicilio :"));
+		JLabel lblDomicilio = new JLabel("Domicilio");
+		lblDomicilio.setBounds(223, 279, 229, 20);
+		this.getContentPane().add(lblDomicilio);
+		
+		this.domicilio.setBounds(467, 279, 256, 26);
+		this.domicilio.setColumns(10);
 		this.getContentPane().add(domicilio);
+		
+		JLabel lblCapacidad = new JLabel("Capacidad");
+		lblCapacidad.setBounds(223, 321, 229, 20);
+		this.getContentPane().add(lblCapacidad);
 
-		this.getContentPane().add(new JLabel("Capacidad:"));
+		this.capacidad.setBounds(467, 321, 256, 26);
+		this.capacidad.setColumns(10);
 		this.getContentPane().add(capacidad);
 
 		btnAgregarEstablecimiento.addActionListener(new ActionListener() {
@@ -53,9 +80,8 @@ public class JFormularioAltaEstablecimiento extends JFormularioBase {
 				}
 			}
 		});
+		this.btnAgregarEstablecimiento.setBounds(223, 670, 115, 29);
 		this.getContentPane().add(btnAgregarEstablecimiento);
-
-		btnAgregarEstablecimiento.setMaximumSize(getMaximumSize());
 	}
 
 	public void reset() {

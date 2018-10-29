@@ -86,7 +86,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioModificacionEstablecimiento = new JFormularioListarEstablecimientos();
+        		JFrame formularioModificacionEstablecimiento = new JFormularioModificarEstablecimiento();
         		formularioModificacionEstablecimiento.setVisible(true);
         	}
         });
@@ -119,7 +119,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioListarSalas = new JFormularioListarSalas();
+        		JFrame formularioListarSalas = new JFormularioModificarSala();
         		formularioListarSalas.setVisible(true);
         	}
         });
