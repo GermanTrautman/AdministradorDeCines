@@ -127,7 +127,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 							.findAny().orElse(null);
 					
 					if (asientoFisico == null) {
-						asientos.add(new AsientoFisico(fila, columna));
+						asientos.add(new AsientoFisico(fila, columna, Estado.ACTIVO));
 					} else {
 						asientos.removeIf(asiento -> asiento.getFila().equals(fila) && asiento.getNumeroDeAsiento().equals(columna));
 					}
