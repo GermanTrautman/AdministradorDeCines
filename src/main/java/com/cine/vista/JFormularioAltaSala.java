@@ -131,7 +131,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 
 				if (fila >= 0 && columna >= 0 && selected == 0) {
 
-					asientos.add(new AsientoFisico(fila, columna));
+					asientos.add(new AsientoFisico(fila, columna,Estado.ACTIVO));
 				}
 
 			}

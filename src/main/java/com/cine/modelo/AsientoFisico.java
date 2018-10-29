@@ -1,17 +1,21 @@
 package com.cine.modelo;
 
+import com.cine.utilidades.Estado;
+
 public class AsientoFisico {
 
 	private Integer fila;
     private Integer numeroDeAsiento;
+    private Estado estado;
     
-    public AsientoFisico(Integer fila, Integer numeroDeAsiento) {
-    	super();
-    	this.fila = fila;
-    	this.numeroDeAsiento = numeroDeAsiento;
-    }
+    public AsientoFisico(Integer fila, Integer numeroDeAsiento, Estado estado) {
+		super();
+		this.fila = fila;
+		this.numeroDeAsiento = numeroDeAsiento;
+		this.estado = estado;
+	}
 
-    public Integer getFila() {
+	public Integer getFila() {
 		return fila;
 	}
 	
@@ -25,5 +29,13 @@ public class AsientoFisico {
 
 	public void setNumeroDeAsiento(Integer numeroDeAsiento) {
 		this.numeroDeAsiento = numeroDeAsiento;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 }
