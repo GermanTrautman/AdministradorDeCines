@@ -3,8 +3,8 @@ package com.cine.vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -35,7 +35,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 	private JComboBox<ComboEstado> comboEstados = new JComboBox<>();
 
 	private JTable tblAsientos;
-	private List<AsientoFisico> asientos;
+	private List<AsientoFisico> asientos = new ArrayList<>();
 
 	private JButton btnGuardar = new JButton("Guardar");
 
@@ -119,19 +119,21 @@ public class JFormularioAltaSala extends JFormularioBase {
 
 				int fila = tblAsientos.rowAtPoint(evt.getPoint());
 				int columna = tblAsientos.columnAtPoint(evt.getPoint());
+				int selected = 0;
 
-				if (fila >= 0 && columna >= 0) {
-
-					AsientoFisico asientoFisico = asientos.stream().filter(
-							asiento -> asiento.getFila().equals(fila) && asiento.getNumeroDeAsiento().equals(columna))
-							.findAny().orElse(null);
-					
-					if (asientoFisico == null) {
-						asientos.add(new AsientoFisico(fila, columna));
-					} else {
+				if (!asientos.isEmpty()){
+					if (asientos.get(0).getFila().equals(fila) && asientos.get(0).getNumeroDeAsiento().equals(columna)){
 						asientos.removeIf(asiento -> asiento.getFila().equals(fila) && asiento.getNumeroDeAsiento().equals(columna));
+						tblAsientos.clearSelection();
+						selected += 1;
 					}
 				}
+
+				if (fila >= 0 && columna >= 0 && selected == 0) {
+
+					asientos.add(new AsientoFisico(fila, columna));
+				}
+
 			}
 		});
 		getContentPane().add(tblAsientos);
