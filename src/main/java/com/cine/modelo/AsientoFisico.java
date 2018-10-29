@@ -4,15 +4,25 @@ import com.cine.utilidades.Estado;
 
 public class AsientoFisico {
 
+	private Integer idSala;
 	private Integer fila;
     private Integer numeroDeAsiento;
     private Estado estado;
     
-    public AsientoFisico(Integer fila, Integer numeroDeAsiento, Estado estado) {
+	public AsientoFisico(Integer idSala, Integer fila, Integer numeroDeAsiento, Estado estado) {
 		super();
+		this.idSala = idSala;
 		this.fila = fila;
 		this.numeroDeAsiento = numeroDeAsiento;
 		this.estado = estado;
+	}
+
+	public Integer getIdSala() {
+		return idSala;
+	}
+
+	public void setIdSala(Integer idSala) {
+		this.idSala = idSala;
 	}
 
 	public Integer getFila() {
