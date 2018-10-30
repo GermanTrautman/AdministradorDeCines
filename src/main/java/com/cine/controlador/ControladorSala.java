@@ -3,8 +3,10 @@ package com.cine.controlador;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cine.dao.AsientoFisicoPersistente;
 import com.cine.dao.Cache;
 import com.cine.dao.SalaPersistente;
+import com.cine.modelo.AsientoFisico;
 import com.cine.modelo.Establecimiento;
 import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
@@ -14,8 +16,10 @@ public class ControladorSala implements Cache {
 	private static final ControladorSala controladorSala = new ControladorSala();
 
 	private List<Sala> salas = new ArrayList<>();
+	private AsientoFisico[][] asientosFisicosTemporales = new AsientoFisico[25][25];
 
 	private SalaPersistente salaPersistente = new SalaPersistente();
+	private AsientoFisicoPersistente asientoFisicoPersistente = new AsientoFisicoPersistente();
 
 	public static ControladorSala getInstance() {
 		return controladorSala;
@@ -23,6 +27,10 @@ public class ControladorSala implements Cache {
 	
 	public List<Sala> getSalas() {
 		return salas;
+	}
+	
+	public AsientoFisico[][] getAsientosFisicosTemporales() {
+		return asientosFisicosTemporales;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -38,6 +46,10 @@ public class ControladorSala implements Cache {
 			
 			sala = (Sala) salaPersistente.buscar(nombre);
 			
+			@SuppressWarnings("unchecked")
+			List<AsientoFisico> asientos = (List<AsientoFisico>) asientoFisicoPersistente.buscar(sala.getNombre());
+			sala.setAsientos(asientos);
+			
 			if (sala != null) {
 				agregarACache(sala);
 			}
@@ -46,7 +58,7 @@ public class ControladorSala implements Cache {
 		return sala;
 	}
 	
-	public void alta(String nombre, Integer capacidad, Integer cuitEstablecimiento, String estadoEnLetras) {
+	public void alta(String nombre, Integer capacidad, AsientoFisico[][] asientos, Integer cuitEstablecimiento, String estadoEnLetras) {
 		
 		Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
 		Estado estado = Estado.valueOf(estadoEnLetras.toUpperCase());
@@ -58,7 +70,17 @@ public class ControladorSala implements Cache {
 			agregarACache(sala);
 
 			if (salaPersistente.buscar(sala.getNombre()) == null) {
+				
 				sala.insertar();
+				
+				for (int i = 0; i < asientos.length; i++) {
+					for (int j = 0; j < asientos.length; j++) {
+						
+						if (asientos[i][j] != null) {
+							asientos[i][j].insertar();
+						}
+					}
+				}
 			}
 		}
 	}

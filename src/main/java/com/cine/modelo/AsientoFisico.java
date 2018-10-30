@@ -1,28 +1,29 @@
 package com.cine.modelo;
 
+import com.cine.dao.AsientoFisicoPersistente;
 import com.cine.utilidades.Estado;
 
 public class AsientoFisico {
 
-	private Integer idSala;
+	private String nombreSala;
 	private Integer fila;
     private Integer numeroDeAsiento;
     private Estado estado;
-    
-	public AsientoFisico(Integer idSala, Integer fila, Integer numeroDeAsiento, Estado estado) {
+	
+	public AsientoFisico(String nombreSala, Integer fila, Integer numeroDeAsiento, Estado estado) {
 		super();
-		this.idSala = idSala;
+		this.nombreSala = nombreSala;
 		this.fila = fila;
 		this.numeroDeAsiento = numeroDeAsiento;
 		this.estado = estado;
 	}
 
-	public Integer getIdSala() {
-		return idSala;
+	public String getNombreSala() {
+		return nombreSala;
 	}
 
-	public void setIdSala(Integer idSala) {
-		this.idSala = idSala;
+	public void setNombreSala(String nombreSala) {
+		this.nombreSala = nombreSala;
 	}
 
 	public Integer getFila() {
@@ -47,5 +48,11 @@ public class AsientoFisico {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public void insertar() {
+
+		AsientoFisicoPersistente asientoFisicoPersistente = new AsientoFisicoPersistente();
+		asientoFisicoPersistente.insertar(this);
 	}
 }

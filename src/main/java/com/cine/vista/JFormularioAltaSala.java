@@ -3,8 +3,6 @@ package com.cine.vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -35,12 +33,13 @@ public class JFormularioAltaSala extends JFormularioBase {
 	private JComboBox<ComboEstado> comboEstados = new JComboBox<>();
 
 	private JTable tblAsientos;
-	private List<AsientoFisico> asientos = new ArrayList<>();
+
+	private TablaAsientos tablaAsientos = new TablaAsientos();
 
 	private JButton btnGuardar = new JButton("Guardar");
 
 	public JFormularioAltaSala() {
-
+		
 		this.getContentPane().setLayout(null);
 
 		JLabel lblAltaSalas = new JLabel("Alta Sala");
@@ -83,6 +82,32 @@ public class JFormularioAltaSala extends JFormularioBase {
 
 		popularEstado();
 
+		JLabel lblNewLabel_1 = new JLabel("Asientos");
+		lblNewLabel_1.setBounds(223, 228, 56, 16);
+		getContentPane().add(lblNewLabel_1);
+
+		tblAsientos = new JTable(tablaAsientos);
+		tblAsientos.setBounds(223, 257, 502, 400);
+		tblAsientos.setRowSelectionAllowed(false);
+		tblAsientos.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+				int fila = tblAsientos.rowAtPoint(evt.getPoint());
+				int columna = tblAsientos.columnAtPoint(evt.getPoint());
+				
+				AsientoFisico asientoFisico = new AsientoFisico(nombre.getText(), fila, columna, Estado.ACTIVO);
+				
+				if (ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] == null) {
+					ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] = asientoFisico;
+				} else {
+					ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] = null;
+				}
+
+			}
+		});
+		getContentPane().add(tblAsientos);
+
 		this.btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -96,7 +121,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 						&& comboEstablecimientos.getSelectedItem() != null && comboEstados.getSelectedItem() != null) {
 
 					ControladorSala.getInstance().alta(nombre.getText(), Integer.parseInt(capacidad.getText()),
-							idEstablecimiento, estadoEnletras);
+							ControladorSala.getInstance().getAsientosFisicosTemporales(), idEstablecimiento, estadoEnletras);
 
 					JOptionPane.showMessageDialog(null, "Sala creada correctamente");
 
@@ -106,37 +131,6 @@ public class JFormularioAltaSala extends JFormularioBase {
 		});
 		this.btnGuardar.setBounds(223, 679, 115, 29);
 		this.getContentPane().add(btnGuardar);
-
-		JLabel lblNewLabel_1 = new JLabel("Asientos");
-		lblNewLabel_1.setBounds(223, 228, 56, 16);
-		getContentPane().add(lblNewLabel_1);
-
-		tblAsientos = new JTable(new TablaAsientos());
-		tblAsientos.setBounds(223, 257, 502, 400);
-		tblAsientos.addMouseListener(new java.awt.event.MouseAdapter() {
-			@Override
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-
-				int fila = tblAsientos.rowAtPoint(evt.getPoint());
-				int columna = tblAsientos.columnAtPoint(evt.getPoint());
-				int selected = 0;
-
-				if (!asientos.isEmpty()){
-					if (asientos.get(0).getFila().equals(fila) && asientos.get(0).getNumeroDeAsiento().equals(columna)){
-						asientos.removeIf(asiento -> asiento.getFila().equals(fila) && asiento.getNumeroDeAsiento().equals(columna));
-						tblAsientos.clearSelection();
-						selected += 1;
-					}
-				}
-
-				if (fila >= 0 && columna >= 0 && selected == 0) {
-
-					asientos.add(new AsientoFisico(1, fila, columna,Estado.ACTIVO));
-				}
-
-			}
-		});
-		getContentPane().add(tblAsientos);
 	}
 
 	public void reset() {

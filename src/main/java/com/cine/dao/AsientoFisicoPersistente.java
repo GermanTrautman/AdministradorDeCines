@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cine.modelo.AsientoFisico;
-import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
 
 public class AsientoFisicoPersistente implements Persistencia {
@@ -19,14 +18,14 @@ public class AsientoFisicoPersistente implements Persistencia {
 			
             List<Object> asientosFisicos = new ArrayList<>();
             
-            PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.AsientoFisico WHERE IdSala = ?");
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.AsientoFisico WHERE NombreSala = ?");
 			preparedStatement.setInt(1, (Integer) idSala);
 			ResultSet resultSet = preparedStatement.executeQuery();
             
             while (resultSet.next()) {
             	
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
-            	AsientoFisico asientoFisico = new AsientoFisico(resultSet.getInt("IdSala"), resultSet.getInt("Fila"), resultSet.getInt("NumeroDeAsiento"), estado);
+            	AsientoFisico asientoFisico = new AsientoFisico(resultSet.getString("NombreSala"), resultSet.getInt("Fila"), resultSet.getInt("NumeroDeAsiento"), estado);
             	
             	asientosFisicos.add(asientoFisico);
             }
@@ -52,14 +51,13 @@ public class AsientoFisicoPersistente implements Persistencia {
 
 		try {
 			
-			@SuppressWarnings("unchecked")
-			List<AsientoFisico> asientoFisicos = (List<AsientoFisico>) objetoAsientoFisico;
+			AsientoFisico asientoFisico = (AsientoFisico) objetoAsientoFisico;
 			
-			PreparedStatement preparedStatement = conectarDb().prepareStatement("INSERT INTO TPO.dbo.AsientoFisico (IdSala, Fila, NumeroDeAsiento, Estado) values (?, ?, ?, ?)");
-			preparedStatement.setInt(1, asientoFisicos.get(0).getIdSala());
-			preparedStatement.setInt(2, asientoFisicos.get(0).getFila());
-			preparedStatement.setInt(3, asientoFisicos.get(0).getNumeroDeAsiento());
-			preparedStatement.setString(4, asientoFisicos.get(0).getEstado().estado());
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("INSERT INTO TPO.dbo.AsientoFisico (NombreSala, Fila, NumeroDeAsiento, Estado) values (?, ?, ?, ?)");
+			preparedStatement.setString(1, asientoFisico.getNombreSala());
+			preparedStatement.setInt(2, asientoFisico.getFila());
+			preparedStatement.setInt(3, asientoFisico.getNumeroDeAsiento());
+			preparedStatement.setString(4, asientoFisico.getEstado().estado());
 			
 			preparedStatement.executeUpdate();
 			
@@ -71,14 +69,44 @@ public class AsientoFisicoPersistente implements Persistencia {
 	}
 
 	@Override
-	public void actualizar(Object entidad) {
-		// TODO Auto-generated method stub
-		
+	public void actualizar(Object objetoAsientoFisico) {
+
+		try {
+			
+			AsientoFisico asientoFisico = (AsientoFisico) objetoAsientoFisico;
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.AsientoFisico SET Estado = ? WHERE NombreSala = ? AND Fila = ? AND NumeroDeAsiento = ?");
+			preparedStatement.setString(1, asientoFisico.getEstado().estado());
+			preparedStatement.setString(2, asientoFisico.getNombreSala());
+			preparedStatement.setInt(3, asientoFisico.getFila());
+			preparedStatement.setInt(4, asientoFisico.getNumeroDeAsiento());
+			
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			liberarConexion();
+		}
 	}
 
 	@Override
-	public void borrar(Object key) {
-		// TODO Auto-generated method stub
-		
+	public void borrar(Object objectoAsientoFisico) {
+
+		try {
+			
+			AsientoFisico asientoFisico = (AsientoFisico) objectoAsientoFisico;
+            
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("DELETE FROM TPO.dbo.AsientoFisico WHERE NombreSala = ? AND Fila = ? AND NumeroDeAsiento = ?");
+            preparedStatement.setString(1, asientoFisico.getNombreSala());
+			preparedStatement.setInt(2, asientoFisico.getFila());
+			preparedStatement.setInt(3, asientoFisico.getNumeroDeAsiento());
+			preparedStatement.executeUpdate();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+			liberarConexion();
+		}
 	}
 }
