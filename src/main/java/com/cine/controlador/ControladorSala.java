@@ -17,6 +17,7 @@ public class ControladorSala implements Cache {
 
 	private List<Sala> salas = new ArrayList<>();
 	private AsientoFisico[][] asientosFisicosTemporales = new AsientoFisico[25][25];
+	private Sala salaSeleccionada = null;
 
 	private SalaPersistente salaPersistente = new SalaPersistente();
 	private AsientoFisicoPersistente asientoFisicoPersistente = new AsientoFisicoPersistente();
@@ -33,6 +34,14 @@ public class ControladorSala implements Cache {
 		return asientosFisicosTemporales;
 	}
 	
+	public Sala getSalaSeleccionada() {
+		return salaSeleccionada;
+	}
+
+	public void setSalaSeleccionada(Sala salaSeleccionada) {
+		this.salaSeleccionada = salaSeleccionada;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void obtenerSalas() {
 		salas = (List<Sala>) (Object) salaPersistente.listar();
@@ -46,9 +55,8 @@ public class ControladorSala implements Cache {
 			
 			sala = (Sala) salaPersistente.buscar(nombre);
 			
-			@SuppressWarnings("unchecked")
-			List<AsientoFisico> asientos = (List<AsientoFisico>) asientoFisicoPersistente.buscar(sala.getNombre());
-			sala.setAsientos(asientos);
+			AsientoFisico[][] asientosFisicos = (AsientoFisico[][]) asientoFisicoPersistente.buscar(sala.getNombre());
+			sala.setAsientosFisicos(asientosFisicos);
 			
 			if (sala != null) {
 				agregarACache(sala);
@@ -58,12 +66,13 @@ public class ControladorSala implements Cache {
 		return sala;
 	}
 	
-	public void alta(String nombre, Integer capacidad, AsientoFisico[][] asientos, Integer cuitEstablecimiento, String estadoEnLetras) {
+	public void alta(String nombre, AsientoFisico[][] asientos, Integer cuitEstablecimiento, String estadoEnLetras) {
 		
 		Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
 		Estado estado = Estado.valueOf(estadoEnLetras.toUpperCase());
 
-		Sala sala = new Sala(nombre, capacidad, establecimiento, estado);
+		Sala sala = new Sala(nombre, establecimiento, estado);
+		sala.setAsientosFisicos(asientos);
 
 		if (buscarEnCache(sala.getNombre()) == null) {
 
@@ -92,19 +101,33 @@ public class ControladorSala implements Cache {
 		Sala sala = (Sala) salaPersistente.buscar(nombre);
 
 		if (sala != null) {
+			
+			sala.setAsientosFisicos((AsientoFisico[][]) asientoFisicoPersistente.buscar(nombre));
+			
+			for (int i = 0; i < sala.getAsientosFisicos().length; i++) {
+				
+				for (int j = 0; j < sala.getAsientosFisicos().length; j++) {
+					
+					AsientoFisico asientoFisico = sala.getAsientosFisicos()[i][j];
+					if (asientoFisico != null) {
+						asientoFisico.borrar();
+					}
+				}
+			}
+
 			sala.borrar();
 		}
 	}
 	
-	public void modificacion(String nombre, Integer capacidad, Integer cuitEstablecimiento, String estadoEnLetras) {
+	public void modificacion(String nombre, Integer cuitEstablecimiento, String estadoEnLetras) {
 		
 		Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
 		Estado estado = Estado.valueOf(estadoEnLetras.toUpperCase());
 
-		Sala salaModificada = new Sala(nombre, capacidad, establecimiento, estado);
+		Sala salaModificada = new Sala(nombre, establecimiento, estado);
 		
 		actualizarCache(salaModificada);
-		salaModificada.actualizar(nombre, capacidad, establecimiento, estado);
+		salaModificada.actualizar(nombre, establecimiento, estado);
 	}
 	
 	@Override
@@ -136,10 +159,6 @@ public class ControladorSala implements Cache {
 			for (Sala sala : salas) {
 				
 				if (sala.getNombre().equals(salaModificada.getNombre())) {
-					
-					if (!sala.getCapacidad().equals(salaModificada.getCapacidad())) {
-						sala.setCapacidad(salaModificada.getCapacidad());
-					}
 					
 					if (!sala.getEstablecimiento().getCuit().equals(salaModificada.getEstablecimiento().getCuit())) {
 						sala.setEstablecimiento(salaModificada.getEstablecimiento());

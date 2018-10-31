@@ -55,4 +55,10 @@ public class AsientoFisico {
 		AsientoFisicoPersistente asientoFisicoPersistente = new AsientoFisicoPersistente();
 		asientoFisicoPersistente.insertar(this);
 	}
+	
+	public void borrar() {
+		
+		AsientoFisicoPersistente asientoFisicoPersistente = new AsientoFisicoPersistente();
+		asientoFisicoPersistente.borrar(this);
+	}
 }

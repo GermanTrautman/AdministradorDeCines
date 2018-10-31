@@ -1,22 +1,18 @@
 package com.cine.modelo;
 
-import java.util.List;
-
 import com.cine.dao.SalaPersistente;
 import com.cine.utilidades.Estado;
 
 public class Sala {
 
 	private String nombre;
-	private List<AsientoFisico> asientos;
-	private Integer capacidad;
+	AsientoFisico[][] asientosFisicos = new AsientoFisico[25][25];
 	private Establecimiento establecimiento;
 	private Estado estado;
 
-	public Sala(String nombre, Integer capacidad, Establecimiento establecimiento, Estado estado) {
+	public Sala(String nombre, Establecimiento establecimiento, Estado estado) {
 		super();
 		this.nombre = nombre;
-		this.capacidad = capacidad;
 		this.establecimiento = establecimiento;
 		this.estado = estado;
 	}
@@ -29,20 +25,12 @@ public class Sala {
 		this.nombre = nombre;
 	}
 
-	public List<AsientoFisico> getAsientos() {
-		return asientos;
+	public AsientoFisico[][] getAsientosFisicos() {
+		return asientosFisicos;
 	}
 
-	public void setAsientos(List<AsientoFisico> asientos) {
-		this.asientos = asientos;
-	}
-
-	public Integer getCapacidad() {
-		return capacidad;
-	}
-
-	public void setCapacidad(Integer capacidad) {
-		this.capacidad = capacidad;
+	public void setAsientosFisicos(AsientoFisico[][] asientosFisicos) {
+		this.asientosFisicos = asientosFisicos;
 	}
 
 	public Establecimiento getEstablecimiento() {
@@ -73,9 +61,9 @@ public class Sala {
 		salaPersistente.borrar(this);
 	}
 
-	public void actualizar(String nombre, Integer capacidad, Establecimiento establecimiento, Estado estado) {
+	public void actualizar(String nombre, Establecimiento establecimiento, Estado estado) {
 
-		Sala sala = new Sala(nombre, capacidad, establecimiento, estado);
+		Sala sala = new Sala(nombre, establecimiento, estado);
 
 		SalaPersistente salaPersistente = new SalaPersistente();
 		salaPersistente.actualizar(sala);

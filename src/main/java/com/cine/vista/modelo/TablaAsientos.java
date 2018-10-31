@@ -20,14 +20,19 @@ public class TablaAsientos extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int fila, int columna) {
-
-		if (ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] != null
-				&& ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna].getFila() != null
-				&& ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna]
+		
+		if (ControladorSala.getInstance().getSalaSeleccionada() != null && ControladorSala.getInstance().getSalaSeleccionada().getAsientosFisicos()[fila][columna] != null
+				&& ControladorSala.getInstance().getSalaSeleccionada().getAsientosFisicos()[fila][columna].getFila() != null
+				&& ControladorSala.getInstance().getSalaSeleccionada().getAsientosFisicos()[fila][columna]
 						.getNumeroDeAsiento() != null) {
 			return "X";
 		} else {
 			return "";
 		}
 	}
+	
+    public boolean isCellEditable(int fila, int columna){  
+        return false;  
+    }
+
 }

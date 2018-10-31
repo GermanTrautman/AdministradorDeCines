@@ -24,7 +24,6 @@ public class JFormularioModificarSala extends JFormularioBase {
 	private static final long serialVersionUID = -5710795622494956896L;
 
 	private JTextField nombre = new JTextField();
-	private JTextField capacidad = new JTextField();
 
 	private JComboBox<ComboEstablecimiento> comboEstablecimientos = new JComboBox<>();
 	private JComboBox<ComboEstado> comboEstados = new JComboBox<>();
@@ -75,28 +74,19 @@ public class JFormularioModificarSala extends JFormularioBase {
 		btnLimpiarCampos.setBounds(863, 194, 131, 29);
 		getContentPane().add(btnLimpiarCampos);
 		
-		JLabel lblCapacidad = new JLabel("Capacidad");
-		lblCapacidad.setBounds(223, 237, 229, 20);
-		this.getContentPane().add(lblCapacidad);
-
-		this.capacidad.setBounds(467, 237, 256, 26);
-		this.capacidad.setColumns(10);
-		this.capacidad.setEnabled(false);
-		this.getContentPane().add(capacidad);
-		
 		JLabel lblEstablecimiento = new JLabel("Establecimiento");
-		lblEstablecimiento.setBounds(223, 279, 229, 20);
+		lblEstablecimiento.setBounds(223, 241, 229, 20);
 		this.getContentPane().add(lblEstablecimiento);
 
-		this.comboEstablecimientos.setBounds(467, 279, 256, 26);
+		this.comboEstablecimientos.setBounds(467, 238, 256, 26);
 		this.comboEstablecimientos.setEnabled(false);
 		this.getContentPane().add(comboEstablecimientos);
 		
 		JLabel lblNewLabel = new JLabel("Estado");
-		lblNewLabel.setBounds(223, 321, 229, 20);
+		lblNewLabel.setBounds(223, 290, 229, 20);
 		this.getContentPane().add(lblNewLabel);
 
-		this.comboEstados.setBounds(467, 321, 256, 26);
+		this.comboEstados.setBounds(467, 287, 256, 26);
 		this.comboEstados.setEnabled(false);
 		this.getContentPane().add(comboEstados);
 		
@@ -111,7 +101,7 @@ public class JFormularioModificarSala extends JFormularioBase {
 					ComboEstado estadoSeleccionado = (ComboEstado) comboEstados.getSelectedItem();
 					String estado = estadoSeleccionado.getEstado();
 					
-					ControladorSala.getInstance().modificacion(nombre.getText(), Integer.parseInt(capacidad.getText()), idEstablecimiento, estado);
+					ControladorSala.getInstance().modificacion(nombre.getText(), idEstablecimiento, estado);
 					
 					resetCampos();
 					
@@ -126,8 +116,6 @@ public class JFormularioModificarSala extends JFormularioBase {
 	private void popularEstados(Sala sala) {
 
 		if (sala != null) {
-
-			capacidad.setText(sala.getCapacidad().toString());
 	
 			ControladorEstablecimiento.getInstance().obtenerEstablecimientos();
 			
@@ -169,7 +157,6 @@ public class JFormularioModificarSala extends JFormularioBase {
 	private void habilitarCampos() {
 
 		nombre.setEnabled(false);
-		capacidad.setEnabled(true);
 		comboEstablecimientos.setEnabled(true);
 		comboEstados.setEnabled(true);
 	}
@@ -177,12 +164,10 @@ public class JFormularioModificarSala extends JFormularioBase {
 	private void resetCampos() {
 
 		nombre.setText("");
-		capacidad.setText("");
 		comboEstablecimientos.removeAllItems();
 		comboEstados.removeAllItems();
 		
 		nombre.setEnabled(true);
-		capacidad.setEnabled(false);
 		comboEstablecimientos.setEnabled(false);
 		comboEstados.setEnabled(false);
 	}

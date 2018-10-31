@@ -3,7 +3,6 @@ package com.cine.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.cine.modelo.AsientoFisico;
@@ -12,14 +11,14 @@ import com.cine.utilidades.Estado;
 public class AsientoFisicoPersistente implements Persistencia {
 
 	@Override
-	public Object buscar(Object idSala) {
+	public Object buscar(Object nombreSala) {
 		
 		try {
 			
-            List<Object> asientosFisicos = new ArrayList<>();
+			AsientoFisico[][] asientosFisicos = new AsientoFisico[25][25];
             
             PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.AsientoFisico WHERE NombreSala = ?");
-			preparedStatement.setInt(1, (Integer) idSala);
+			preparedStatement.setString(1, (String) nombreSala);
 			ResultSet resultSet = preparedStatement.executeQuery();
             
             while (resultSet.next()) {
@@ -27,14 +26,14 @@ public class AsientoFisicoPersistente implements Persistencia {
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	AsientoFisico asientoFisico = new AsientoFisico(resultSet.getString("NombreSala"), resultSet.getInt("Fila"), resultSet.getInt("NumeroDeAsiento"), estado);
             	
-            	asientosFisicos.add(asientoFisico);
+            	asientosFisicos[asientoFisico.getFila()][asientoFisico.getNumeroDeAsiento()] = asientoFisico;
             }
             
             return asientosFisicos;
             
         } catch (SQLException e) {
         	System.out.println("Error Query: " + e.getMessage());
-            throw new RuntimeException("Error intentando buscar asientos de la sala " + idSala);
+            throw new RuntimeException("Error intentando buscar asientos de la sala " + nombreSala);
         } finally {
         	liberarConexion();
         }
