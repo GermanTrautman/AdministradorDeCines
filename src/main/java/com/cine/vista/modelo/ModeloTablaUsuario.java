@@ -15,7 +15,7 @@ public class ModeloTablaUsuario extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return ControladorUsuario.getInstance().getUsuarios().size() + 1;
+        return ControladorUsuario.getInstance().usuarioList.size() + 1;
     }
 
     @Override
@@ -47,19 +47,19 @@ public class ModeloTablaUsuario extends AbstractTableModel {
         } else {
 
             if (columna == 0) {
-                return ControladorUsuario.getInstance().getUsuarios().get(fila - 1).getDni();
+                return ControladorUsuario.getInstance().usuarioList.get(fila - 1).getDni();
             } else if (columna == 1) {
-                return ControladorUsuario.getInstance().getUsuarios().get(fila - 1).getNombre();
+                return ControladorUsuario.getInstance().usuarioList.get(fila - 1).getNombre();
             } else if (columna == 2) {
-                return ControladorUsuario.getInstance().getUsuarios().get(fila - 1).getNombreDeUsuario();
+                return ControladorUsuario.getInstance().usuarioList.get(fila - 1).getNombreDeUsuario();
             } else if (columna == 3) {
-                return ControladorUsuario.getInstance().getUsuarios().get(fila - 1).getEmail();
+                return ControladorUsuario.getInstance().usuarioList.get(fila - 1).getEmail();
             } else if (columna == 4) {
-                return ControladorUsuario.getInstance().getUsuarios().get(fila - 1).getDomicilio();
+                return ControladorUsuario.getInstance().usuarioList.get(fila - 1).getDomicilio();
             } else if (columna == 5) {
-                return ControladorUsuario.getInstance().getUsuarios().get(fila - 1).getFechaDeNacimiento();
+                return ControladorUsuario.getInstance().usuarioList.get(fila - 1).getFechaDeNacimiento();
             } else if (columna == 6) {
-                return ControladorUsuario.getInstance().getUsuarios().get(fila - 1).getPassword();
+                return ControladorUsuario.getInstance().usuarioList.get(fila - 1).getPassword();
             }
         }
 
