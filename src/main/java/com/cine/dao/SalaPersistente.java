@@ -31,7 +31,7 @@ public class SalaPersistente implements Persistencia {
 
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	
-            	sala = new Sala(resultSet.getString("Nombre"), resultSet.getInt("Capacidad"), establecimiento, estado);
+            	sala = new Sala(resultSet.getString("Nombre"), establecimiento, estado);
             }
             
             return sala;
@@ -61,7 +61,7 @@ public class SalaPersistente implements Persistencia {
 
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	
-            	sala = new Sala(resultSet.getString("Nombre"), resultSet.getInt("Capacidad"), establecimiento, estado);
+            	sala = new Sala(resultSet.getString("Nombre"), establecimiento, estado);
             	salas.add(sala);
             }
             
@@ -82,11 +82,10 @@ public class SalaPersistente implements Persistencia {
 			
 			Sala sala = (Sala) objectoSala;
 			
-			PreparedStatement preparedStatement = conectarDb().prepareStatement("INSERT INTO TPO.dbo.Sala (Nombre, Capacidad, CUITEstablecimiento, Estado) values (?, ?, ?, ?)");
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("INSERT INTO TPO.dbo.Sala (Nombre, CUITEstablecimiento, Estado) values (?, ?, ?)");
 			preparedStatement.setString(1, sala.getNombre());
-			preparedStatement.setInt(2, sala.getCapacidad());
-			preparedStatement.setInt(3, sala.getEstablecimiento().getCuit());
-			preparedStatement.setString(4, sala.getEstado().estado());
+			preparedStatement.setInt(2, sala.getEstablecimiento().getCuit());
+			preparedStatement.setString(3, sala.getEstado().estado());
 			
 			preparedStatement.executeUpdate();
 			
@@ -104,11 +103,10 @@ public class SalaPersistente implements Persistencia {
 			
 			Sala sala = (Sala) objetoSala;
 			
-			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.Sala SET Capacidad = ?, CUITEstablecimiento = ?, Estado = ? WHERE Nombre = ?");
-			preparedStatement.setInt(1, sala.getCapacidad());
-			preparedStatement.setInt(2, sala.getEstablecimiento().getCuit());
-			preparedStatement.setString(3, sala.getEstado().estado());
-			preparedStatement.setString(4, sala.getNombre());
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.Sala SET CUITEstablecimiento = ?, Estado = ? WHERE Nombre = ?");
+			preparedStatement.setInt(1, sala.getEstablecimiento().getCuit());
+			preparedStatement.setString(2, sala.getEstado().estado());
+			preparedStatement.setString(3, sala.getNombre());
 			
 			preparedStatement.executeUpdate();
 			

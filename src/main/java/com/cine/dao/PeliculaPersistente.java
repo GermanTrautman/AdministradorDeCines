@@ -1,10 +1,8 @@
 package com.cine.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +24,8 @@ public class PeliculaPersistente implements Persistencia {
 		return instancia;
 	}
 
+	
+	//Busco en la base la pelicula con el nombre recibido
 	@Override
 	public Object buscar(Object nombre) {
 		try {
@@ -96,6 +96,8 @@ public class PeliculaPersistente implements Persistencia {
 
 	}
 
+	//Inserto en la base la pelicula recibida por parametro
+	
 	@Override
 	public void insertar(Object objetoPelicula) {
 		try {
@@ -131,6 +133,7 @@ public class PeliculaPersistente implements Persistencia {
 		}
 	}
 
+	//Actualizo en la base la pelicula recibida por parametro
 	@Override
 	public void actualizar(Object objetoPelicula) {
 		try {
@@ -157,7 +160,7 @@ public class PeliculaPersistente implements Persistencia {
 				preparedStatement.setInt(9, 0);
 			preparedStatement.setInt(10, pelicula.getId());
 			preparedStatement.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -165,16 +168,18 @@ public class PeliculaPersistente implements Persistencia {
 		}
 	}
 
+	//Elimino de la base la pelicula con el nombre recibido por parametro
 	@Override
-	public void borrar(Object key) {
+	public void borrar(Object nombre) {
 		try {
 
-			Connection connection = conectarDb();
-			Statement statement = connection.createStatement();
-			statement.executeUpdate("DELETE FROM Pelicula where Id=" + key);
-
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("DELETE FROM Pelicula where Nombre= ?");
+			preparedStatement.setString(1, (String) nombre);
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			cerrarConexion();
 		}
 	}
 
