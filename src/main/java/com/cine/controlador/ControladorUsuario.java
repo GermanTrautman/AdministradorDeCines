@@ -4,7 +4,6 @@ import com.cine.dao.Cache;
 import com.cine.dao.UsuarioPersistente;
 import com.cine.modelo.Usuario;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class ControladorUsuario implements Cache {
         return ControladorUsuario.instancia;
     }
 
-    public void altaUsuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, Date fechaDeNacimiento) {
+    public void altaUsuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, String fechaDeNacimiento) {
 
         if (buscarEnCache(dni) == null) {
 
@@ -46,7 +45,7 @@ public class ControladorUsuario implements Cache {
         }
     }
 
-    public void modificacionUsuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, Date fechaDeNacimiento) {
+    public void modificacionUsuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, String fechaDeNacimiento) {
 
         Usuario usuario = new Usuario(dni, nombreDeUsuario, email, password, nombre, domicilio, fechaDeNacimiento);
 
@@ -57,11 +56,23 @@ public class ControladorUsuario implements Cache {
 
     @Override
     public Usuario buscarEnCache(Object key) {
-        return usuarioList.stream()
+        return usuarioList
+                .stream()
                 .filter(usuario -> usuario.getDni().equals(key))
-                .findAny()
+                .findFirst()
                 .orElse(null);
     }
+
+    public Usuario buscarUsuarioEnDb(Integer dni) {
+        Usuario userDb = new Usuario();
+        userDb = userDb.buscarUsuario(dni);
+        if (userDb.getDni() != null){
+
+            usuarioList.add(userDb);
+        }
+        return userDb;
+    }
+
 
     @Override
     public void agregarACache(Object entidad) {
@@ -79,6 +90,7 @@ public class ControladorUsuario implements Cache {
         Usuario usuario = (Usuario) entidad;
         borrarDeCache(usuario.getDni());
         this.usuarioList.add(usuario);
+        usuario.actualizarUsuario(usuario);
     }
 
 }

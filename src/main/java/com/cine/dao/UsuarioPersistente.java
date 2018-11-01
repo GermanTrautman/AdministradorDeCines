@@ -1,5 +1,6 @@
 package com.cine.dao;
 
+import com.cine.controlador.ControladorUsuario;
 import com.cine.modelo.Usuario;
 
 import java.sql.*;
@@ -28,9 +29,10 @@ public class UsuarioPersistente implements Persistencia {
             if (resultSet.next()) {
                 usuario.setDni(resultSet.getInt("DNI"));
                 usuario.setNombre(resultSet.getString("NombreDeUsuario"));
-                usuario.setNombreDeUsuario(resultSet.getString("Email"));
-                usuario.setEmail(resultSet.getString("Nombre"));
+                usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
+                usuario.setEmail(resultSet.getString("Email"));
                 usuario.setDomicilio(resultSet.getString("Domicilio"));
+                usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
             }
 
 
@@ -57,7 +59,7 @@ public class UsuarioPersistente implements Persistencia {
                 usuario.setPassword(resultSet.getString("password"));
                 usuario.setNombre(resultSet.getString("nombre"));
                 usuario.setDomicilio(resultSet.getString("domicilio"));
-                usuario.setFechaDeNacimiento(resultSet.getDate("fechaDeNacimiento"));
+                usuario.setFechaDeNacimiento(resultSet.getString("fechaDeNacimiento"));
                 usuarioList.add(usuario);
             }
 
@@ -80,7 +82,7 @@ public class UsuarioPersistente implements Persistencia {
             preparedStatement.setString(4, usr.getPassword());
             preparedStatement.setString(5, usr.getNombre());
             preparedStatement.setString(6, usr.getDomicilio());
-            preparedStatement.setDate(7, usr.getFechaDeNacimiento());
+            preparedStatement.setString(7, usr.getFechaDeNacimiento());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -95,13 +97,13 @@ public class UsuarioPersistente implements Persistencia {
     public void actualizar(Object usuario) {
         try {
             Usuario usr = (Usuario) usuario;
-            PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE Usuario SET NombreDeUsuario=?,Email=?,Password=?,Nombre=?,Domicilio=?,FechaDeNacimiento=?");
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE Usuario SET NombreDeUsuario=?,Email=?,Password=?,Nombre=?,Domicilio=?,FechaDeNacimiento=? WHERE dni=" + ((Usuario) usuario).getDni());
             preparedStatement.setString(1, usr.getNombreDeUsuario());
             preparedStatement.setString(2, usr.getEmail());
             preparedStatement.setString(3, usr.getPassword());
             preparedStatement.setString(4, usr.getNombre());
             preparedStatement.setString(5, usr.getDomicilio());
-            preparedStatement.setDate(6, usr.getFechaDeNacimiento());
+            preparedStatement.setString(6, usr.getFechaDeNacimiento());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

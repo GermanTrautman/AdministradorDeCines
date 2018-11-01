@@ -40,7 +40,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         modificarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame f = new JFormularioListarUsuarios();
+                JFrame f = new JFormularioModificarUsuario();
                 f.setVisible(true);
             }
         });
