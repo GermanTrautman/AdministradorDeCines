@@ -9,7 +9,7 @@ public abstract class JFormularioBase
 
     public JFormularioBase(){
 
-        this.setSize(1024, 768);
+        this.setSize(1400, 1050);
         this.setLocationRelativeTo(null);
     }
 }

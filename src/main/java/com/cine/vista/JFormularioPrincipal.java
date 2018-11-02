@@ -196,5 +196,18 @@ public class JFormularioPrincipal extends JFormularioBase {
         
         JMenuItem mntmModificacion_5 = new JMenuItem("Modificacion");
         mnDescuentos.add(mntmModificacion_5);
+        
+        JMenu mnEntradas = new JMenu("Entradas");
+        menu.add(mnEntradas);
+        
+        JMenuItem mntmComprar = new JMenuItem("Comprar");
+        mntmComprar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        		JFrame formularioComprarEntradas = new JFormularioComprarEntradas();
+        		formularioComprarEntradas.setVisible(true);
+        	}
+        });
+        mnEntradas.add(mntmComprar);
     }
 }
