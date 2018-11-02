@@ -1,6 +1,6 @@
 package com.cine.vista;
 
-import com.cine.controlador.ControladorRol;
+import com.cine.controlador.ControladorRolUsuario;
 import com.cine.controlador.ControladorUsuario;
 import com.cine.modelo.Rol;
 
@@ -10,13 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JFormularioAltaUsuario extends JFormularioBase {
 
     private static final long serialVersionUID = 1L;
 
     private ControladorUsuario controladorUsuario = ControladorUsuario.getInstance();
-    private ControladorRol controladorRol = ControladorRol.getInstance();
+    private ControladorRolUsuario controladorRolUsuario = ControladorRolUsuario.getInstance();
 
 
     private JTextField dni;
@@ -26,6 +28,13 @@ public class JFormularioAltaUsuario extends JFormularioBase {
     private JTextField nombre;
     private JTextField domicilio;
     private JComboBox<Rol> comboRoles = new JComboBox<>();
+    private List<String> roles;
+
+    private JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Cliente");
+    private JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Vendedor Boleteria");
+    private JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Operador");
+    private JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Administrador");
+    private JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Agente Comercial");
 
     private DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     private JFormattedTextField fecha = new JFormattedTextField(format);
@@ -88,6 +97,8 @@ public class JFormularioAltaUsuario extends JFormularioBase {
                     controladorUsuario.altaUsuario(Integer.parseInt(dni.getText()), nombreDeUsuario.getText(), email.getText(), password.getText(),
                             nombre.getText(), domicilio.getText(), fecha.getText());
 
+                    controladorRolUsuario.altaRolUsuario(Integer.parseInt(dni.getText()),isSelected() );
+
                 }
                 JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
                 reset();
@@ -134,27 +145,48 @@ public class JFormularioAltaUsuario extends JFormularioBase {
         add(lblFechanac);
 
 
-        JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Cliente");
         chckbxNewCheckBox_1.setBounds(467, 485, 256, 29);
         add(chckbxNewCheckBox_1);
 
-        JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Vendedor Boleter\u00EDa");
+
         chckbxNewCheckBox_2.setBounds(467, 522, 256, 29);
         add(chckbxNewCheckBox_2);
 
-        JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Operador");
+
         chckbxNewCheckBox_3.setBounds(467, 559, 256, 29);
         add(chckbxNewCheckBox_3);
 
-        JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Administrador");
+
         chckbxNewCheckBox_4.setBounds(467, 596, 256, 29);
         add(chckbxNewCheckBox_4);
 
-        JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Agente Comercial");
+
         chckbxNewCheckBox_5.setBounds(467, 633, 256, 29);
         add(chckbxNewCheckBox_5);
 
 
+    }
+
+
+    public List<String> isSelected() {
+        roles = new ArrayList<>();
+
+        if (chckbxNewCheckBox_1.isSelected()) {
+            roles.add("Cliente");
+        }
+        if (chckbxNewCheckBox_2.isSelected()) {
+            roles.add("Vendedor Boleteria");
+        }
+        if (chckbxNewCheckBox_3.isSelected()) {
+            roles.add("Operador");
+        }
+        if (chckbxNewCheckBox_4.isSelected()) {
+            roles.add("Administrador");
+        }
+        if (chckbxNewCheckBox_5.isSelected()) {
+            roles.add("Agente Comercial");
+        }
+        return roles;
     }
 
 
@@ -166,5 +198,10 @@ public class JFormularioAltaUsuario extends JFormularioBase {
         this.password.setText("");
         this.domicilio.setText("");
         this.fecha.setText("");
+        chckbxNewCheckBox_1.setSelected(false);
+        chckbxNewCheckBox_2.setSelected(false);
+        chckbxNewCheckBox_3.setSelected(false);
+        chckbxNewCheckBox_4.setSelected(false);
+        chckbxNewCheckBox_5.setSelected(false);
     }
 }

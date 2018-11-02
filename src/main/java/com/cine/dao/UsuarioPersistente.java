@@ -14,8 +14,8 @@ public class UsuarioPersistente implements Persistencia {
     public UsuarioPersistente() {
     }
 
-    public static UsuarioPersistente getInstance(){
-        if (instancia == null){
+    public static UsuarioPersistente getInstance() {
+        if (instancia == null) {
             instancia = new UsuarioPersistente();
         }
         return instancia;
@@ -118,10 +118,31 @@ public class UsuarioPersistente implements Persistencia {
             Connection connection = conectarDb();
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM Usuario where dni=" + dni);
-
+            System.out.println("Usuario con dni " + dni + " borrado correctamente de la db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public Usuario buscarUsuarioPorUsrAndPass(String nombreDeUsuario, String password) {
+        try {
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE NombreDeUsuario='" + nombreDeUsuario + "'" + "and Password='" + password + "'");
+            Usuario usuario = new Usuario();
+            if (resultSet.next()) {
+                usuario.setDni(resultSet.getInt("DNI"));
+                usuario.setNombre(resultSet.getString("NombreDeUsuario"));
+                usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
+                usuario.setEmail(resultSet.getString("Email"));
+                usuario.setDomicilio(resultSet.getString("Domicilio"));
+                usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
+            }
+
+            return usuario;
+        } catch (SQLException e) {
+            System.out.println("Error Query: " + e.getMessage());
+            throw new RuntimeException("Error intentando buscar usuario con usr " + nombreDeUsuario);
+        } finally {
+            cerrarConexion();
+        }
+    }
 }
