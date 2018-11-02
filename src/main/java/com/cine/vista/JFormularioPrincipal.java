@@ -156,6 +156,14 @@ public class JFormularioPrincipal extends JFormularioBase {
         menu.add(mnFunciones);
         
         JMenuItem mntmAlta_3 = new JMenuItem("Alta");
+        mntmAlta_3.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				JFrame formularioAltaFuncion = new JFormularioAltaFuncion();
+				formularioAltaFuncion.setVisible(true);
+				
+			}
+		});
         mnFunciones.add(mntmAlta_3);
         
         JMenuItem mntmBaja_3 = new JMenuItem("Baja");

@@ -109,4 +109,9 @@ public class ControladorPelicula implements Cache {
 		peliculas.add((Pelicula) entidad);
 		
 	}
+	
+//	public List<Pelicula> getPeliculasDeFuncion(Funcion funcion) {
+//		return PeliculaPersistente.getInstance().peliculasPorFuncion(funcion);
+//		
+//	}
 }
