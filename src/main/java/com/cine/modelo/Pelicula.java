@@ -117,7 +117,7 @@ public class Pelicula {
 	}
 
 	public void eliminarPelicula() {
-		PeliculaPersistente.getInstance().borrar(this);
+		PeliculaPersistente.getInstance().borrar(this.getNombre());
 	}
 
 	public void actualizarPelicula(Integer id,String nombre, String director, String genero, Integer duracion, String idioma,

@@ -1,6 +1,7 @@
 package com.cine.modelo;
 
-import java.sql.Date;
+import com.cine.dao.UsuarioPersistente;
+
 import java.util.List;
 
 public class Usuario {
@@ -11,10 +12,10 @@ public class Usuario {
     private String nombre;
     private String domicilio;
     private Integer dni;
-    private Date fechaDeNacimiento;
+    private String fechaDeNacimiento;
     private List<Rol> rol;
 
-    public Usuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, Date fechaDeNacimiento) {
+    public Usuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, String fechaDeNacimiento) {
         this.nombreDeUsuario = nombreDeUsuario;
         this.email = email;
         this.password = password;
@@ -75,11 +76,11 @@ public class Usuario {
         this.dni = dni;
     }
 
-    public Date getFechaDeNacimiento() {
+    public String getFechaDeNacimiento() {
         return fechaDeNacimiento;
     }
 
-    public void setFechaDeNacimiento(Date fechaDeNacimiento) {
+    public void setFechaDeNacimiento(String fechaDeNacimiento) {
         this.fechaDeNacimiento = fechaDeNacimiento;
     }
 
@@ -104,4 +105,22 @@ public class Usuario {
                 ", rol=" + rol +
                 '}';
     }
+
+
+    public void insertarUsuario() {
+        UsuarioPersistente.getInstance().insertar(this);
+    }
+
+    public void borrarUsuario() {
+        UsuarioPersistente.getInstance().borrar(this.getDni());
+    }
+
+    public void actualizarUsuario(Usuario usuario) {
+        UsuarioPersistente.getInstance().actualizar(usuario);
+    }
+
+    public Usuario buscarUsuario(Integer dni) {
+       return (Usuario) UsuarioPersistente.getInstance().buscar(dni);
+    }
+
 }
