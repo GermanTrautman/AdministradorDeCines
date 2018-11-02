@@ -14,6 +14,9 @@ public class JFormularioPrincipal extends JFormularioBase {
         JMenuBar menu = new JMenuBar();
 
         JMenu items = new JMenu("Usuarios");
+        JMenu itemOpcion = new JMenu("Opciones");
+        menu.add(itemOpcion);
+
         if (roleName.equals("Administrador")){
 
             menu.add(items);
@@ -24,6 +27,16 @@ public class JFormularioPrincipal extends JFormularioBase {
         opcAgregarUsuario.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 JFrame f = new JFormularioAltaUsuario();
+                f.setVisible(true);
+            }
+        });
+
+        JMenuItem opcDesLoggear = new JMenuItem("Salir");
+        itemOpcion.add(opcDesLoggear);
+        opcDesLoggear.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                hide();
+                JFrame f = new JFormularioLogin();
                 f.setVisible(true);
             }
         });
@@ -183,5 +196,18 @@ public class JFormularioPrincipal extends JFormularioBase {
         
         JMenuItem mntmModificacion_5 = new JMenuItem("Modificacion");
         mnDescuentos.add(mntmModificacion_5);
+        
+        JMenu mnEntradas = new JMenu("Entradas");
+        menu.add(mnEntradas);
+        
+        JMenuItem mntmComprar = new JMenuItem("Comprar");
+        mntmComprar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        		JFrame formularioComprarEntradas = new JFormularioComprarEntradas();
+        		formularioComprarEntradas.setVisible(true);
+        	}
+        });
+        mnEntradas.add(mntmComprar);
     }
 }
