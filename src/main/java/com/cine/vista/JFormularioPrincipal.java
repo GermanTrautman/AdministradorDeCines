@@ -8,13 +8,16 @@ public class JFormularioPrincipal extends JFormularioBase {
 
     private static final long serialVersionUID = 1L;
 
-    public JFormularioPrincipal() {
+    public JFormularioPrincipal(String roleName) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JMenuBar menu = new JMenuBar();
 
         JMenu items = new JMenu("Usuarios");
-        menu.add(items);
+        if (roleName.equals("Administrador")){
+
+            menu.add(items);
+        }
 
         JMenuItem opcAgregarUsuario = new JMenuItem("Alta");
         items.add(opcAgregarUsuario);
@@ -40,28 +43,19 @@ public class JFormularioPrincipal extends JFormularioBase {
         modificarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame f = new JFormularioListarUsuarios();
+                JFrame f = new JFormularioModificarUsuario();
                 f.setVisible(true);
             }
         });
 
         this.setJMenuBar(menu);
         
-        JMenu mnRoles = new JMenu("Roles");
-        menu.add(mnRoles);
-        
-        JMenuItem mntmAlta_4 = new JMenuItem("Alta");
-        mnRoles.add(mntmAlta_4);
-        
-        JMenuItem mntmBaja_4 = new JMenuItem("Baja");
-        mnRoles.add(mntmBaja_4);
-        
-        JMenuItem mntmModificacion_4 = new JMenuItem("Modificacion");
-        mnRoles.add(mntmModificacion_4);
-        
         JMenu mnEstablecimientos = new JMenu("Establecimientos");
-        menu.add(mnEstablecimientos);
-        
+        if (roleName == "Administrador"){
+
+            menu.add(mnEstablecimientos);
+        }
+
         JMenuItem mntmAlta = new JMenuItem("Alta");
         mntmAlta.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
@@ -86,7 +80,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioModificacionEstablecimiento = new JFormularioListarEstablecimiento();
+        		JFrame formularioModificacionEstablecimiento = new JFormularioModificarEstablecimiento();
         		formularioModificacionEstablecimiento.setVisible(true);
         	}
         });
@@ -118,6 +112,9 @@ public class JFormularioPrincipal extends JFormularioBase {
         JMenuItem mntmModificacion_1 = new JMenuItem("Modificacion");
         mntmModificacion_1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
+        		JFrame formularioListarSalas = new JFormularioModificarSala();
+        		formularioListarSalas.setVisible(true);
         	}
         });
         mnNewMenu.add(mntmModificacion_1);
@@ -149,7 +146,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmModificacion_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		JFrame formularioModificacionPelicula = new JFormularioModificacionPelicula();
+        		JFrame formularioModificacionPelicula = new JFormularioModificacionPelicula();//JFormularioListarPelicula();
         		formularioModificacionPelicula.setVisible(true);
         	}
         });
@@ -159,6 +156,14 @@ public class JFormularioPrincipal extends JFormularioBase {
         menu.add(mnFunciones);
         
         JMenuItem mntmAlta_3 = new JMenuItem("Alta");
+        mntmAlta_3.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				JFrame formularioAltaFuncion = new JFormularioAltaFuncion();
+				formularioAltaFuncion.setVisible(true);
+				
+			}
+		});
         mnFunciones.add(mntmAlta_3);
         
         JMenuItem mntmBaja_3 = new JMenuItem("Baja");

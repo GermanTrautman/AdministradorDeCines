@@ -1,5 +1,6 @@
 package com.cine.dao;
 
+import com.cine.controlador.ControladorUsuario;
 import com.cine.modelo.Usuario;
 
 import java.sql.*;
@@ -8,6 +9,19 @@ import java.util.List;
 
 public class UsuarioPersistente implements Persistencia {
 
+    public static UsuarioPersistente instancia;
+
+    public UsuarioPersistente() {
+    }
+
+    public static UsuarioPersistente getInstance() {
+        if (instancia == null) {
+            instancia = new UsuarioPersistente();
+        }
+        return instancia;
+    }
+
+    @Override
     public Object buscar(Object dni) {
         try {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE dni=" + dni);
@@ -15,9 +29,10 @@ public class UsuarioPersistente implements Persistencia {
             if (resultSet.next()) {
                 usuario.setDni(resultSet.getInt("DNI"));
                 usuario.setNombre(resultSet.getString("NombreDeUsuario"));
-                usuario.setNombreDeUsuario(resultSet.getString("Email"));
-                usuario.setEmail(resultSet.getString("Nombre"));
+                usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
+                usuario.setEmail(resultSet.getString("Email"));
                 usuario.setDomicilio(resultSet.getString("Domicilio"));
+                usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
             }
 
 
@@ -30,7 +45,7 @@ public class UsuarioPersistente implements Persistencia {
         }
     }
 
-
+    @Override
     public List<Object> listar() {
         try {
 
@@ -44,7 +59,7 @@ public class UsuarioPersistente implements Persistencia {
                 usuario.setPassword(resultSet.getString("password"));
                 usuario.setNombre(resultSet.getString("nombre"));
                 usuario.setDomicilio(resultSet.getString("domicilio"));
-                usuario.setFechaDeNacimiento(resultSet.getDate("fechaDeNacimiento"));
+                usuario.setFechaDeNacimiento(resultSet.getString("fechaDeNacimiento"));
                 usuarioList.add(usuario);
             }
 
@@ -55,7 +70,8 @@ public class UsuarioPersistente implements Persistencia {
         }
     }
 
-    public boolean insertar(Object usuario) {
+    @Override
+    public void insertar(Object usuario) {
         try {
             Usuario usr = (Usuario) usuario;
             PreparedStatement preparedStatement = conectarDb().prepareStatement(
@@ -66,62 +82,67 @@ public class UsuarioPersistente implements Persistencia {
             preparedStatement.setString(4, usr.getPassword());
             preparedStatement.setString(5, usr.getNombre());
             preparedStatement.setString(6, usr.getDomicilio());
-            preparedStatement.setDate(7, usr.getFechaDeNacimiento());
-            int filasAfectadas = preparedStatement.executeUpdate();
+            preparedStatement.setString(7, usr.getFechaDeNacimiento());
+            preparedStatement.executeUpdate();
 
-
-            if (filasAfectadas == 1) {
-                return true;
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             cerrarConexion();
 
         }
-
-        return false;
     }
 
-
-    public boolean actualizar(Object usuario) {
+    @Override
+    public void actualizar(Object usuario) {
         try {
             Usuario usr = (Usuario) usuario;
-            PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE Usuario SET NombreDeUsuario=?,Email=?,Password=?,Nombre=?,Domicilio=?,FechaDeNacimiento=?");
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE Usuario SET NombreDeUsuario=?,Email=?,Password=?,Nombre=?,Domicilio=?,FechaDeNacimiento=? WHERE dni=" + ((Usuario) usuario).getDni());
             preparedStatement.setString(1, usr.getNombreDeUsuario());
             preparedStatement.setString(2, usr.getEmail());
             preparedStatement.setString(3, usr.getPassword());
             preparedStatement.setString(4, usr.getNombre());
             preparedStatement.setString(5, usr.getDomicilio());
-            preparedStatement.setDate(6, usr.getFechaDeNacimiento());
-            int filasAfectadas = preparedStatement.executeUpdate();
-
-            if (filasAfectadas == 0) {
-                return true;
-            }
+            preparedStatement.setString(6, usr.getFechaDeNacimiento());
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;
     }
 
-    public boolean borrar(Object dni) {
+    @Override
+    public void borrar(Object dni) {
 
         try {
             Connection connection = conectarDb();
             Statement statement = connection.createStatement();
-            int filasAfectadas = statement.executeUpdate("DELETE FROM Usuario where dni=" + dni);
-
-            if (filasAfectadas == 1) {
-                return true;
-            }
+            statement.executeUpdate("DELETE FROM Usuario where dni=" + dni);
+            System.out.println("Usuario con dni " + dni + " borrado correctamente de la db");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;
     }
 
+    public Usuario buscarUsuarioPorUsrAndPass(String nombreDeUsuario, String password) {
+        try {
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE NombreDeUsuario='" + nombreDeUsuario + "'" + "and Password='" + password + "'");
+            Usuario usuario = new Usuario();
+            if (resultSet.next()) {
+                usuario.setDni(resultSet.getInt("DNI"));
+                usuario.setNombre(resultSet.getString("NombreDeUsuario"));
+                usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
+                usuario.setEmail(resultSet.getString("Email"));
+                usuario.setDomicilio(resultSet.getString("Domicilio"));
+                usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
+            }
+
+            return usuario;
+        } catch (SQLException e) {
+            System.out.println("Error Query: " + e.getMessage());
+            throw new RuntimeException("Error intentando buscar usuario con usr " + nombreDeUsuario);
+        } finally {
+            cerrarConexion();
+        }
+    }
 }

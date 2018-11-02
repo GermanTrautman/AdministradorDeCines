@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.cine.modelo.Usuario;
 import com.cine.persistencia.PoolConnection;
 
 public interface Persistencia {
@@ -14,11 +13,11 @@ public interface Persistencia {
 
     List<Object> listar();
 
-    boolean insertar(Object entidad);
+    void insertar(Object entidad);
 
-    boolean actualizar(Object entidad);
+    void actualizar(Object entidad);
 
-    boolean borrar(Object key);
+    void borrar(Object key);
 
     default Connection conectarDb() {
     	
@@ -41,7 +40,12 @@ public interface Persistencia {
         return null;
     }
 
+    default void liberarConexion() {
+    	PoolConnection.getPoolConnection().realeaseConnection(PoolConnection.getPoolConnection().getConnection());
+    }
+    
     default void cerrarConexion() {
+    	
         try {
             conectarDb().close();
         } catch (SQLException e) {

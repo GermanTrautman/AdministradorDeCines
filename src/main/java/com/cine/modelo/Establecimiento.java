@@ -1,5 +1,7 @@
 package com.cine.modelo;
 
+import com.cine.dao.EstablecimientoPersistente;
+
 public class Establecimiento {
 
     private Integer cuit;
@@ -45,4 +47,24 @@ public class Establecimiento {
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
+    
+	public void insertar() {
+		
+		EstablecimientoPersistente establecimientoPersistente = new EstablecimientoPersistente();
+		establecimientoPersistente.insertar(this);
+	}
+	
+	public void eliminar() {
+		
+		EstablecimientoPersistente establecimientoPersistente = new EstablecimientoPersistente();
+		establecimientoPersistente.borrar(this);
+	}
+	
+	public void actualizar(Integer cuit, String nombre, String domicilio,Integer capacidad) {
+
+		Establecimiento establecimiento = new Establecimiento(cuit, nombre, domicilio, capacidad);
+		
+		EstablecimientoPersistente establecimientoPersistente = new EstablecimientoPersistente();
+		establecimientoPersistente.actualizar(establecimiento);
+	}
 }

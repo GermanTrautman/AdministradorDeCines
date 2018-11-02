@@ -1,10 +1,8 @@
 package com.cine.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,9 @@ public class SalaPersistente implements Persistencia {
 			
             Sala sala = null;
 
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM TPO.dbo.Sala WHERE Nombre=" + "'" + nombre + "'");
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.Sala WHERE Nombre = ?");
+			preparedStatement.setString(1, (String) nombre);
+			ResultSet resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
             	
@@ -31,7 +31,7 @@ public class SalaPersistente implements Persistencia {
 
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	
-            	sala = new Sala(resultSet.getString("Nombre"), resultSet.getInt("Capacidad"), establecimiento, estado);
+            	sala = new Sala(resultSet.getString("Nombre"), establecimiento, estado);
             }
             
             return sala;
@@ -40,7 +40,7 @@ public class SalaPersistente implements Persistencia {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar sala con nombre " + nombre);
         } finally {
-            cerrarConexion();
+            liberarConexion();
         }
 	}
 
@@ -61,7 +61,7 @@ public class SalaPersistente implements Persistencia {
 
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	
-            	sala = new Sala(resultSet.getString("Nombre"), resultSet.getInt("Capacidad"), establecimiento, estado);
+            	sala = new Sala(resultSet.getString("Nombre"), establecimiento, estado);
             	salas.add(sala);
             }
             
@@ -71,59 +71,67 @@ public class SalaPersistente implements Persistencia {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar todos las salas");
         } finally {
-            cerrarConexion();
+        	liberarConexion();
         }
 	}
 
 	@Override
-	public boolean insertar(Object objectoSala) {
+	public void insertar(Object objectoSala) {
 
 		try {
 			
 			Sala sala = (Sala) objectoSala;
 			
-			PreparedStatement preparedStatement = conectarDb().prepareStatement("INSERT INTO TPO.dbo.Sala (Nombre, Capacidad, CUITEstablecimiento, Estado) values (?, ?, ?, ?)");
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("INSERT INTO TPO.dbo.Sala (Nombre, CUITEstablecimiento, Estado) values (?, ?, ?)");
 			preparedStatement.setString(1, sala.getNombre());
-			preparedStatement.setInt(2, sala.getCapacidad());
-			preparedStatement.setInt(3, sala.getEstablecimiento().getCuit());
-			preparedStatement.setString(4, sala.getEstado().estado());
+			preparedStatement.setInt(2, sala.getEstablecimiento().getCuit());
+			preparedStatement.setString(3, sala.getEstado().estado());
 			
 			preparedStatement.executeUpdate();
-			
-			return true;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			cerrarConexion();
+			liberarConexion();
 		}
-		
-		return false;
 	}
 
 	@Override
-	public boolean actualizar(Object entidad) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean borrar(Object nombre) {
+	public void actualizar(Object objetoSala) {
 
 		try {
-        	
-            Connection connection = conectarDb();
-            Statement statement = connection.createStatement();
-            int filasAfectadas =  statement.executeUpdate("DELETE FROM TPO.dbo.Sala where Nombre=" + "'" + nombre + "'");
+			
+			Sala sala = (Sala) objetoSala;
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.Sala SET CUITEstablecimiento = ?, Estado = ? WHERE Nombre = ?");
+			preparedStatement.setInt(1, sala.getEstablecimiento().getCuit());
+			preparedStatement.setString(2, sala.getEstado().estado());
+			preparedStatement.setString(3, sala.getNombre());
+			
+			preparedStatement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			liberarConexion();
+		}
+	}
 
-            if (filasAfectadas == 1){
-                return true;
-            }
+	@Override
+	public void borrar(Object objectoSala) {
+
+		try {
+			
+			Sala sala = (Sala) objectoSala;
             
+            PreparedStatement preparedStatement = conectarDb().prepareStatement("DELETE FROM TPO.dbo.Sala where Nombre = ?");
+			preparedStatement.setString(1, sala.getNombre());
+			preparedStatement.executeUpdate();
+
         }catch (SQLException e){
             e.printStackTrace();
-        }
-
-        return false;
+        } finally {
+			liberarConexion();
+		}
 	}
 }
