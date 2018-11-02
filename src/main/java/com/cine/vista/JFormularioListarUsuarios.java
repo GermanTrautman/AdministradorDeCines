@@ -34,7 +34,7 @@ public class JFormularioListarUsuarios extends JFormularioBase {
                                 "Confirmacion", JOptionPane.YES_NO_OPTION);
                         if (result == JOptionPane.YES_OPTION) {
 
-                            JFrame asd = new JFormularioModificarUsuario(modeloTablaUsuario, dni);
+                            JFrame asd = new JFormularioModificarUsuario();
                             asd.setVisible(true);
 
                         }

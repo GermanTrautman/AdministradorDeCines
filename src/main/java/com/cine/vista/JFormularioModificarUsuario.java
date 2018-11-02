@@ -1,75 +1,180 @@
 package com.cine.vista;
 
+import com.cine.controlador.ControladorRolUsuario;
 import com.cine.controlador.ControladorUsuario;
 import com.cine.modelo.Usuario;
-import com.cine.vista.modelo.ModeloTablaUsuario;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JFormularioModificarUsuario extends JFormularioBase {
 
-    private static final long serialVersionUID = 1L;
+    private JTextField nombreDeUsuario;
+    private JTextField email;
+    private JPasswordField password;
+    private JTextField nombre;
+    private JTextField domicilio;
+    private JTextField dni;
+    private JTextField fechaDeNacimiento;
 
-    private JTextField dni = new JTextField();
-    private JTextField nombreDeUsuario = new JTextField();
-    private JTextField nombre = new JTextField();
-    private JTextField email = new JTextField();
-    private JTextField domicilio = new JTextField();
-    private JTextField password = new JTextField();
+    private List<String> roles;
 
-    private JButton btnAgregarUsuario = new JButton("Guardar cambios");
+    JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Cliente");
+    JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Vendedor Boleteria");
+    JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Operador");
+    JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Administrador");
+    JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Agente Comercial");
 
-    private ControladorUsuario controladorUsuario = ControladorUsuario.getInstance();
+    /**
+     * Create the panel.
+     */
+    public JFormularioModificarUsuario() {
+        setLayout(null);
 
-    public JFormularioModificarUsuario(ModeloTablaUsuario modelo, Integer unDni) {
+        nombreDeUsuario = new JTextField();
+        nombreDeUsuario.setBounds(467, 405, 256, 26);
+        add(nombreDeUsuario);
+        nombreDeUsuario.setColumns(10);
 
-        getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+        email = new JTextField();
+        email.setBounds(467, 237, 256, 26);
+        add(email);
+        email.setColumns(10);
 
-        Usuario usuario = (Usuario) controladorUsuario.buscarEnCache(unDni);
+        password = new JPasswordField();
+        password.setBounds(467, 279, 256, 26);
+        add(password);
+        password.setColumns(10);
 
-        this.getContentPane().add(new JLabel("DNI:"));
-        this.getContentPane().add(dni).setEnabled(false);
+        nombre = new JTextField();
+        nombre.setBounds(467, 321, 256, 26);
+        add(nombre);
+        nombre.setColumns(10);
 
-        this.getContentPane().add(new JLabel("Nombre de Usuario :"));
-        this.getContentPane().add(nombreDeUsuario);
+        domicilio = new JTextField();
+        domicilio.setBounds(467, 363, 256, 26);
+        add(domicilio);
+        domicilio.setColumns(10);
 
-        this.getContentPane().add(new JLabel("Nombre:"));
-        this.getContentPane().add(nombre);
+        fechaDeNacimiento = new JTextField();
+        fechaDeNacimiento.setBounds(467, 447, 256, 26);
+        add(fechaDeNacimiento);
+        fechaDeNacimiento.setColumns(10);
 
-        this.getContentPane().add(new JLabel("Email:"));
-        this.getContentPane().add(email);
+        dni = new JTextField();
+        dni.setBounds(467, 195, 256, 26);
+        add(dni);
+        dni.setColumns(10);
 
-        this.getContentPane().add(new JLabel("Domicilio :"));
-        this.getContentPane().add(domicilio);
+        JButton btnModificar = new JButton("Modificar");
+        btnModificar.setBounds(223, 670, 115, 29);
+        add(btnModificar);
 
-        this.getContentPane().add(new JLabel("Password:"));
-        this.getContentPane().add(password);
-
-        popularCampos(usuario);
-
-        btnAgregarUsuario.addActionListener(new ActionListener() {
+        btnModificar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-
-                if (dni.getText() != null && nombreDeUsuario.getText() != null && domicilio.getText() != null
-                        && password.getText() != null) {
-                    controladorUsuario.modificacionUsuario(Integer.parseInt(dni.getText()),nombreDeUsuario.getText(),email.getText(),
-                            password.getText(),nombre.getText(),domicilio.getText(),null);
-
-                    JOptionPane.showMessageDialog(null, "Usuario modificado correctamente");
-
-                    reset();
-
-                    modelo.fireTableDataChanged();
-
-                    dispose();
-                }
+                Usuario usuario = new Usuario(Integer.parseInt(dni.getText()), nombreDeUsuario.getText(), email.getText(), password.getText(),
+                        nombre.getText(), domicilio.getText(), fechaDeNacimiento.getText());
+                ControladorRolUsuario.getInstance().bajaRolUsuario(usuario.getDni());
+                ControladorUsuario.getInstance().actualizarCache(usuario);
+                ControladorRolUsuario.getInstance().altaRolUsuario(Integer.parseInt(dni.getText()), isSelected());
+                reset();
+                JOptionPane.showMessageDialog(null, "Usuario modificado correctamente");
             }
         });
-        this.getContentPane().add(btnAgregarUsuario);
 
-        btnAgregarUsuario.setMaximumSize(getMaximumSize());
+        JLabel lblModificacionUsuarios = new JLabel("Modificaci\u00F3n Usuarios");
+        lblModificacionUsuarios.setHorizontalAlignment(SwingConstants.CENTER);
+        lblModificacionUsuarios.setFont(new Font("Tahoma", Font.BOLD, 26));
+        lblModificacionUsuarios.setBounds(0, 122, 1024, 38);
+        add(lblModificacionUsuarios);
+
+        JLabel lblDNI = new JLabel("DNI");
+        lblDNI.setBounds(223, 198, 229, 20);
+        add(lblDNI);
+
+        JLabel lblNombreDeUsuario = new JLabel("Nombre de Usuario");
+        lblNombreDeUsuario.setBounds(223, 408, 229, 20);
+        add(lblNombreDeUsuario);
+
+        JLabel lblEmail = new JLabel("Email");
+        lblEmail.setBounds(223, 240, 229, 20);
+        add(lblEmail);
+
+        JLabel lblPassword = new JLabel("Password");
+        lblPassword.setBounds(223, 282, 229, 20);
+        add(lblPassword);
+
+        JLabel lblNombre = new JLabel("Nombre");
+        lblNombre.setBounds(223, 324, 229, 20);
+        add(lblNombre);
+
+        JLabel lblDomicilio = new JLabel("Domicilio");
+        lblDomicilio.setBounds(223, 366, 229, 20);
+        add(lblDomicilio);
+
+        JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
+        lblFechaDeNacimiento.setBounds(223, 450, 229, 20);
+        add(lblFechaDeNacimiento);
+
+
+        chckbxNewCheckBox_1.setBounds(467, 485, 256, 29);
+        add(chckbxNewCheckBox_1);
+
+        chckbxNewCheckBox_2.setBounds(467, 522, 256, 29);
+        add(chckbxNewCheckBox_2);
+
+        chckbxNewCheckBox_3.setBounds(467, 559, 256, 29);
+        add(chckbxNewCheckBox_3);
+
+        chckbxNewCheckBox_4.setBounds(467, 596, 256, 29);
+        add(chckbxNewCheckBox_4);
+
+        chckbxNewCheckBox_5.setBounds(467, 633, 256, 29);
+        add(chckbxNewCheckBox_5);
+
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.setBounds(745, 194, 115, 29);
+        add(btnBuscar);
+
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Usuario usr = ControladorUsuario.getInstance().buscarEnCache(Integer.parseInt(dni.getText()));
+                if (usr == null) {
+                    usr = ControladorUsuario.getInstance().buscarUsuarioEnDb(Integer.parseInt(dni.getText()));
+                }
+
+                popularCampos(usr);
+                dni.setEnabled(false);
+            }
+        });
+
+    }
+
+    public List<String> isSelected() {
+        roles = new ArrayList<>();
+
+        if (chckbxNewCheckBox_1.isSelected()) {
+            roles.add("Cliente");
+        }
+        if (chckbxNewCheckBox_2.isSelected()) {
+            roles.add("Vendedor Boleteria");
+        }
+        if (chckbxNewCheckBox_3.isSelected()) {
+            roles.add("Operador");
+        }
+        if (chckbxNewCheckBox_4.isSelected()) {
+            roles.add("Administrador");
+        }
+        if (chckbxNewCheckBox_5.isSelected()) {
+            roles.add("Agente Comercial");
+        }
+        return roles;
     }
 
 
@@ -81,14 +186,18 @@ public class JFormularioModificarUsuario extends JFormularioBase {
         this.email.setText(usuario.getEmail());
         this.domicilio.setText(usuario.getDomicilio());
         this.password.setText(usuario.getPassword());
+        this.fechaDeNacimiento.setText(usuario.getFechaDeNacimiento());
     }
 
     public void reset() {
 
         this.dni.setText("");
         this.nombreDeUsuario.setText("");
+        this.nombre.setText("");
         this.email.setText("");
         this.domicilio.setText("");
         this.password.setText("");
+        this.fechaDeNacimiento.setText("");
+        this.dni.setEnabled(true);
     }
 }
