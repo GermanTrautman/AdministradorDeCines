@@ -118,7 +118,7 @@ public class UsuarioPersistente implements Persistencia {
             Connection connection = conectarDb();
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM Usuario where dni=" + dni);
-
+            System.out.println("Usuario con dni "+dni+" borrado correctamente de la db");
         } catch (SQLException e) {
             e.printStackTrace();
         }

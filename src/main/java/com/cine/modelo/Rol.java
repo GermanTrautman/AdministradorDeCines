@@ -6,10 +6,9 @@ public abstract class Rol {
 
     private String nombre;
     private Estado estado;
+    private Integer id;
 
-    public Rol(String nombre, Estado estado) {
-        this.nombre = nombre;
-        this.estado = estado;
+    public Rol() {
     }
 
     public String getNombre() {
@@ -26,5 +25,13 @@ public abstract class Rol {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

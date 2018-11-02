@@ -38,11 +38,7 @@ public class ControladorUsuario implements Cache {
 
     public void bajaUsuario(Integer dni) {
         borrarDeCache(dni);
-        Usuario usuario = (Usuario) UsuarioPersistente.getInstance().buscar(dni);
-
-        if (usuario != null) {
-            UsuarioPersistente.getInstance().borrar(dni);
-        }
+            System.out.println("Usuario con dni" + dni + "borrado correctamente de la cache");
     }
 
     public void modificacionUsuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, String fechaDeNacimiento) {

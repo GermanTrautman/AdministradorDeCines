@@ -1,5 +1,6 @@
 package com.cine.vista;
 
+import com.cine.controlador.ControladorRolUsuario;
 import com.cine.controlador.ControladorUsuario;
 import com.cine.modelo.Usuario;
 
@@ -7,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JFormularioModificarUsuario extends JFormularioBase {
 
@@ -17,6 +20,14 @@ public class JFormularioModificarUsuario extends JFormularioBase {
     private JTextField domicilio;
     private JTextField dni;
     private JTextField fechaDeNacimiento;
+
+    private List<String> roles;
+
+    JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Cliente");
+    JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Vendedor Boleteria");
+    JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Operador");
+    JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Administrador");
+    JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Agente Comercial");
 
     /**
      * Create the panel.
@@ -68,7 +79,9 @@ public class JFormularioModificarUsuario extends JFormularioBase {
             public void actionPerformed(ActionEvent e) {
                 Usuario usuario = new Usuario(Integer.parseInt(dni.getText()), nombreDeUsuario.getText(), email.getText(), password.getText(),
                         nombre.getText(), domicilio.getText(), fechaDeNacimiento.getText());
+                ControladorRolUsuario.getInstance().bajaRolUsuario(usuario.getDni());
                 ControladorUsuario.getInstance().actualizarCache(usuario);
+                ControladorRolUsuario.getInstance().altaRolUsuario(Integer.parseInt(dni.getText()), isSelected());
                 reset();
                 JOptionPane.showMessageDialog(null, "Usuario modificado correctamente");
             }
@@ -108,23 +121,19 @@ public class JFormularioModificarUsuario extends JFormularioBase {
         lblFechaDeNacimiento.setBounds(223, 450, 229, 20);
         add(lblFechaDeNacimiento);
 
-        JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Cliente");
+
         chckbxNewCheckBox_1.setBounds(467, 485, 256, 29);
         add(chckbxNewCheckBox_1);
 
-        JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Vendedor Boleter\u00EDa");
         chckbxNewCheckBox_2.setBounds(467, 522, 256, 29);
         add(chckbxNewCheckBox_2);
 
-        JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Operador");
         chckbxNewCheckBox_3.setBounds(467, 559, 256, 29);
         add(chckbxNewCheckBox_3);
 
-        JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Administrador");
         chckbxNewCheckBox_4.setBounds(467, 596, 256, 29);
         add(chckbxNewCheckBox_4);
 
-        JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Agente Comercial");
         chckbxNewCheckBox_5.setBounds(467, 633, 256, 29);
         add(chckbxNewCheckBox_5);
 
@@ -145,6 +154,27 @@ public class JFormularioModificarUsuario extends JFormularioBase {
             }
         });
 
+    }
+
+    public List<String> isSelected() {
+        roles = new ArrayList<>();
+
+        if (chckbxNewCheckBox_1.isSelected()) {
+            roles.add("Cliente");
+        }
+        if (chckbxNewCheckBox_2.isSelected()) {
+            roles.add("Vendedor Boleteria");
+        }
+        if (chckbxNewCheckBox_3.isSelected()) {
+            roles.add("Operador");
+        }
+        if (chckbxNewCheckBox_4.isSelected()) {
+            roles.add("Administrador");
+        }
+        if (chckbxNewCheckBox_5.isSelected()) {
+            roles.add("Agente Comercial");
+        }
+        return roles;
     }
 
 
@@ -168,5 +198,6 @@ public class JFormularioModificarUsuario extends JFormularioBase {
         this.domicilio.setText("");
         this.password.setText("");
         this.fechaDeNacimiento.setText("");
+        this.dni.setEnabled(true);
     }
 }
