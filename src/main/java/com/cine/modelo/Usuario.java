@@ -123,4 +123,8 @@ public class Usuario {
        return (Usuario) UsuarioPersistente.getInstance().buscar(dni);
     }
 
+    public Usuario buscarUsuarioPorUsrAndPass(String nombreDeUsuario,String password){
+        return UsuarioPersistente.getInstance().buscarUsuarioPorUsrAndPass(nombreDeUsuario,password);
+    }
+
 }

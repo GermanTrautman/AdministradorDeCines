@@ -23,11 +23,11 @@ public class RolUsuarioPersistente implements Persistencia {
     @Override
     public RolUsuario buscar(Object dni) {
         try {
-            ResultSet resultSet = ejecutarSelect("SELECT * FROM RolUsuario WHERE dni=" + dni);
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM RolUsuario WHERE IdUsuario=" + dni);
             RolUsuario rolUsuario = new RolUsuario();
             if (resultSet.next()) {
                 rolUsuario.setIdUsuario(resultSet.getInt("IdUsuario"));
-                rolUsuario.setIdUsuario(resultSet.getInt("IdRol"));
+                rolUsuario.setIdRol(resultSet.getInt("IdRol"));
             }
 
             return rolUsuario;
@@ -137,6 +137,57 @@ public class RolUsuarioPersistente implements Persistencia {
         } catch (SQLException e) {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar usuario con dni " + nombre);
+        } finally {
+            cerrarConexion();
+        }
+    }
+
+
+    public Rol buscarPorIdRol(Integer rolId) {
+        try {
+            ResultSet resultSet = ejecutarSelect("SELECT * FROM Rol WHERE ID=" + rolId);
+
+            if (resultSet.next()) {
+
+                switch (resultSet.getString("Nombre")) {
+                    case "Cliente":
+                        Rol cliente = new Cliente();
+                        if (resultSet.next()) {
+                            cliente.setId(resultSet.getInt("Id"));
+                            cliente.setNombre(resultSet.getString("Nombre"));
+                            return cliente;
+                        }
+                    case "Operador":
+                        Rol operador = new Operador();
+                        if (resultSet.next()) {
+                            operador.setId(resultSet.getInt("Id"));
+                            operador.setNombre(resultSet.getString("Nombre"));
+                            return operador;
+                        }
+                    case "Administrador":
+                        Rol administrador = new Administrador();
+                            administrador.setId(resultSet.getInt("Id"));
+                            administrador.setNombre(resultSet.getString("Nombre"));
+                            return administrador;
+                    case "Agente Comercial":
+                        Rol agente = new AgenteComercial();
+                            agente.setId(resultSet.getInt("Id"));
+                            agente.setNombre(resultSet.getString("Nombre"));
+                            return agente;
+                    case "Vendedor Boleteria":
+                        Rol vendedor = new VendedorBoleteria();
+                        if (resultSet.next()) {
+                            vendedor.setId(resultSet.getInt("Id"));
+                            vendedor.setNombre(resultSet.getString("Nombre"));
+                            return vendedor;
+                        }
+                }
+            }
+
+            return null;
+        } catch (SQLException e) {
+            System.out.println("Error Query: " + e.getMessage());
+            throw new RuntimeException("Error intentando buscar usuario con rol id= " + rolId);
         } finally {
             cerrarConexion();
         }

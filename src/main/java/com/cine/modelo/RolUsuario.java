@@ -36,7 +36,7 @@ public class RolUsuario {
         RolUsuarioPersistente.getInstance().insertar(this);
     }
 
-    public Integer buscarRolPorNombre(String nombre){
+    public Integer buscarRolPorNombre(String nombre) {
         return RolUsuarioPersistente.getInstance().buscarPorNombreRol(nombre);
     }
 
@@ -50,5 +50,9 @@ public class RolUsuario {
 
     public RolUsuario buscarRolUsuario(Integer dni) {
         return RolUsuarioPersistente.getInstance().buscar(dni);
+    }
+
+    public Rol buscarRolPorId(Integer idRol) {
+        return RolUsuarioPersistente.getInstance().buscarPorIdRol(idRol);
     }
 }

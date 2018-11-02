@@ -8,13 +8,16 @@ public class JFormularioPrincipal extends JFormularioBase {
 
     private static final long serialVersionUID = 1L;
 
-    public JFormularioPrincipal() {
+    public JFormularioPrincipal(String roleName) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JMenuBar menu = new JMenuBar();
 
         JMenu items = new JMenu("Usuarios");
-        menu.add(items);
+        if (roleName.equals("Administrador")){
+
+            menu.add(items);
+        }
 
         JMenuItem opcAgregarUsuario = new JMenuItem("Alta");
         items.add(opcAgregarUsuario);
@@ -47,21 +50,12 @@ public class JFormularioPrincipal extends JFormularioBase {
 
         this.setJMenuBar(menu);
         
-        JMenu mnRoles = new JMenu("Roles");
-        menu.add(mnRoles);
-        
-        JMenuItem mntmAlta_4 = new JMenuItem("Alta");
-        mnRoles.add(mntmAlta_4);
-        
-        JMenuItem mntmBaja_4 = new JMenuItem("Baja");
-        mnRoles.add(mntmBaja_4);
-        
-        JMenuItem mntmModificacion_4 = new JMenuItem("Modificacion");
-        mnRoles.add(mntmModificacion_4);
-        
         JMenu mnEstablecimientos = new JMenu("Establecimientos");
-        menu.add(mnEstablecimientos);
-        
+        if (roleName == "Administrador"){
+
+            menu.add(mnEstablecimientos);
+        }
+
         JMenuItem mntmAlta = new JMenuItem("Alta");
         mntmAlta.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {

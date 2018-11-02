@@ -89,4 +89,8 @@ public class ControladorUsuario implements Cache {
         usuario.actualizarUsuario(usuario);
     }
 
+    public Usuario buscarPorNombreUsuarioYPass(String text, String password) {
+        Usuario usr = new Usuario();
+        return usr.buscarUsuarioPorUsrAndPass(text,password);
+    }
 }

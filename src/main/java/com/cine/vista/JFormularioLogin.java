@@ -1,5 +1,11 @@
 package com.cine.vista;
 
+import com.cine.controlador.ControladorRolUsuario;
+import com.cine.controlador.ControladorUsuario;
+import com.cine.modelo.Rol;
+import com.cine.modelo.RolUsuario;
+import com.cine.modelo.Usuario;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,9 +34,18 @@ public class JFormularioLogin extends JFormularioBase {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JFrame j = new JFormularioPrincipal();
-                j.setVisible(true);
-                hide();
+                Usuario usuario = ControladorUsuario.getInstance().buscarPorNombreUsuarioYPass(txtNombreDeUsuario.getText(), txtPassword.getText());
+                RolUsuario rol = new RolUsuario();
+                rol = rol.buscarRolUsuario(usuario.getDni());
+                Rol role = rol.buscarRolPorId(rol.getIdRol());
+                if (usuario != null){
+
+                    JFrame j = new JFormularioPrincipal(role.getNombre());
+                    j.setVisible(true);
+                    hide();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Nombre de Usuario o Contraseña incorrectos");
+                }
             }
         });
 

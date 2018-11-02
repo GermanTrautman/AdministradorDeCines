@@ -70,5 +70,11 @@ public class ControladorRolUsuario implements Cache {
         //TODO: ACTUALIZAR CACHE
     }
 
+    public Rol buscarRolPorId(Integer idRol){
+        RolUsuario rolUsuario = new RolUsuario();
+       return rolUsuario.buscarRolPorId(idRol);
+    }
+
+
 
 }
