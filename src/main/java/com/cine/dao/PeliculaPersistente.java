@@ -122,7 +122,7 @@ public class PeliculaPersistente implements Persistencia {
 			if (pelicula.getEstado().equals(EstadoActivoInactivo.ACTIVO)) {
 				preparedStatement.setInt(9, 1);
 			} else
-				preparedStatement.setInt(9, 1);
+				preparedStatement.setInt(9, 0);
 
 			preparedStatement.executeUpdate();
 
@@ -204,4 +204,39 @@ public class PeliculaPersistente implements Persistencia {
 		return id;
 	}
 
+//	public List<Pelicula> peliculaPorFuncion(Funcion funcion) {
+//		try {
+//
+//			List<Pelicula> peliculas = new ArrayList<Pelicula>();
+//			Pelicula pelicula = null;
+//			PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM PeliculaPorFuncion_vw WHERE IdFuncion = ?");
+//			preparedStatement.setInt(1, funcion.getId());
+//			ResultSet resultSet = preparedStatement.executeQuery();
+//			while (resultSet.next()) {
+//				EstadoActivoInactivo estadoPelicula;
+//				if (resultSet.getInt("Estado") == 1) {
+//					estadoPelicula = EstadoActivoInactivo.ACTIVO;
+//				} else
+//					estadoPelicula = EstadoActivoInactivo.INACTIVO;
+//
+//				pelicula = new Pelicula(resultSet.getString("Nombre"), resultSet.getString("Director"),
+//						resultSet.getString("Genero"), resultSet.getInt("Duracion"), resultSet.getString("Idioma"),
+//						resultSet.getString("Subtitulos").equals("Y"), resultSet.getFloat("Calificacion"),
+//						resultSet.getString("Observaciones"), estadoPelicula);
+//				pelicula.setId(resultSet.getInt("Id"));
+//				peliculas.add(pelicula);
+//			}
+//
+//			return peliculas;
+//
+//		} catch (SQLException e) {
+//			System.out.println("Error Query: " + e.getMessage());
+//			throw new RuntimeException("Error intentando buscar todas las peliculas");
+//		} finally {
+//			cerrarConexion();
+//		}
+//
+//	}
+	
+	
 }
