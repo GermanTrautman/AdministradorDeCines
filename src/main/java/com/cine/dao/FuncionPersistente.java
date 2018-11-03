@@ -11,10 +11,7 @@ import java.util.List;
 
 import com.cine.controlador.ControladorPelicula;
 import com.cine.controlador.ControladorSala;
-import com.cine.modelo.Establecimiento;
-import com.cine.modelo.Funcion;
-import com.cine.modelo.Pelicula;
-import com.cine.modelo.Sala;
+import com.cine.modelo.*;
 import com.cine.utilidades.Estado;
 import com.cine.utilidades.EstadoActivoInactivo;
 
@@ -238,4 +235,27 @@ public class FuncionPersistente implements Persistencia {
 		}
 	}
 
+    public Funcion buscarPeliculaPorDiaYHora(Integer idEstablecimiento, String nombrePelicula) {
+
+		try {
+			ResultSet resultSet = ejecutarSelect("SELECT top 1 * FROM Funcion_vw WHERE CUITEstablecimiento=" +
+					idEstablecimiento+ " AND NombrePelicula='"+nombrePelicula+"'");
+			Funcion funcion = new Funcion();
+			if (resultSet.next()) {
+
+				Date date = resultSet.getDate("Fecha");
+				LocalDate localD = date.toLocalDate();
+
+				funcion.setFecha(localD);
+				funcion.setHora(resultSet.getTime("Horario"));
+			}
+
+			return funcion;
+		} catch (SQLException e) {
+			System.out.println("Error Query: " + e.getMessage());
+			throw new RuntimeException("Error intentando buscar usuario con dni " + idEstablecimiento + nombrePelicula);
+		} finally {
+			cerrarConexion();
+		}
+    }
 }

@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd48b2c-4a01-4e75-9f64-c54f40345fba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorFuncion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorFuncion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/dao/FuncionPersistente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/dao/FuncionPersistente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/modelo/Funcion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/modelo/Funcion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioAltaFuncion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioAltaFuncion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioComprarEntradas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioComprarEntradas.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -91,7 +96,7 @@
           <entry key="form" value="2" />
           <entry key="gitignore" value="3" />
           <entry key="iml" value="4" />
-          <entry key="java" value="247" />
+          <entry key="java" value="254" />
           <entry key="jfd" value="1" />
           <entry key="modelo" value="2" />
           <entry key="sql" value="11" />
@@ -104,7 +109,7 @@
           <entry key="CLASS" value="4" />
           <entry key="GUI_DESIGNER_FORM" value="2" />
           <entry key="IDEA_MODULE" value="4" />
-          <entry key="JAVA" value="247" />
+          <entry key="JAVA" value="254" />
           <entry key="JFormDesigner_form" value="1" />
           <entry key="PLAIN_TEXT" value="9" />
           <entry key="Scratch" value="11" />
@@ -116,18 +121,18 @@
         <counts>
           <entry key="dummy" value="1" />
           <entry key="gitignore" value="33" />
-          <entry key="java" value="17976" />
-          <entry key="sql" value="809" />
+          <entry key="java" value="18939" />
+          <entry key="sql" value="866" />
           <entry key="txt" value="22" />
           <entry key="xml" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="17975" />
+          <entry key="JAVA" value="18938" />
           <entry key="PLAIN_TEXT" value="56" />
           <entry key="SQL" value="1" />
-          <entry key="Scratch" value="809" />
+          <entry key="Scratch" value="866" />
           <entry key="XML" value="36" />
         </counts>
       </usages-collector>
@@ -143,26 +148,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/6a650295-fdfc-4bc8-a8fd-7caec050e9d6/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="11" selection-end-column="29" />
+            <state relative-caret-position="142">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="33" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioAltaUsuario.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorFuncion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="93" column="71" selection-start-line="93" selection-start-column="71" selection-end-line="93" selection-end-column="71" />
+            <state relative-caret-position="426">
+              <caret line="107" selection-start-line="107" selection-end-line="107" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorRolUsuario.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Funcion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
-              <caret line="74" column="41" selection-start-line="74" selection-start-column="41" selection-end-line="74" selection-end-column="41" />
+            <state relative-caret-position="107">
+              <caret line="47" column="34" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="34" />
+              <folding>
+                <element signature="e#858#859#0" expanded="true" />
+                <element signature="e#877#878#0" expanded="true" />
+                <element signature="e#919#920#0" expanded="true" />
+                <element signature="e#944#945#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -171,7 +182,19 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioLogin.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="42" selection-start-line="42" selection-end-line="42" />
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/dao/FuncionPersistente.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="81">
+              <caret line="241" column="83" lean-forward="true" selection-start-line="241" selection-start-column="83" selection-end-line="241" selection-end-column="83" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -183,12 +206,13 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/RolUsuario.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="55" selection-start-line="55" selection-end-line="55" />
+              <caret line="51" column="63" lean-forward="true" selection-start-line="51" selection-start-column="63" selection-end-line="51" selection-end-column="63" />
               <folding>
                 <element signature="e#510#511#0" expanded="true" />
                 <element signature="e#538#539#0" expanded="true" />
                 <element signature="e#1172#1173#0" expanded="true" />
                 <element signature="e#1242#1243#0" expanded="true" />
+                <element signature="e#1290#1291#0" expanded="true" />
                 <element signature="e#1370#1371#0" expanded="true" />
               </folding>
             </state>
@@ -196,44 +220,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioComprarEntradas.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="202" column="5" lean-forward="true" selection-start-line="202" selection-start-column="5" selection-end-line="202" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Pelicula.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="42" selection-start-line="42" selection-end-line="42" />
+              <folding>
+                <element signature="e#1048#1049#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioPrincipal.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorUsuario.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="54" selection-start-line="54" selection-end-line="54" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Usuario.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1425">
-              <caret line="125" column="19" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1607#1608#0" expanded="true" />
-                <element signature="e#1633#1634#0" expanded="true" />
-                <element signature="e#2565#2566#0" expanded="true" />
-                <element signature="e#2628#2629#0" expanded="true" />
-                <element signature="e#2663#2664#0" expanded="true" />
-                <element signature="e#2733#2734#0" expanded="true" />
-                <element signature="e#2787#2788#0" expanded="true" />
-                <element signature="e#2855#2856#0" expanded="true" />
-                <element signature="e#2904#2905#0" expanded="true" />
-                <element signature="e#2980#2981#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="73">
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
         </entry>
@@ -241,17 +252,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/dao/RolUsuarioPersistente.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="104" column="48" lean-forward="true" selection-start-line="104" selection-start-column="48" selection-end-line="104" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/dao/UsuarioPersistente.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+            <state relative-caret-position="93">
+              <caret line="147" selection-start-line="147" selection-end-line="147" />
             </state>
           </provider>
         </entry>
@@ -278,7 +280,6 @@
       <find>usuarioList</find>
       <find>listar</find>
       <find>modifica</find>
-      <find>buscar</find>
       <find>nombre</find>
       <find>dni</find>
       <find>combo</find>
@@ -288,6 +289,12 @@
       <find>usuario</find>
       <find>action</find>
       <find>pass</find>
+      <find>buscar</find>
+      <find>dia</find>
+      <find>date</find>
+      <find>insertar</find>
+      <find>insert</find>
+      <find>cantidad</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -301,10 +308,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/cine/modelo/Funcion.java" />
-        <option value="$PROJECT_DIR$/src/com/cine/modelo/Sala.java" />
-        <option value="$PROJECT_DIR$/src/com/cine/modelo/Pelicula.java" />
-        <option value="$PROJECT_DIR$/src/com/cine/servicio/IServicioCine.java" />
         <option value="$PROJECT_DIR$/src/com/cine/controlador/ControladorCine.java" />
         <option value="$PROJECT_DIR$/src/com/cine/modelo/Rol.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
@@ -349,9 +352,13 @@
         <option value="$PROJECT_DIR$/src/main/java/com/cine/modelo/RolUsuario.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioLogin.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorRolUsuario.java" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/6a650295-fdfc-4bc8-a8fd-7caec050e9d6/console.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/cine/dao/RolUsuarioPersistente.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioPrincipal.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/6a650295-fdfc-4bc8-a8fd-7caec050e9d6/console.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/modelo/Funcion.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorFuncion.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/dao/FuncionPersistente.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioComprarEntradas.java" />
       </list>
     </option>
   </component>
@@ -406,10 +413,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="sqlserver" />
-    <property name="SearchEverywhereHistoryKey" value="princi&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioPrincipal.java&#10;cines&#9;null&#9;null&#10;jfor&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioPrincipal.java&#10;login&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioLogin.java&#10;cin&#9;null&#9;null&#10;cine&#9;null&#9;null&#10;alta&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;usuari&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/RolUsuario.java&#10;rolusua&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorRolUsuario.java&#10;rolusuario&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/RolUsuarioPersistente.java&#10;rolper&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/RolUsuarioPersistente.java&#10;for&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioLogin.java&#10;jformulariolo&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioLogin.java&#10;baja&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioBajaUsuario.java&#10;modifica&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;modif&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;modi&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;mod&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;jformmu&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;main&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;contro&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorEstablecimiento.java&#10;controla&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorUsuario.java&#10;rolusu&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/RolUsuarioPersistente.java&#10;usuario&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;persiste&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java&#10;altau&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;bole&#9;PSI&#9;JAVA://com.cine.modelo.VendedorBoleteria&#10;clien&#9;PSI&#9;JAVA://com.cine.modelo.Cliente&#10;admini&#9;PSI&#9;JAVA://com.cine.modelo.Administrador&#10;pelicula&#9;PSI&#9;JAVA://com.cine.controlador.ControladorPelicula&#10;altausu&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;altasala&#9;PSI&#9;JAVA://com.cine.vista.JFormularioAltaSala&#10;estable&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaEstablecimiento.java&#10;usuariope&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java&#10;persis&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java&#10;principal&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioPrincipal.java&#10;jformulariomo&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;bajausua&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioBajaUsuario.java&#10;jformulario&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;control&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorUsuario.java&#10;bajaes&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioBajaEstablecimiento.java&#10;altaus&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;fecha&#9;PSI&#9;JAVA://com.cine.modelo.Funcion#fecha&#10;jformularioalta&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;Usuarioper&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java&#10;usuarioper&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java&#10;fisico&#9;PSI&#9;JAVA://com.cine.modelo.AsientoFisico&#10;usua&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;jformula&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioPrincipal.java&#10;jformulariop&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioPrincipal.java" />
+    <property name="SearchEverywhereHistoryKey" value="jfo&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioComprarEntradas.java&#10;cine&#9;null&#9;null&#10;usuarioper&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/RolUsuarioPersistente.java&#10;comprar&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioComprarEntradas.java&#10;comprare&#9;PSI&#9;JAVA://com.cine.vista.JFormularioComprarEntradas&#10;controladorfun&#9;PSI&#9;JAVA://com.cine.controlador.ControladorFuncion&#10;princi&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioPrincipal.java&#10;cines&#9;null&#9;null&#10;jfor&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioPrincipal.java&#10;login&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioLogin.java&#10;cin&#9;null&#9;null&#10;alta&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;usuari&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/RolUsuario.java&#10;rolusua&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorRolUsuario.java&#10;rolusuario&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/RolUsuarioPersistente.java&#10;rolper&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/RolUsuarioPersistente.java&#10;for&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioLogin.java&#10;jformulariolo&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioLogin.java&#10;baja&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioBajaUsuario.java&#10;modifica&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;modif&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;modi&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;mod&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;jformmu&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;main&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/main/Main.java&#10;contro&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorEstablecimiento.java&#10;controla&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorUsuario.java&#10;rolusu&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/RolUsuarioPersistente.java&#10;usuario&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/modelo/Usuario.java&#10;persiste&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java&#10;altau&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;bole&#9;PSI&#9;JAVA://com.cine.modelo.VendedorBoleteria&#10;clien&#9;PSI&#9;JAVA://com.cine.modelo.Cliente&#10;admini&#9;PSI&#9;JAVA://com.cine.modelo.Administrador&#10;pelicula&#9;PSI&#9;JAVA://com.cine.controlador.ControladorPelicula&#10;altausu&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;altasala&#9;PSI&#9;JAVA://com.cine.vista.JFormularioAltaSala&#10;estable&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaEstablecimiento.java&#10;usuariope&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java&#10;persis&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java&#10;principal&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioPrincipal.java&#10;jformulariomo&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioModificarUsuario.java&#10;bajausua&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioBajaUsuario.java&#10;jformulario&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;control&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/controlador/ControladorUsuario.java&#10;bajaes&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioBajaEstablecimiento.java&#10;altaus&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;fecha&#9;PSI&#9;JAVA://com.cine.modelo.Funcion#fecha&#10;jformularioalta&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/vista/JFormularioAltaUsuario.java&#10;Usuarioper&#9;FILE&#9;file:///home/gtrautman/Documents/workspace/AdministradorDeCines/src/main/java/com/cine/dao/UsuarioPersistente.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541200810020" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541205509697" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -536,7 +543,7 @@
       <workItem from="1541114937371" duration="22095000" />
       <workItem from="1541172461536" duration="305000" />
       <workItem from="1541195803155" duration="717000" />
-      <workItem from="1541198561392" duration="2072000" />
+      <workItem from="1541198561392" duration="6283000" />
     </task>
     <task id="LOCAL-00001" summary="Merge branch 'feature/usuarios' into develop&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/cine/dao/Cache.java&#10;#&#9;src/main/java/com/cine/dao/UsuarioPersistente.java&#10;#&#9;src/main/java/com/cine/main/Main.java">
       <created>1540432828719</created>
@@ -549,7 +556,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177591000" />
+    <option name="totallyTimeSpent" value="181802000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -575,7 +582,7 @@
       <window_info anchor="bottom" id="Messages" order="1" sideWeight="0.4964086" weight="0.32952693" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" weight="0.48939642" />
-      <window_info active="true" anchor="bottom" id="Run" order="4" sideWeight="0.49960095" visible="true" weight="0.2985318" />
+      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.49960095" weight="0.2985318" />
       <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.49321628" weight="0.4600326" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
@@ -603,18 +610,18 @@
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Database Console" order="0" weight="0.3898858" />
-      <window_info anchor="bottom" id="Messages" order="1" sideWeight="0.4980048" weight="0.32952693" />
+      <window_info anchor="bottom" id="Database Console" order="0" sideWeight="0.49720672" weight="0.3898858" />
+      <window_info anchor="bottom" id="Messages" order="1" sideWeight="0.4964086" weight="0.32952693" />
       <window_info anchor="bottom" id="Message" order="2" />
-      <window_info active="true" anchor="bottom" id="Find" order="3" visible="true" weight="0.48939642" />
+      <window_info anchor="bottom" id="Find" order="3" weight="0.48939642" />
       <window_info anchor="bottom" id="Run" order="4" sideWeight="0.49960095" weight="0.2985318" />
-      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.49880287" weight="0.4600326" />
+      <window_info active="true" anchor="bottom" id="Debug" order="5" sideWeight="0.49321628" visible="true" weight="0.4600326" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.32952693" />
-      <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32952693" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" weight="0.32952693" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32952693" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5019952" side_tool="true" weight="0.32952693" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5067837" side_tool="true" weight="0.4600326" />
       <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4980048" weight="0.32952693" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="SciView" order="1" weight="0.32960895" />
@@ -775,6 +782,18 @@
           <properties />
           <option name="timeStamp" value="89" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cine/dao/FuncionPersistente.java</url>
+          <line>241</line>
+          <properties />
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioComprarEntradas.java</url>
+          <line>107</line>
+          <properties />
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -832,22 +851,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Persistencia/PoolConnection.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/Dao/UsuarioPersistente.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioAltaPelicula.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="uml://DATABASE/6a650295-fdfc-4bc8-a8fd-7caec050e9d6">
       <provider selected="true" editor-type-id="UmlEditorProvider">
         <state>
@@ -923,13 +926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2700">
           <caret line="258" column="41" selection-start-line="258" selection-start-column="41" selection-end-line="258" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Funcion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -1186,30 +1182,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/RolUsuario.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="55" selection-start-line="55" selection-end-line="55" />
-          <folding>
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#538#539#0" expanded="true" />
-            <element signature="e#1172#1173#0" expanded="true" />
-            <element signature="e#1242#1243#0" expanded="true" />
-            <element signature="e#1370#1371#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioAltaUsuario.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -1227,24 +1199,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/dao/RolUsuarioPersistente.java">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/6a650295-fdfc-4bc8-a8fd-7caec050e9d6/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="104" column="48" lean-forward="true" selection-start-line="104" selection-start-column="48" selection-end-line="104" selection-end-column="48" />
+        <state relative-caret-position="142">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="33" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/6a650295-fdfc-4bc8-a8fd-7caec050e9d6/console.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/RolUsuario.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="11" selection-end-column="29" />
+        <state relative-caret-position="204">
+          <caret line="51" column="63" lean-forward="true" selection-start-line="51" selection-start-column="63" selection-end-line="51" selection-end-column="63" />
+          <folding>
+            <element signature="e#510#511#0" expanded="true" />
+            <element signature="e#538#539#0" expanded="true" />
+            <element signature="e#1172#1173#0" expanded="true" />
+            <element signature="e#1242#1243#0" expanded="true" />
+            <element signature="e#1290#1291#0" expanded="true" />
+            <element signature="e#1370#1371#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/dao/RolUsuarioPersistente.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="147" selection-start-line="147" selection-end-line="147" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioPrincipal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+        <state relative-caret-position="73">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Pelicula.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="e#1048#1049#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/controlador/ControladorFuncion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/modelo/Funcion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="47" column="34" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="34" />
+          <folding>
+            <element signature="e#858#859#0" expanded="true" />
+            <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#919#920#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/dao/FuncionPersistente.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="241" column="83" lean-forward="true" selection-start-line="241" selection-start-column="83" selection-end-line="241" selection-end-column="83" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/cine/vista/JFormularioComprarEntradas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="202" column="5" lean-forward="true" selection-start-line="202" selection-start-column="5" selection-end-line="202" selection-end-column="5" />
         </state>
       </provider>
     </entry>

@@ -26,6 +26,9 @@ public class Funcion {
 //		cargarAsientosVirtuales();
 	}
 
+	public Funcion() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -115,6 +118,10 @@ public class Funcion {
 		Funcion f = new Funcion(fecha, sala, pelicula, estado, hora);
 		f.setId(id);
 		FuncionPersistente.getInstance().actualizar(f);
+	}
+
+	public Funcion buscarPeliculaPorDiaYHora(Integer idEstablecimiento, String nombrePelicula){
+		return FuncionPersistente.getInstance().buscarPeliculaPorDiaYHora(idEstablecimiento,nombrePelicula);
 	}
 
 }
