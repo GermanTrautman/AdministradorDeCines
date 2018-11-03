@@ -22,7 +22,7 @@ public class ControladorFuncion implements Cache {
 		this.funciones = new ArrayList<Funcion>();
 	}
 
-	public static ControladorFuncion getInsance() {
+	public static ControladorFuncion getInstance() {
 		if (ControladorFuncion.instancia == null) {
 			ControladorFuncion.instancia = new ControladorFuncion();
 		}
@@ -102,4 +102,9 @@ public class ControladorFuncion implements Cache {
 		agregarACache(funcionModificada);
 	}
 
+	public Funcion buscarPeliculaPorDiaYHora(Integer idEstablecimiento, String nombrePelicula ) {
+
+		Funcion funcion = new Funcion();
+		return funcion.buscarPeliculaPorDiaYHora(idEstablecimiento,nombrePelicula);
+	}
 }

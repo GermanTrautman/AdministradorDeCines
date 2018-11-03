@@ -14,8 +14,10 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 
 import com.cine.controlador.ControladorEstablecimiento;
+import com.cine.controlador.ControladorFuncion;
 import com.cine.controlador.ControladorPelicula;
 import com.cine.modelo.Establecimiento;
+import com.cine.modelo.Funcion;
 import com.cine.modelo.Pelicula;
 import com.cine.vista.modelo.ModeloAsientosCompraEntrada;
 
@@ -35,6 +37,10 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 	private JTable asientosVirtuales;
 	private JTextField textField;
 	private JTextField textField_1;
+	JComboBox cantidadDeEntradas = new JComboBox();
+
+	JComboBox fecha = new JComboBox();
+	JComboBox hora = new JComboBox();
 	
 	public JFormularioComprarEntradas() {
 		
@@ -100,9 +106,14 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 				
 				if (pelicula != null) {
 					JOptionPane.showMessageDialog(null, "Pelicula encontrada.");
+					Funcion funcion = ControladorFuncion.getInstance().buscarPeliculaPorDiaYHora(Integer.parseInt(cuitEstablecimiento.getText()),pelicula.getNombre());
+					popularDiaYHorario(funcion);
+					popularCantidadEntradas();
 				} else {
 					JOptionPane.showMessageDialog(null, "Pelicula no encontrada.");
 				}
+
+
 
 			}
 		});
@@ -117,11 +128,9 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		lblNewLabel.setBounds(223, 230, 229, 25);
 		getContentPane().add(lblNewLabel);
 		
-		JComboBox fecha = new JComboBox();
 		fecha.setBounds(467, 187, 256, 26);
 		getContentPane().add(fecha);
-		
-		JComboBox hora = new JComboBox();
+
 		hora.setBounds(467, 230, 256, 25);
 		getContentPane().add(hora);
 		
@@ -129,7 +138,7 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		lblNewLabel_1.setBounds(223, 277, 229, 26);
 		getContentPane().add(lblNewLabel_1);
 		
-		JComboBox cantidadDeEntradas = new JComboBox();
+
 		cantidadDeEntradas.setBounds(467, 277, 256, 26);
 		getContentPane().add(cantidadDeEntradas);
 		
@@ -186,7 +195,19 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		btnNewButton.setBounds(223, 953, 115, 25);
 		getContentPane().add(btnNewButton);
 	}
-	
+
+	private void popularCantidadEntradas() {
+
+		for(int i = 1; i < 11; i++)
+		cantidadDeEntradas.addItem(i);
+	}
+
+	private void popularDiaYHorario(Funcion funcion) {
+		fecha.addItem(funcion.getFecha());
+		hora.addItem(funcion.getHora());
+
+	}
+
 	private void popularCampo(Establecimiento establecimiento) {
 
 		if (establecimiento != null) {

@@ -178,7 +178,7 @@ public class JFormularioAltaFuncion extends JFormularioBase {
 						}
 					}
 					salaSeleccionada = ControladorSala.getInstance().buscar(salaSeleccionada.getNombre());
-					ControladorFuncion.getInsance().altaFuncion(fecha, salaSeleccionada, peliculaSeleccionada,
+					ControladorFuncion.getInstance().altaFuncion(fecha, salaSeleccionada, peliculaSeleccionada,
 							Estado.valueOf(comboBoxEstado.getSelectedItem().toString().toUpperCase()), horario);
 				}
 				reset();
