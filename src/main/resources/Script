@@ -1,0 +1,422 @@
+USE [master]
+GO
+/****** Object:  Database [TPO]    Script Date: 2/11/2018 10:05:47 p. m. ******/
+CREATE DATABASE [TPO]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'TPO', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQL2K14\MSSQL\DATA\TPO.mdf' , SIZE = 5120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'TPO_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQL2K14\MSSQL\DATA\TPO_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+ALTER DATABASE [TPO] SET COMPATIBILITY_LEVEL = 120
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [TPO].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [TPO] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [TPO] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [TPO] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [TPO] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [TPO] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [TPO] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [TPO] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [TPO] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [TPO] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [TPO] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [TPO] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [TPO] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [TPO] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [TPO] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [TPO] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [TPO] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [TPO] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [TPO] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [TPO] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [TPO] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [TPO] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [TPO] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [TPO] SET RECOVERY FULL 
+GO
+ALTER DATABASE [TPO] SET  MULTI_USER 
+GO
+ALTER DATABASE [TPO] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [TPO] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [TPO] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [TPO] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER DATABASE [TPO] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'TPO', N'ON'
+GO
+USE [TPO]
+GO
+/****** Object:  User [ACA-NPS01\api]    Script Date: 2/11/2018 10:05:48 p. m. ******/
+CREATE USER [ACA-NPS01\api] FOR LOGIN [ACA-NPS01\api] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [ACA-NPS01\api]
+GO
+/****** Object:  Table [dbo].[AsientoFisico]    Script Date: 2/11/2018 10:05:48 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AsientoFisico](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[NombreSala] [varchar](32) NOT NULL,
+	[Fila] [int] NOT NULL,
+	[NumeroDeAsiento] [int] NOT NULL,
+	[Estado] [varchar](32) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AsientoVirtual]    Script Date: 2/11/2018 10:05:48 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AsientoVirtual](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IdAsientoFisico] [int] NULL,
+	[IdFuncion] [int] NULL,
+	[Estado] [varchar](32) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Descuento]    Script Date: 2/11/2018 10:05:48 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Descuento](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Porcentaje] [int] NULL,
+	[Cantidad] [int] NULL,
+	[Tipo] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Establecimiento]    Script Date: 2/11/2018 10:05:48 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Establecimiento](
+	[CUIT] [int] NOT NULL,
+	[Nombre] [varchar](50) NULL,
+	[Domicilio] [varchar](50) NULL,
+	[Capacidad] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CUIT] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EstablecimientoDescuento]    Script Date: 2/11/2018 10:05:49 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EstablecimientoDescuento](
+	[CUITEstablecimiento] [int] NOT NULL,
+	[IdDescuento] [int] NOT NULL,
+	[VigenciaInicio] [date] NULL,
+	[VigenciaFin] [date] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CUITEstablecimiento] ASC,
+	[IdDescuento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Funcion]    Script Date: 2/11/2018 10:05:49 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Funcion](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Horario] [time](7) NULL,
+	[IdPelicula] [int] NULL,
+	[NombreSala] [varchar](32) NOT NULL,
+	[Estado] [int] NULL,
+	[Fecha] [date] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Pelicula]    Script Date: 2/11/2018 10:05:49 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Pelicula](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Director] [varchar](50) NULL,
+	[Genero] [varchar](20) NULL,
+	[Duracion] [int] NULL,
+	[Idioma] [varchar](50) NULL,
+	[Subtitulos] [char](1) NULL,
+	[Calificacion] [real] NULL,
+	[Observaciones] [varchar](50) NULL,
+	[Estado] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Porcentaje]    Script Date: 2/11/2018 10:05:49 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Porcentaje](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NULL,
+	[Descripcion] [varchar](50) NULL,
+	[Estado] [char](10) NULL,
+	[Vigencia] [date] NULL,
+	[PorcentajeDeDescuento] [real] NULL,
+ CONSTRAINT [PK__Descuent__3214EC27F9084908] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Rol]    Script Date: 2/11/2018 10:05:49 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Rol](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](20) NULL,
+	[Estado] [varchar](20) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RolUsuario]    Script Date: 2/11/2018 10:05:49 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RolUsuario](
+	[IdUsuario] [int] NOT NULL,
+	[IdRol] [int] NOT NULL,
+ CONSTRAINT [PK__Roles__3214EC27085D6432] PRIMARY KEY CLUSTERED 
+(
+	[IdUsuario] ASC,
+	[IdRol] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Sala]    Script Date: 2/11/2018 10:05:49 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sala](
+	[Nombre] [varchar](32) NOT NULL,
+	[Capacidad] [int] NULL,
+	[CUITEstablecimiento] [int] NOT NULL,
+	[Estado] [varchar](32) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Nombre] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuario]    Script Date: 2/11/2018 10:05:49 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuario](
+	[DNI] [int] NOT NULL,
+	[NombreDeUsuario] [varchar](32) NULL,
+	[Email] [varchar](32) NULL,
+	[Password] [varchar](32) NULL,
+	[Nombre] [varchar](32) NULL,
+	[Domicilio] [varchar](32) NULL,
+	[FechaDeNacimiento] [char](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[DNI] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[VentaAlContado]    Script Date: 2/11/2018 10:05:50 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[VentaAlContado](
+	[Nroticket] [int] NOT NULL,
+	[Fecha] [date] NULL,
+	[Monto] [float] NULL,
+	[CodigoDeAutenticacion] [varchar](50) NULL,
+ CONSTRAINT [PK_VentaAlContado] PRIMARY KEY CLUSTERED 
+(
+	[Nroticket] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[VentaConTarjeta]    Script Date: 2/11/2018 10:05:50 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[VentaConTarjeta](
+	[NroTicket] [int] IDENTITY(1,1) NOT NULL,
+	[Fecha] [date] NULL,
+	[Monto] [float] NULL,
+	[CodigoDeAutenticacion] [varchar](50) NULL,
+	[Numero] [bigint] NULL,
+	[Tipo] [int] NULL,
+ CONSTRAINT [PK__Venta__392FE88697372349] PRIMARY KEY CLUSTERED 
+(
+	[NroTicket] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[AsientosDeFuncion_vw]    Script Date: 2/11/2018 10:05:50 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[AsientosDeFuncion_vw] AS 
+SELECT A.Id AS IdAsientoVirtual,Fila, NumeroDeAsiento,CUITEstablecimiento, NombreSala, A.IdFuncion,A.Estado 
+FROM AsientoVirtual A (nolock)
+inner join AsientoFisico B (nolock)
+	on A.IdAsientoFisico = B.Id
+inner join Sala C (nolock)
+	on B.NombreSala = C.Nombre
+
+
+GO
+/****** Object:  View [dbo].[Funcion_vw]    Script Date: 2/11/2018 10:05:50 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE VIEW [dbo].[Funcion_vw] AS 
+SELECT F.Id, P.Nombre AS NombrePelicula, S.Nombre AS NombreSala, E.CUIT AS CUITEstablecimiento, Fecha, Horario, F.Estado
+FROM dbo.Funcion F (nolock)
+	INNER JOIN dbo.Pelicula P (nolock)
+		on F.IdPelicula = P.id
+	INNER JOIN dbo.Sala S (nolock)
+		on F.NombreSala = S.Nombre
+	INNER JOIN dbo.Establecimiento E (NOLOCK)
+		on S.CUITEstablecimiento = E.CUIT  
+;
+GO
+/****** Object:  View [dbo].[PeliculaPorFuncion_vw]    Script Date: 2/11/2018 10:05:50 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW [dbo].[PeliculaPorFuncion_vw] AS
+SELECT P.*, F.Id AS IdFuncion FROM Pelicula P (NOLOCK)
+INNER JOIN Funcion F (NOLOCK)
+	ON P.Id = F.IdPelicula
+GO
+ALTER TABLE [dbo].[AsientoFisico]  WITH CHECK ADD  CONSTRAINT [FK_SalaAsientoFisico] FOREIGN KEY([NombreSala])
+REFERENCES [dbo].[Sala] ([Nombre])
+GO
+ALTER TABLE [dbo].[AsientoFisico] CHECK CONSTRAINT [FK_SalaAsientoFisico]
+GO
+ALTER TABLE [dbo].[AsientoVirtual]  WITH CHECK ADD  CONSTRAINT [FK_AsientosVirtualesFisicos] FOREIGN KEY([IdAsientoFisico])
+REFERENCES [dbo].[AsientoFisico] ([Id])
+GO
+ALTER TABLE [dbo].[AsientoVirtual] CHECK CONSTRAINT [FK_AsientosVirtualesFisicos]
+GO
+ALTER TABLE [dbo].[AsientoVirtual]  WITH CHECK ADD  CONSTRAINT [FK_FuncionAsientoVirtual] FOREIGN KEY([IdFuncion])
+REFERENCES [dbo].[Funcion] ([Id])
+GO
+ALTER TABLE [dbo].[AsientoVirtual] CHECK CONSTRAINT [FK_FuncionAsientoVirtual]
+GO
+ALTER TABLE [dbo].[EstablecimientoDescuento]  WITH CHECK ADD  CONSTRAINT [FK_EstablecimientoDescuentoDescuento] FOREIGN KEY([IdDescuento])
+REFERENCES [dbo].[Descuento] ([Id])
+GO
+ALTER TABLE [dbo].[EstablecimientoDescuento] CHECK CONSTRAINT [FK_EstablecimientoDescuentoDescuento]
+GO
+ALTER TABLE [dbo].[EstablecimientoDescuento]  WITH CHECK ADD  CONSTRAINT [FK_EstablecimientoDescuentoEstablecimiento] FOREIGN KEY([CUITEstablecimiento])
+REFERENCES [dbo].[Establecimiento] ([CUIT])
+GO
+ALTER TABLE [dbo].[EstablecimientoDescuento] CHECK CONSTRAINT [FK_EstablecimientoDescuentoEstablecimiento]
+GO
+ALTER TABLE [dbo].[Funcion]  WITH CHECK ADD  CONSTRAINT [FK_PeliculaFunciones] FOREIGN KEY([IdPelicula])
+REFERENCES [dbo].[Pelicula] ([Id])
+GO
+ALTER TABLE [dbo].[Funcion] CHECK CONSTRAINT [FK_PeliculaFunciones]
+GO
+ALTER TABLE [dbo].[Funcion]  WITH CHECK ADD  CONSTRAINT [FK_SalaFunciones] FOREIGN KEY([NombreSala])
+REFERENCES [dbo].[Sala] ([Nombre])
+GO
+ALTER TABLE [dbo].[Funcion] CHECK CONSTRAINT [FK_SalaFunciones]
+GO
+ALTER TABLE [dbo].[RolUsuario]  WITH CHECK ADD  CONSTRAINT [FK_IdRolRolUsuario] FOREIGN KEY([IdRol])
+REFERENCES [dbo].[Rol] ([ID])
+GO
+ALTER TABLE [dbo].[RolUsuario] CHECK CONSTRAINT [FK_IdRolRolUsuario]
+GO
+ALTER TABLE [dbo].[RolUsuario]  WITH CHECK ADD  CONSTRAINT [FK_UsuarioRoles] FOREIGN KEY([IdUsuario])
+REFERENCES [dbo].[Usuario] ([DNI])
+GO
+ALTER TABLE [dbo].[RolUsuario] CHECK CONSTRAINT [FK_UsuarioRoles]
+GO
+ALTER TABLE [dbo].[Sala]  WITH CHECK ADD  CONSTRAINT [FK_CUITEstablecimientoSala] FOREIGN KEY([CUITEstablecimiento])
+REFERENCES [dbo].[Establecimiento] ([CUIT])
+GO
+ALTER TABLE [dbo].[Sala] CHECK CONSTRAINT [FK_CUITEstablecimientoSala]
+GO
+USE [master]
+GO
+ALTER DATABASE [TPO] SET  READ_WRITE 
+GO
