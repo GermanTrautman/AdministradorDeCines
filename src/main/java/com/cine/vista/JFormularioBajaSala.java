@@ -16,7 +16,6 @@ import com.cine.controlador.ControladorSala;
 import com.cine.modelo.Sala;
 import com.cine.vista.modelo.ComboEstablecimiento;
 import com.cine.vista.modelo.ComboEstado;
-import com.cine.vista.modelo.TablaAsientos;
 
 public class JFormularioBajaSala extends JFormularioBase {
 
@@ -28,7 +27,6 @@ public class JFormularioBajaSala extends JFormularioBase {
 	private JComboBox<ComboEstado> comboEstados = new JComboBox<>();
 	
 	private JTable tblAsientos;
-	private TablaAsientos tablaAsientos = new TablaAsientos();
 
 	private JButton btnBorrar = new JButton("Borrar");
 	
@@ -57,9 +55,7 @@ public class JFormularioBajaSala extends JFormularioBase {
 				if (nombre.getText() != null) {
 
 					Sala sala = ControladorSala.getInstance().buscar(nombre.getText());
-					ControladorSala.getInstance().setSalaSeleccionada(sala);
 					popularCampos(sala);
-					tablaAsientos.fireTableDataChanged();
 				}
 			}
 		});
@@ -86,7 +82,6 @@ public class JFormularioBajaSala extends JFormularioBase {
 		lblAsientos.setBounds(223, 228, 56, 16);
 		getContentPane().add(lblAsientos);
 
-		tblAsientos = new JTable(tablaAsientos);
 		tblAsientos.setBounds(223, 257, 502, 400);
 		tblAsientos.setRowSelectionAllowed(false);
 		getContentPane().add(tblAsientos);
@@ -99,9 +94,6 @@ public class JFormularioBajaSala extends JFormularioBase {
 					ControladorSala.getInstance().baja(nombre.getText());
 					
 					resetCampos();
-					
-					ControladorSala.getInstance().setSalaSeleccionada(null);
-					tablaAsientos.fireTableDataChanged();
 					
 					JOptionPane.showMessageDialog(null, "Sala borrada correctamente");
 				}

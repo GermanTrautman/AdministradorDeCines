@@ -1,12 +1,15 @@
 package com.cine.modelo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.cine.dao.SalaPersistente;
 import com.cine.utilidades.Estado;
 
 public class Sala {
 
 	private String nombre;
-	AsientoFisico[][] asientosFisicos = new AsientoFisico[25][25];
+	private Set<AsientoFisico> asientos = new HashSet<>(); 
 	private Establecimiento establecimiento;
 	private Estado estado;
 
@@ -25,12 +28,12 @@ public class Sala {
 		this.nombre = nombre;
 	}
 
-	public AsientoFisico[][] getAsientosFisicos() {
-		return asientosFisicos;
+	public Set<AsientoFisico> getAsientos() {
+		return asientos;
 	}
 
-	public void setAsientosFisicos(AsientoFisico[][] asientosFisicos) {
-		this.asientosFisicos = asientosFisicos;
+	public void setAsientos(Set<AsientoFisico> asientos) {
+		this.asientos = asientos;
 	}
 
 	public Establecimiento getEstablecimiento() {

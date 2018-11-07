@@ -1,7 +1,9 @@
 package com.cine.controlador;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.cine.dao.AsientoFisicoPersistente;
 import com.cine.dao.Cache;
@@ -16,8 +18,6 @@ public class ControladorSala implements Cache {
 	private static final ControladorSala controladorSala = new ControladorSala();
 
 	private List<Sala> salas = new ArrayList<>();
-	private AsientoFisico[][] asientosFisicosTemporales = new AsientoFisico[25][25];
-	private Sala salaSeleccionada = null;
 
 	private SalaPersistente salaPersistente = new SalaPersistente();
 	private AsientoFisicoPersistente asientoFisicoPersistente = new AsientoFisicoPersistente();
@@ -30,23 +30,12 @@ public class ControladorSala implements Cache {
 		return salas;
 	}
 	
-	public AsientoFisico[][] getAsientosFisicosTemporales() {
-		return asientosFisicosTemporales;
-	}
-	
-	public Sala getSalaSeleccionada() {
-		return salaSeleccionada;
-	}
-
-	public void setSalaSeleccionada(Sala salaSeleccionada) {
-		this.salaSeleccionada = salaSeleccionada;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public void obtenerSalas() {
 		salas = (List<Sala>) (Object) salaPersistente.listar();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Sala buscar(String nombre) {
 		
 		Sala sala = (Sala) buscarEnCache(nombre);
@@ -55,8 +44,8 @@ public class ControladorSala implements Cache {
 			
 			sala = (Sala) salaPersistente.buscar(nombre);
 			
-			AsientoFisico[][] asientosFisicos = (AsientoFisico[][]) asientoFisicoPersistente.buscar(sala.getNombre());
-			sala.setAsientosFisicos(asientosFisicos);
+			Set<AsientoFisico> asientos = (Set<AsientoFisico>) asientoFisicoPersistente.buscar(sala.getNombre());
+			sala.setAsientos(asientos);
 			
 			if (sala != null) {
 				agregarACache(sala);
@@ -66,34 +55,24 @@ public class ControladorSala implements Cache {
 		return sala;
 	}
 	
-	public void alta(String nombre, AsientoFisico[][] asientos, Integer cuitEstablecimiento, String estadoEnLetras) {
+	public void alta(String nombre, Integer cuitEstablecimiento, String estadoEnLetras) {
 		
 		Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(cuitEstablecimiento);
 		Estado estado = Estado.valueOf(estadoEnLetras.toUpperCase());
 
 		Sala sala = new Sala(nombre, establecimiento, estado);
-		sala.setAsientosFisicos(asientos);
 
 		if (buscarEnCache(sala.getNombre()) == null) {
 
 			agregarACache(sala);
 
 			if (salaPersistente.buscar(sala.getNombre()) == null) {
-				
 				sala.insertar();
-				
-				for (int i = 0; i < asientos.length; i++) {
-					for (int j = 0; j < asientos.length; j++) {
-						
-						if (asientos[i][j] != null) {
-							asientos[i][j].insertar();
-						}
-					}
-				}
 			}
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void baja(String nombre) {
 
 		borrarDeCache(nombre);
@@ -102,17 +81,10 @@ public class ControladorSala implements Cache {
 
 		if (sala != null) {
 			
-			sala.setAsientosFisicos((AsientoFisico[][]) asientoFisicoPersistente.buscar(nombre));
+			sala.setAsientos((Set<AsientoFisico>) asientoFisicoPersistente.buscar(nombre));
 			
-			for (int i = 0; i < sala.getAsientosFisicos().length; i++) {
-				
-				for (int j = 0; j < sala.getAsientosFisicos().length; j++) {
-					
-					AsientoFisico asientoFisico = sala.getAsientosFisicos()[i][j];
-					if (asientoFisico != null) {
-						asientoFisico.borrar();
-					}
-				}
+			for (AsientoFisico asientoFisico : sala.getAsientos()) {
+				asientoFisico.borrar();
 			}
 
 			sala.borrar();
@@ -128,6 +100,31 @@ public class ControladorSala implements Cache {
 		
 		actualizarCache(salaModificada);
 		salaModificada.actualizar(nombre, establecimiento, estado);
+	}
+	
+	public void modificarAsientos(String nombreSala, Set<AsientoFisico> asientosModificados) {
+		
+		Set<AsientoFisico> asientosAAgregar = new HashSet<>();
+		Set<AsientoFisico> asientosABorrar = new HashSet<>();
+		
+		for (AsientoFisico asientoModificado : asientosModificados) {
+			
+			boolean elAsientoFueAgregado = getInstance().buscar(nombreSala).getAsientos().add(asientoModificado);
+			
+			if (elAsientoFueAgregado) {
+				asientosAAgregar.add(asientoModificado);
+			} else {
+				asientosABorrar.add(asientoModificado);
+			}
+		}
+		
+		for (AsientoFisico asientoAAgregar : asientosAAgregar) {
+			asientoAAgregar.insertar();
+		}
+		
+		for (AsientoFisico asientoABorrar : asientosABorrar) {
+			asientoABorrar.borrar();
+		}
 	}
 	
 	@Override

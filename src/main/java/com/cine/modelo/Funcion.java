@@ -90,6 +90,7 @@ public class Funcion {
 	}
 
 	private void cargarAsientosVirtuales() {
+		/*
 		AsientoFisico[][] asientosSala = this.sala.getAsientosFisicos();
 		for (int i = 0; i < asientosSala.length; i++) {
 			for (int j = 0; j < asientosSala.length; j++) {
@@ -100,7 +101,7 @@ public class Funcion {
 				}
 			}
 		}
-
+		*/
 	}
 
 	public void insertarFuncion() {
