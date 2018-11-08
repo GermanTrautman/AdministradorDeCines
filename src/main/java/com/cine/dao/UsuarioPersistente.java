@@ -25,18 +25,7 @@ public class UsuarioPersistente implements Persistencia {
     public Object buscar(Object dni) {
         try {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE dni=" + dni);
-            Usuario usuario = new Usuario();
-            if (resultSet.next()) {
-                usuario.setDni(resultSet.getInt("DNI"));
-                usuario.setNombre(resultSet.getString("NombreDeUsuario"));
-                usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
-                usuario.setEmail(resultSet.getString("Email"));
-                usuario.setDomicilio(resultSet.getString("Domicilio"));
-                usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
-            }
-
-
-            return usuario;
+            return construirUsuario(resultSet);
         } catch (SQLException e) {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar usuario con dni " + dni);
@@ -127,22 +116,27 @@ public class UsuarioPersistente implements Persistencia {
     public Usuario buscarUsuarioPorUsrAndPass(String nombreDeUsuario, String password) {
         try {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE NombreDeUsuario='" + nombreDeUsuario + "'" + "and Password='" + password + "'");
-            Usuario usuario = new Usuario();
-            if (resultSet.next()) {
-                usuario.setDni(resultSet.getInt("DNI"));
-                usuario.setNombre(resultSet.getString("NombreDeUsuario"));
-                usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
-                usuario.setEmail(resultSet.getString("Email"));
-                usuario.setDomicilio(resultSet.getString("Domicilio"));
-                usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
-            }
-
-            return usuario;
+            return construirUsuario(resultSet);
         } catch (SQLException e) {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar usuario con usr " + nombreDeUsuario);
         } finally {
             cerrarConexion();
         }
+    }
+
+    private Usuario construirUsuario(ResultSet resultSet) throws SQLException {
+        Usuario usuario = new Usuario();
+        if (resultSet.next()) {
+            usuario.setDni(resultSet.getInt("DNI"));
+            usuario.setNombre(resultSet.getString("NombreDeUsuario"));
+            usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
+            usuario.setPassword(resultSet.getString("Password"));
+            usuario.setEmail(resultSet.getString("Email"));
+            usuario.setDomicilio(resultSet.getString("Domicilio"));
+            usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
+        }
+
+        return usuario;
     }
 }

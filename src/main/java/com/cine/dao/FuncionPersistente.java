@@ -34,7 +34,7 @@ public class FuncionPersistente implements Persistencia {
 	public Object buscar(Object funcionBuscada) {
 
 		try {
-			Funcion funcion = null;
+			Funcion funcion;
 			if (funcionBuscada != null) {
 				PreparedStatement preparedStatement = conectarDb().prepareStatement(
 						"SELECT * FROM Funcion_vw WHERE NombrePelicula = ? AND NombreSala = ? AND Fecha = ? AND Horario = ?");

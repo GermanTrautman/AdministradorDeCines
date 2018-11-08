@@ -1,11 +1,11 @@
 package com.cine.controlador;
 
 import com.cine.dao.Cache;
-import com.cine.dao.UsuarioPersistente;
 import com.cine.modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControladorUsuario implements Cache {
 
@@ -28,7 +28,7 @@ public class ControladorUsuario implements Cache {
         if (buscarEnCache(dni) == null) {
 
             Usuario usuario = new Usuario(dni, nombreDeUsuario, email, password, nombre, domicilio, fechaDeNacimiento);
-            usuarioList.add(usuario);
+            agregarACache(usuario);
             usuario.insertarUsuario();
         } else {
             throw new RuntimeException("No se permiten usuarios duplicados");
@@ -38,13 +38,13 @@ public class ControladorUsuario implements Cache {
 
     public void bajaUsuario(Integer dni) {
         borrarDeCache(dni);
-            System.out.println("Usuario con dni" + dni + "borrado correctamente de la cache");
+        System.out.println("Usuario con dni" + dni + "borrado correctamente de la cache");
     }
 
     public void modificacionUsuario(Integer dni, String nombreDeUsuario, String email, String password, String nombre, String domicilio, String fechaDeNacimiento) {
 
         Usuario usuario = new Usuario(dni, nombreDeUsuario, email, password, nombre, domicilio, fechaDeNacimiento);
-
+        ControladorRolUsuario.getInstance().bajaRolUsuario(usuario.getDni());
         actualizarCache(usuario);
         usuario.actualizarUsuario(usuario);
     }
@@ -62,7 +62,7 @@ public class ControladorUsuario implements Cache {
     public Usuario buscarUsuarioEnDb(Integer dni) {
         Usuario userDb = new Usuario();
         userDb = userDb.buscarUsuario(dni);
-        if (userDb.getDni() != null){
+        if (userDb.getDni() != null) {
 
             usuarioList.add(userDb);
         }
@@ -89,8 +89,22 @@ public class ControladorUsuario implements Cache {
         usuario.actualizarUsuario(usuario);
     }
 
-    public Usuario buscarPorNombreUsuarioYPass(String text, String password) {
+    public Usuario buscarPorNombreUsuarioYPass(String nombreDeUsuario, String password) {
         Usuario usr = new Usuario();
-        return usr.buscarUsuarioPorUsrAndPass(text,password);
+        if (!usuarioList.isEmpty()) {
+
+            List<Usuario> usuarios = usuarioList.stream().filter(usuario -> nombreDeUsuario.equals(usuario.getNombreDeUsuario())).collect(Collectors.toList());
+            if (!usuarios.isEmpty()){
+                usr = usuarios.get(0);
+            }
+        }
+
+        if (usr.getDni() == null) {
+
+            usr = usr.buscarUsuarioPorUsrAndPass(nombreDeUsuario, password);
+            usuarioList.add(usr);
+        }
+
+        return usr;
     }
 }

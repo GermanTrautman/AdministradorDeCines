@@ -20,7 +20,9 @@ public class ModeloAsientosCompraEntrada extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int arg0, int arg1) {
-		// TODO Auto-generated method stub
+
+
+
 		return null;
 	}
 }
