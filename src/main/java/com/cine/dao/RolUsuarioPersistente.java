@@ -152,18 +152,14 @@ public class RolUsuarioPersistente implements Persistencia {
                 switch (resultSet.getString("Nombre")) {
                     case "Cliente":
                         Rol cliente = new Cliente();
-                        if (resultSet.next()) {
                             cliente.setId(resultSet.getInt("Id"));
                             cliente.setNombre(resultSet.getString("Nombre"));
                             return cliente;
-                        }
                     case "Operador":
                         Rol operador = new Operador();
-                        if (resultSet.next()) {
                             operador.setId(resultSet.getInt("Id"));
                             operador.setNombre(resultSet.getString("Nombre"));
                             return operador;
-                        }
                     case "Administrador":
                         Rol administrador = new Administrador();
                             administrador.setId(resultSet.getInt("Id"));
@@ -176,11 +172,9 @@ public class RolUsuarioPersistente implements Persistencia {
                             return agente;
                     case "Vendedor Boleteria":
                         Rol vendedor = new VendedorBoleteria();
-                        if (resultSet.next()) {
                             vendedor.setId(resultSet.getInt("Id"));
                             vendedor.setNombre(resultSet.getString("Nombre"));
                             return vendedor;
-                        }
                 }
             }
 

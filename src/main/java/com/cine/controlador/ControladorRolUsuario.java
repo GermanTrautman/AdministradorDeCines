@@ -6,10 +6,11 @@ import com.cine.modelo.RolUsuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControladorRolUsuario implements Cache {
 
-    public List<Rol> rolUsuarioList;
+    public List<RolUsuario> rolUsuarioList;
     private static ControladorRolUsuario instancia;
 
     public ControladorRolUsuario() {
@@ -26,11 +27,12 @@ public class ControladorRolUsuario implements Cache {
     public void altaRolUsuario(Integer dni, List<String> roles) {
 
         roles.forEach(r -> {
-            RolUsuario unRol = new RolUsuario();
-            unRol.setIdUsuario(dni);
-            unRol.setIdRol(unRol.buscarRolPorNombre(r));
-            unRol.insertarRolUsuario();
-            System.out.println("UsuarioRol insertado correctamente ~ " + unRol);
+            RolUsuario unRolUsuario = new RolUsuario();
+            unRolUsuario.setIdUsuario(dni);
+            unRolUsuario.setIdRol(unRolUsuario.buscarRolPorNombre(r));
+            agregarACache(unRolUsuario);
+            unRolUsuario.insertarRolUsuario();
+            System.out.println("UsuarioRol insertado correctamente ~ " + unRolUsuario);
         });
     }
 
@@ -43,10 +45,10 @@ public class ControladorRolUsuario implements Cache {
 
 
     @Override
-    public Rol buscarEnCache(Object key) {
+    public RolUsuario buscarEnCache(Object key) {
         return rolUsuarioList
                 .stream()
-                .filter(rol -> rol.getNombre().equals(key))
+                .filter(rol -> rol.getIdUsuario().equals(key))
                 .findFirst()
                 .orElse(null);
     }
@@ -58,23 +60,27 @@ public class ControladorRolUsuario implements Cache {
 
     @Override
     public void agregarACache(Object entidad) {
+        this.rolUsuarioList.add((RolUsuario) entidad);
     }
 
     @Override
     public void borrarDeCache(Object key) {
-
+        this.rolUsuarioList.removeIf(rolUsuario -> rolUsuario.getIdUsuario().equals(key));
     }
 
     @Override
     public void actualizarCache(Object entidad) {
-        //TODO: ACTUALIZAR CACHE
+        rolUsuarioList.add(this.rolUsuarioList
+                .stream()
+                .filter(rolUsuario -> rolUsuario.getIdUsuario().equals(((RolUsuario) entidad).getIdUsuario()))
+                .findFirst()
+                .get());
     }
 
-    public Rol buscarRolPorId(Integer idRol){
+    public Rol buscarRolPorId(Integer idRol) {
         RolUsuario rolUsuario = new RolUsuario();
-       return rolUsuario.buscarRolPorId(idRol);
+        return rolUsuario.buscarRolPorId(idRol);
     }
-
 
 
 }
