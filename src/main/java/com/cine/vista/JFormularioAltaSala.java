@@ -100,6 +100,10 @@ public class JFormularioAltaSala extends JFormularioBase {
 						&& comboEstados.getSelectedItem() != null && txtbxCantidadDeFilas.getText() != null && txtbxCantidadDeAsientosPorFila.getText() != null ) {
 
 					ControladorSala.getInstance().alta(nombre.getText(), idEstablecimiento, estadoEnletras);
+					
+					JOptionPane.showMessageDialog(null, "Se ha guardado la sala");
+					
+					dispose();
 
 					JFrame asientos = new JFormularioAsientos(nombre.getText(), Integer.parseInt(txtbxCantidadDeFilas.getText()), Integer.parseInt(txtbxCantidadDeAsientosPorFila.getText()));
 					asientos.setVisible(true);

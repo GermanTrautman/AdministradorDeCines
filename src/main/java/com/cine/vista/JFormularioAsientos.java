@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
@@ -73,7 +74,12 @@ public class JFormularioAsientos extends JFormularioBase {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				ControladorSala.getInstance().modificarAsientos(nombreDeSala, asientos);
+				
+				JOptionPane.showMessageDialog(null, "Se han guardado los asientos");
+				
+				dispose();
 			}
 		});
 		
