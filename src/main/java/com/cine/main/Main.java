@@ -12,7 +12,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    JFrame panel = new JFormularioPrincipal("Administrador");
+                    JFrame panel = new JFormularioLogin();
                     panel.setVisible(true);
 
                 } catch (Exception e) {

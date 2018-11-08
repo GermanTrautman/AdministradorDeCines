@@ -87,28 +87,6 @@ public class JFormularioAltaSala extends JFormularioBase {
 		getContentPane().add(txtbxCantidadDeAsientosPorFila);
 		txtbxCantidadDeAsientosPorFila.setColumns(10);
 		
-		/*
-		tblAsientos = new JTable(tablaAltaAsientos);
-		tblAsientos.setBounds(223, 257, 502, 400);
-		tblAsientos.setRowSelectionAllowed(false);
-		tblAsientos.addMouseListener(new java.awt.event.MouseAdapter() {
-			@Override
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-
-				int fila = tblAsientos.rowAtPoint(evt.getPoint());
-				int columna = tblAsientos.columnAtPoint(evt.getPoint());
-
-				AsientoFisico asientoFisico = new AsientoFisico(nombre.getText(), fila, columna, Estado.ACTIVO);
-
-				if (ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] == null) {
-					ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] = asientoFisico;
-				} else {
-					ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] = null;
-				}
-			}
-		});
-		getContentPane().add(tblAsientos);
-		*/
 		this.btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
