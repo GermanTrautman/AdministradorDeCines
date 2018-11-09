@@ -42,7 +42,7 @@ public class ControladorSala implements Cache {
 			sala = (Sala) salaPersistente.buscar(nombre);
 
 			AsientoFisico[][] asientos = (AsientoFisico[][]) asientoFisicoPersistente.buscar(sala.getNombre());
-			sala.setAsientos(asientos);
+			sala.setAsientosFisicos(asientos);
 
 			if (sala != null) {
 				agregarACache(sala);
@@ -77,15 +77,15 @@ public class ControladorSala implements Cache {
 
 		if (sala != null) {
 
-			sala.setAsientos((AsientoFisico[][]) asientoFisicoPersistente.buscar(nombre));
+			sala.setAsientosFisicos((AsientoFisico[][]) asientoFisicoPersistente.buscar(nombre));
 
-			for (int i = 0; i < sala.getAsientos().length; i++) {
+			for (int i = 0; i < sala.getAsientosFisicos().length; i++) {
 
-				for (int j = 0; j < sala.getAsientos().length; j++) {
+				for (int j = 0; j < sala.getAsientosFisicos().length; j++) {
 
-					if (sala.getAsientos()[i][j] != null) {
+					if (sala.getAsientosFisicos()[i][j] != null) {
 
-						sala.getAsientos()[i][j].borrar();
+						sala.getAsientosFisicos()[i][j].borrar();
 					}
 				}
 			}
@@ -116,13 +116,13 @@ public class ControladorSala implements Cache {
 				
 				Sala sala = buscar(nombreSala);
 
-				if (asientosModificados[i][j] != null && sala.getAsientos()[i][j] == null) {
+				if (asientosModificados[i][j] != null && sala.getAsientosFisicos()[i][j] == null) {
 
 					asientosAAgregar[i][j] = asientosModificados[i][j];
 
-				} else if (asientosModificados[i][j] == null && buscar(nombreSala).getAsientos()[i][j] != null) {
+				} else if (asientosModificados[i][j] == null && buscar(nombreSala).getAsientosFisicos()[i][j] != null) {
 
-					asientosABorrar[i][j] = buscar(nombreSala).getAsientos()[i][j];
+					asientosABorrar[i][j] = buscar(nombreSala).getAsientosFisicos()[i][j];
 				}
 			}
 		}

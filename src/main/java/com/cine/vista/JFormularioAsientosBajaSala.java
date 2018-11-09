@@ -43,7 +43,7 @@ public class JFormularioAsientosBajaSala extends JFormularioBase {
 
 				JToggleButton boton = new JToggleButton("F: " + i + " A: " + j);
 				
-				if (sala.getAsientos()[i][j] == null) {
+				if (sala.getAsientosFisicos()[i][j] == null) {
 					boton.setEnabled(false);
 				}
 				
@@ -60,11 +60,11 @@ public class JFormularioAsientosBajaSala extends JFormularioBase {
 		int filaMasGrande = 0;
 		int numeroDeAsientosMasGrande = 0;
 		
-		for (int i = 0; i < sala.getAsientos().length; i++) {
+		for (int i = 0; i < sala.getAsientosFisicos().length; i++) {
 			
-			for (int j = 0; j < sala.getAsientos().length; j++) {
+			for (int j = 0; j < sala.getAsientosFisicos().length; j++) {
 				
-				if (sala.getAsientos()[i][j] != null) {
+				if (sala.getAsientosFisicos()[i][j] != null) {
 					
 					if (i > filaMasGrande) {
 						cantidadDeFilas = i;
