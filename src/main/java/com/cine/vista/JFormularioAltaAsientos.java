@@ -4,8 +4,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
@@ -19,17 +17,17 @@ import com.cine.controlador.ControladorSala;
 import com.cine.modelo.AsientoFisico;
 import com.cine.utilidades.Estado;
 
-public class JFormularioAsientos extends JFormularioBase {
+public class JFormularioAltaAsientos extends JFormularioBase {
 
 	private static final long serialVersionUID = -2608943734882268555L;
 	
-	private Set<AsientoFisico> asientos = new HashSet<>();
+	private AsientoFisico[][] asientos = new AsientoFisico[100][100];
 	
 	private JPanel panelDeAsientos = new JPanel();
 	
 	private JButton btnGuardar = new JButton();
 
-	public JFormularioAsientos(String nombreDeSala, Integer cantidadDeFilas, Integer cantidadDeAsientosPorFila) {
+	public JFormularioAltaAsientos(String nombreDeSala, Integer cantidadDeFilas, Integer cantidadDeAsientosPorFila) {
 
 		getContentPane().setLayout(null);
 		
@@ -95,10 +93,13 @@ public class JFormularioAsientos extends JFormularioBase {
 		
 		AsientoFisico asientoFisico = new AsientoFisico(nombreDeSala, fila, numeroDeAsiento, Estado.ACTIVO);
 		
-		boolean seAgregoElAsiento = asientos.add(asientoFisico);
-		
-		if (!seAgregoElAsiento) {
-			asientos.remove(asientoFisico);
+		if (asientos != null) {
+			
+			if (asientos[fila][numeroDeAsiento] == null) {
+				asientos[fila][numeroDeAsiento] = asientoFisico;
+			} else {
+				asientos[fila][numeroDeAsiento] = null;
+			}
 		}
 	}
 }

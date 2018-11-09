@@ -105,7 +105,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 					
 					dispose();
 
-					JFrame asientos = new JFormularioAsientos(nombre.getText(), Integer.parseInt(txtbxCantidadDeFilas.getText()), Integer.parseInt(txtbxCantidadDeAsientosPorFila.getText()));
+					JFrame asientos = new JFormularioAltaAsientos(nombre.getText(), Integer.parseInt(txtbxCantidadDeFilas.getText()), Integer.parseInt(txtbxCantidadDeAsientosPorFila.getText()));
 					asientos.setVisible(true);
 					
 				} else {
