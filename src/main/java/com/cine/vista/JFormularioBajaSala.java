@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -16,7 +16,6 @@ import com.cine.controlador.ControladorSala;
 import com.cine.modelo.Sala;
 import com.cine.vista.modelo.ComboEstablecimiento;
 import com.cine.vista.modelo.ComboEstado;
-import com.cine.vista.modelo.TablaAsientos;
 
 public class JFormularioBajaSala extends JFormularioBase {
 
@@ -27,9 +26,7 @@ public class JFormularioBajaSala extends JFormularioBase {
 	private JComboBox<ComboEstablecimiento> comboEstablecimientos = new JComboBox<>();
 	private JComboBox<ComboEstado> comboEstados = new JComboBox<>();
 	
-	private JTable tblAsientos;
-	private TablaAsientos tablaAsientos = new TablaAsientos();
-
+	private JButton btnVerAsientos = new JButton("Ver asientos");
 	private JButton btnBorrar = new JButton("Borrar");
 	
 	public JFormularioBajaSala() {
@@ -57,13 +54,11 @@ public class JFormularioBajaSala extends JFormularioBase {
 				if (nombre.getText() != null) {
 
 					Sala sala = ControladorSala.getInstance().buscar(nombre.getText());
-					ControladorSala.getInstance().setSalaSeleccionada(sala);
 					popularCampos(sala);
-					tablaAsientos.fireTableDataChanged();
 				}
 			}
 		});
-		btnBuscar.setBounds(745, 194, 115, 29);
+		btnBuscar.setBounds(745, 64, 115, 29);
 		this.getContentPane().add(btnBuscar);
 
 		JLabel lblEstablecimiento = new JLabel("Establecimiento");
@@ -82,14 +77,7 @@ public class JFormularioBajaSala extends JFormularioBase {
 		this.comboEstados.setEnabled(false);
 		this.getContentPane().add(comboEstados);
 		
-		JLabel lblAsientos = new JLabel("Asientos");
-		lblAsientos.setBounds(223, 228, 56, 16);
-		getContentPane().add(lblAsientos);
 
-		tblAsientos = new JTable(tablaAsientos);
-		tblAsientos.setBounds(223, 257, 502, 400);
-		tblAsientos.setRowSelectionAllowed(false);
-		getContentPane().add(tblAsientos);
 		
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -100,15 +88,22 @@ public class JFormularioBajaSala extends JFormularioBase {
 					
 					resetCampos();
 					
-					ControladorSala.getInstance().setSalaSeleccionada(null);
-					tablaAsientos.fireTableDataChanged();
-					
 					JOptionPane.showMessageDialog(null, "Sala borrada correctamente");
 				}
 			}
 		});
 		this.btnBorrar.setBounds(223, 670, 115, 29);
 		this.getContentPane().add(btnBorrar);
+		btnVerAsientos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JFrame asientos = new JFormularioAsientosBajaSala(nombre.getText());
+				asientos.setVisible(true);
+			}
+		});
+		
+		btnVerAsientos.setBounds(223, 232, 229, 29);
+		getContentPane().add(btnVerAsientos);
 	}
 	
 	private void popularCampos(Sala sala) {

@@ -15,7 +15,7 @@ public class AsientoFisicoPersistente implements Persistencia {
 		
 		try {
 			
-			AsientoFisico[][] asientosFisicos = new AsientoFisico[25][25];
+			AsientoFisico[][] asientos = new AsientoFisico[100][100]; 
             
             PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.AsientoFisico WHERE NombreSala = ?");
 			preparedStatement.setString(1, (String) nombreSala);
@@ -26,10 +26,10 @@ public class AsientoFisicoPersistente implements Persistencia {
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	AsientoFisico asientoFisico = new AsientoFisico(resultSet.getString("NombreSala"), resultSet.getInt("Fila"), resultSet.getInt("NumeroDeAsiento"), estado);
             	
-            	asientosFisicos[asientoFisico.getFila()][asientoFisico.getNumeroDeAsiento()] = asientoFisico;
+            	asientos[asientoFisico.getFila()][asientoFisico.getNumeroDeAsiento()] = asientoFisico;
             }
             
-            return asientosFisicos;
+            return asientos;
             
         } catch (SQLException e) {
         	System.out.println("Error Query: " + e.getMessage());

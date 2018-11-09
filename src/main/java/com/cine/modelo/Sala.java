@@ -6,7 +6,7 @@ import com.cine.utilidades.Estado;
 public class Sala {
 
 	private String nombre;
-	AsientoFisico[][] asientosFisicos = new AsientoFisico[25][25];
+	private AsientoFisico[][] asientos = new AsientoFisico[100][100]; 
 	private Establecimiento establecimiento;
 	private Estado estado;
 
@@ -25,12 +25,12 @@ public class Sala {
 		this.nombre = nombre;
 	}
 
-	public AsientoFisico[][] getAsientosFisicos() {
-		return asientosFisicos;
+	public AsientoFisico[][] getAsientos() {
+		return asientos;
 	}
 
-	public void setAsientosFisicos(AsientoFisico[][] asientosFisicos) {
-		this.asientosFisicos = asientosFisicos;
+	public void setAsientos(AsientoFisico[][] asientos) {
+		this.asientos = asientos;
 	}
 
 	public Establecimiento getEstablecimiento() {
