@@ -3,9 +3,7 @@ package com.cine.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.cine.modelo.AsientoFisico;
 import com.cine.utilidades.Estado;
@@ -17,7 +15,7 @@ public class AsientoFisicoPersistente implements Persistencia {
 		
 		try {
 			
-			Set<AsientoFisico> asientos = new HashSet<>(); 
+			AsientoFisico[][] asientos = new AsientoFisico[100][100]; 
             
             PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.AsientoFisico WHERE NombreSala = ?");
 			preparedStatement.setString(1, (String) nombreSala);
@@ -28,7 +26,7 @@ public class AsientoFisicoPersistente implements Persistencia {
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	AsientoFisico asientoFisico = new AsientoFisico(resultSet.getString("NombreSala"), resultSet.getInt("Fila"), resultSet.getInt("NumeroDeAsiento"), estado);
             	
-            	asientos.add(asientoFisico);
+            	asientos[asientoFisico.getFila()][asientoFisico.getNumeroDeAsiento()] = asientoFisico;
             }
             
             return asientos;
