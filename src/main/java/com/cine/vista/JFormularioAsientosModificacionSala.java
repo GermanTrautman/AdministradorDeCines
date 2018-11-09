@@ -2,11 +2,7 @@ package com.cine.vista;
 
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.regex.Pattern;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,23 +11,36 @@ import javax.swing.SwingConstants;
 
 import com.cine.controlador.ControladorSala;
 import com.cine.modelo.AsientoFisico;
+import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
 
-public class JFormularioAltaAsientos extends JFormularioBase {
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
+import java.awt.event.ActionEvent;
 
-	private static final long serialVersionUID = -2608943734882268555L;
-	
+public class JFormularioAsientosModificacionSala extends JFormularioBase {
+
+	private static final long serialVersionUID = 2848016781743397417L;
+
 	private AsientoFisico[][] asientos = new AsientoFisico[100][100];
 	
 	private JPanel panelDeAsientos = new JPanel();
 	
 	private JButton btnGuardar = new JButton();
 
-	public JFormularioAltaAsientos(String nombreDeSala, Integer cantidadDeFilas, Integer cantidadDeAsientosPorFila) {
+	private Integer cantidadDeFilas = 1;
+	private Integer cantidadDeAsientosPorFila = 1;
+
+	public JFormularioAsientosModificacionSala(String nombreDeSala) {
+		
+		Sala sala = ControladorSala.getInstance().buscar(nombreDeSala);
+		
+		obtenerCantidadDeFilasYAsientos(sala);
 
 		getContentPane().setLayout(null);
 		
-		JLabel lblAltaAsientos = new JLabel("Alta asientos");
+		JLabel lblAltaAsientos = new JLabel("Modificacion asientos");
 		lblAltaAsientos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAltaAsientos.setFont(new Font("Tahoma", Font.BOLD, 26));
 		lblAltaAsientos.setBounds(60, 30, 1024, 38);
@@ -52,16 +61,18 @@ public class JFormularioAltaAsientos extends JFormularioBase {
 			}
 		};
 
-		for (int i = 0; i < cantidadDeFilas; i++) {
+		for (int i = 1; i <= cantidadDeFilas; i++) {
 
-			for (int j = 0; j < cantidadDeAsientosPorFila; j++) {
+			for (int j = 1; j <= cantidadDeAsientosPorFila; j++) {
 
-				Integer numeroFila = i + 1;
-				Integer numeroAsientoPorFila = j + 1;
-
-				JToggleButton boton = new JToggleButton("F: " + numeroFila + " A: " + numeroAsientoPorFila);
-				boton.setName(numeroFila.toString() + "," + numeroAsientoPorFila.toString());
+				JToggleButton boton = new JToggleButton("F: " + i + " A: " + j);
+				boton.setName(i + "," + j);
 				boton.addActionListener(actionListener);
+				
+				if (sala.getAsientos()[i][j] != null) {
+					boton.doClick();
+				}
+				
 				panelDeAsientos.add(boton);
 			}
 		}
@@ -85,6 +96,30 @@ public class JFormularioAltaAsientos extends JFormularioBase {
 		getContentPane().add(btnGuardar);
 	}
 
+	private void obtenerCantidadDeFilasYAsientos(Sala sala) {
+		
+		int filaMasGrande = 0;
+		int numeroDeAsientosMasGrande = 0;
+		
+		for (int i = 0; i < sala.getAsientos().length; i++) {
+			
+			for (int j = 0; j < sala.getAsientos().length; j++) {
+				
+				if (sala.getAsientos()[i][j] != null) {
+					
+					if (i > filaMasGrande) {
+						cantidadDeFilas = i;
+					}
+					
+					if (j > numeroDeAsientosMasGrande) {
+						cantidadDeAsientosPorFila = j;
+					}
+				}
+			}
+		}
+		
+	}
+	
 	private void agregarOQuitarSala(String nombreDeSala, String filaYAsiento) {
 		
 		String[] filaYAsientoPartido = filaYAsiento.split(Pattern.quote(","));

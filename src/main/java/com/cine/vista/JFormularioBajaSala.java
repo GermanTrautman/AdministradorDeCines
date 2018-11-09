@@ -97,8 +97,8 @@ public class JFormularioBajaSala extends JFormularioBase {
 		btnVerAsientos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				JFrame verAsientos = new JFormularioAsientosBajaSala(nombre.getText());
-				verAsientos.setVisible(true);
+				JFrame asientos = new JFormularioAsientosBajaSala(nombre.getText());
+				asientos.setVisible(true);
 			}
 		});
 		

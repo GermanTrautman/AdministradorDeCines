@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -111,6 +112,17 @@ public class JFormularioModificarSala extends JFormularioBase {
 		});
 		this.btnGuardar.setBounds(223, 670, 115, 29);
 		this.getContentPane().add(btnGuardar);
+		
+		JButton btnAsientos = new JButton("Asientos");
+		btnAsientos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JFrame asientos = new JFormularioAsientosModificacionSala(nombre.getText());
+				asientos.setVisible(true);
+			}
+		});
+		btnAsientos.setBounds(223, 343, 115, 29);
+		getContentPane().add(btnAsientos);
 	}
 	
 	private void popularEstados(Sala sala) {
