@@ -3,8 +3,10 @@ package com.cine.vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -19,10 +21,8 @@ import com.cine.controlador.ControladorPelicula;
 import com.cine.modelo.Establecimiento;
 import com.cine.modelo.Funcion;
 import com.cine.modelo.Pelicula;
-import com.cine.vista.modelo.ModeloAsientosCompraEntrada;
-
-import javax.swing.JComboBox;
-import javax.swing.JTable;
+import com.cine.vista.modelo.ComboFecha;
+import com.cine.vista.modelo.ComboHorario;
 
 public class JFormularioComprarEntradas extends JFormularioBase {
 
@@ -30,17 +30,16 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 	
 	private JTextField cuitEstablecimiento = new JTextField();
 	private JTextField nombreEstablecimiento = new JTextField();
-	
 	private JTextField nombrePelicula = new JTextField();
+	private JTextField banco;
+	private JTextField numeroTarjeta;
 	
-	private JSpinner vencimientoTarjeta;
-	private JTable asientosVirtuales;
-	private JTextField textField;
-	private JTextField textField_1;
-	JComboBox cantidadDeEntradas = new JComboBox();
-
-	JComboBox fecha = new JComboBox();
-	JComboBox hora = new JComboBox();
+	private	JComboBox<ComboFecha> fecha = new JComboBox<>();
+	private JComboBox<ComboHorario> horario = new JComboBox();
+	private JComboBox cantidadDeEntradas = new JComboBox();
+	private JComboBox formaDePago = new JComboBox();
+	
+	private JSpinner mesYAnioVencimientoTarjeta;
 	
 	public JFormularioComprarEntradas() {
 		
@@ -67,7 +66,7 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 				if (cuitEstablecimiento.getText() != null) {
 
 					Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(Integer.parseInt(cuitEstablecimiento.getText()));
-					popularCampo(establecimiento);
+					popularEstablecimiento(establecimiento);
 					
 					JOptionPane.showMessageDialog(null, "Establecimiento encontrado.");
 					
@@ -105,16 +104,18 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 				Pelicula pelicula = (Pelicula) ControladorPelicula.getInstance().buscarEnCache(nombrePelicula.getText());
 				
 				if (pelicula != null) {
+					
 					JOptionPane.showMessageDialog(null, "Pelicula encontrada.");
-					Funcion funcion = ControladorFuncion.getInstance().buscarPeliculaPorDiaYHora(Integer.parseInt(cuitEstablecimiento.getText()),pelicula.getNombre());
-					popularDiaYHorario(funcion);
+					
+					List<Funcion> funciones = ControladorFuncion.getInstance().buscarEnPor(Integer.parseInt(cuitEstablecimiento.getText()),pelicula.getNombre());
+					
+					popularDia(funciones);
+					popularHorario(funciones);
 					popularCantidadEntradas();
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "Pelicula no encontrada.");
 				}
-
-
-
 			}
 		});
 		btnBuscarPelicula.setBounds(745, 141, 115, 29);
@@ -124,21 +125,20 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		lblDia.setBounds(223, 188, 229, 25);
 		getContentPane().add(lblDia);
 		
+		fecha.setBounds(467, 187, 256, 26);
+		getContentPane().add(fecha);
+
 		JLabel lblNewLabel = new JLabel("Hora");
 		lblNewLabel.setBounds(223, 230, 229, 25);
 		getContentPane().add(lblNewLabel);
 		
-		fecha.setBounds(467, 187, 256, 26);
-		getContentPane().add(fecha);
-
-		hora.setBounds(467, 230, 256, 25);
-		getContentPane().add(hora);
+		horario.setBounds(467, 230, 256, 25);
+		getContentPane().add(horario);
 		
-		JLabel lblNewLabel_1 = new JLabel("Cantidad de entradas");
-		lblNewLabel_1.setBounds(223, 277, 229, 26);
-		getContentPane().add(lblNewLabel_1);
+		JLabel lblCantidadDeEnetradas = new JLabel("Cantidad de entradas");
+		lblCantidadDeEnetradas.setBounds(223, 277, 229, 26);
+		getContentPane().add(lblCantidadDeEnetradas);
 		
-
 		cantidadDeEntradas.setBounds(467, 277, 256, 26);
 		getContentPane().add(cantidadDeEntradas);
 		
@@ -146,15 +146,10 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		lblUbicacion.setBounds(223, 326, 229, 26);
 		getContentPane().add(lblUbicacion);
 		
-		asientosVirtuales = new JTable(new ModeloAsientosCompraEntrada());
-		asientosVirtuales.setBounds(221, 353, 506, 400);
-		getContentPane().add(asientosVirtuales);
-		
 		JLabel lblFormaDePago = new JLabel("Forma de pago");
 		lblFormaDePago.setBounds(223, 773, 229, 25);
 		getContentPane().add(lblFormaDePago);
 		
-		JComboBox formaDePago = new JComboBox();
 		formaDePago.setBounds(467, 772, 256, 26);
 		getContentPane().add(formaDePago);
 		
@@ -162,30 +157,30 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		lblBanco.setBounds(223, 811, 77, 26);
 		getContentPane().add(lblBanco);
 		
-		textField = new JTextField();
-		textField.setBounds(467, 813, 256, 22);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		banco = new JTextField();
+		banco.setBounds(467, 813, 256, 22);
+		getContentPane().add(banco);
+		banco.setColumns(10);
 		
 		JLabel lblNumeroDeTarjeta = new JLabel("Numero de tarjeta");
 		lblNumeroDeTarjeta.setBounds(223, 850, 229, 20);
 		getContentPane().add(lblNumeroDeTarjeta);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(467, 848, 256, 22);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		numeroTarjeta = new JTextField();
+		numeroTarjeta.setBounds(467, 848, 256, 22);
+		getContentPane().add(numeroTarjeta);
+		numeroTarjeta.setColumns(10);
 		
 		JLabel lblMesYAo = new JLabel("Mes y a\u00F1o de vencimiento");
 		lblMesYAo.setBounds(223, 889, 229, 20);
 		getContentPane().add(lblMesYAo);
 		
 		SpinnerDateModel SFecha = new SpinnerDateModel();
-		vencimientoTarjeta = new JSpinner(SFecha);
-		DateEditor dateEditor = new DateEditor(vencimientoTarjeta, "MM/yyyy");
-		vencimientoTarjeta.setEditor(dateEditor);
-		vencimientoTarjeta.setBounds(467, 884, 256, 25);
-		this.getContentPane().add(vencimientoTarjeta);
+		mesYAnioVencimientoTarjeta = new JSpinner(SFecha);
+		DateEditor dateEditor = new DateEditor(mesYAnioVencimientoTarjeta, "MM/yyyy");
+		mesYAnioVencimientoTarjeta.setEditor(dateEditor);
+		mesYAnioVencimientoTarjeta.setBounds(467, 884, 256, 25);
+		this.getContentPane().add(mesYAnioVencimientoTarjeta);
 		
 		JButton btnNewButton = new JButton("Continuar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -196,22 +191,34 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		getContentPane().add(btnNewButton);
 	}
 
-	private void popularCantidadEntradas() {
-
-		for(int i = 1; i < 11; i++)
-		cantidadDeEntradas.addItem(i);
-	}
-
-	private void popularDiaYHorario(Funcion funcion) {
-		fecha.addItem(funcion.getFecha());
-		hora.addItem(funcion.getHora());
-
-	}
-
-	private void popularCampo(Establecimiento establecimiento) {
-
+	private void popularEstablecimiento(Establecimiento establecimiento) {
+		
 		if (establecimiento != null) {
 			this.nombreEstablecimiento.setText(establecimiento.getNombre());
 		}
+	}
+	
+	private void popularDia(List<Funcion> funciones) {
+		
+		Integer id = 0;
+		
+		for (Funcion funcion : funciones) {
+			fecha.addItem(new ComboFecha(funcion.getFecha(), id++));
+		}
+	}
+	
+	private void popularHorario(List<Funcion> funciones) {
+		
+		Integer id = 0;
+		
+		for (Funcion funcion : funciones) {
+			horario.addItem(new ComboHorario(funcion.getHora(), id++));
+		}
+	}
+
+	private void popularCantidadEntradas() {
+		
+		for(int i = 1; i < 11; i++)
+			cantidadDeEntradas.addItem(i);
 	}
 }

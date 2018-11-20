@@ -136,7 +136,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 
 	private void popularEstado() {
 
-		comboEstados.addItem(new ComboEstado(Estado.ACTIVO.estado(), 1));
-		comboEstados.addItem(new ComboEstado(Estado.INACTIVO.estado(), 2));
+		comboEstados.addItem(new ComboEstado(Estado.ACTIVO.getLabel(), 1));
+		comboEstados.addItem(new ComboEstado(Estado.INACTIVO.getLabel(), 2));
 	}
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import com.cine.dao.Cache;
 import com.cine.dao.PeliculaPersistente;
 import com.cine.modelo.Pelicula;
-import com.cine.utilidades.EstadoActivoInactivo;
+import com.cine.utilidades.Estado;
 
 public class ControladorPelicula implements Cache {
 	private static ControladorPelicula instancia;
@@ -31,7 +31,7 @@ public class ControladorPelicula implements Cache {
 //	}
 
 	public void altaPelicula(String nombre, String director, String genero, Integer duracion, String idioma,
-			Boolean subtitulos, Float calificacion, String observaciones, EstadoActivoInactivo estado) {
+			Boolean subtitulos, Float calificacion, String observaciones, Estado estado) {
 
 		Pelicula pelicula = new Pelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion,
 				observaciones, estado);
@@ -50,7 +50,7 @@ public class ControladorPelicula implements Cache {
 	}
 
 	public void modificarPelicula(Integer id, String nombre, String director, String genero, Integer duracion,
-			String idioma, Boolean subtitulos, Float calificacion, String observaciones, EstadoActivoInactivo estado) {
+			String idioma, Boolean subtitulos, Float calificacion, String observaciones, Estado estado) {
 		Pelicula pelicula = (Pelicula) buscarEnCache(nombre);
 		
 		pelicula.actualizarPelicula(id, nombre, director, genero, duracion, idioma, subtitulos, calificacion, observaciones, estado);

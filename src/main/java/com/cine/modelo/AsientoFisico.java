@@ -4,6 +4,9 @@ import com.cine.dao.AsientoFisicoPersistente;
 import com.cine.utilidades.Estado;
 
 public class AsientoFisico {
+	
+	public static final Integer FILAS = 100;
+	public static final Integer ASIENTOSPORFILA = 100;
 
 	private String nombreSala;
 	private Integer fila;
@@ -11,6 +14,7 @@ public class AsientoFisico {
 	private Estado estado;
 
 	public AsientoFisico(String nombreSala, Integer fila, Integer numeroDeAsiento, Estado estado) {
+		
 		super();
 		this.nombreSala = nombreSala;
 		this.fila = fila;

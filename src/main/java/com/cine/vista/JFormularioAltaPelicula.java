@@ -1,20 +1,20 @@
 package com.cine.vista;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JComboBox;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 
 import com.cine.controlador.ControladorPelicula;
-import com.cine.utilidades.EstadoActivoInactivo;
+import com.cine.utilidades.Estado;
 
 public class JFormularioAltaPelicula extends JFormularioBase {
 
@@ -31,7 +31,7 @@ public class JFormularioAltaPelicula extends JFormularioBase {
 	private JTextField txtObservaciones;
 	JComboBox<String> comboBoxSubtitulo;
 	JSpinner spinnerCalificacion;
-	JComboBox<EstadoActivoInactivo> comboBoxEstado;
+	JComboBox<Estado> comboBoxEstado;
 	
 
 	/**
@@ -129,7 +129,7 @@ public class JFormularioAltaPelicula extends JFormularioBase {
 		comboBoxEstado = new JComboBox<>();
 		comboBoxEstado.setBounds(467, 571, 256, 26);
 		this.getContentPane().add(comboBoxEstado);
-		comboBoxEstado.setModel(new DefaultComboBoxModel<>(EstadoActivoInactivo.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel<>(Estado.values()));
 		
 		JButton btnAgregarPelicula = new JButton("Agregar Pelicula");
 		btnAgregarPelicula.setBounds(223, 670, 151, 26);
@@ -147,7 +147,7 @@ public class JFormularioAltaPelicula extends JFormularioBase {
 			    Boolean subtitulos = (StringSubtitulos == "Si");
 			    Float calificacion = (Float) spinnerCalificacion.getValue();
 			    String observaciones = txtObservaciones.getText();
-			    EstadoActivoInactivo estado = (EstadoActivoInactivo) comboBoxEstado.getSelectedItem();
+			    Estado estado = (Estado) comboBoxEstado.getSelectedItem();
 			    if (nombre != null && director !=null && genero!=null && duracion != null && idioma!=null
 			    		&& subtitulos != null && calificacion != null) {
 			    	ControladorPelicula.getInstance().altaPelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion, observaciones, estado);

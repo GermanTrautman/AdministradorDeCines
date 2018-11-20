@@ -23,10 +23,28 @@ public class ControladorFuncion implements Cache {
 	}
 
 	public static ControladorFuncion getInstance() {
+
 		if (ControladorFuncion.instancia == null) {
 			ControladorFuncion.instancia = new ControladorFuncion();
 		}
+
 		return ControladorFuncion.instancia;
+	}
+	
+	public List<Funcion> buscarEnPor(Integer cuitEstablecimiento, String nombrePelicula) {
+		
+		List<Funcion> funcionesBuscadas = buscarEnCachePor(cuitEstablecimiento, nombrePelicula);
+		
+		if (funcionesBuscadas.isEmpty()) {
+			
+			funcionesBuscadas = (List<Funcion>) FuncionPersistente.getInstance().buscarPor(cuitEstablecimiento, nombrePelicula);
+			
+			for (Funcion funcion : funcionesBuscadas) {
+				agregarACache(funcion);
+			}
+		}
+		
+		return funcionesBuscadas;
 	}
 
 	public void altaFuncion(LocalDate fecha, Sala sala, Pelicula pelicula, Estado estado, Time hora) {
@@ -50,10 +68,11 @@ public class ControladorFuncion implements Cache {
 
 		Funcion funcion = (Funcion) buscarEnCache(funcionAModificar);
 
+		/* To-do
 		funcion.actualizarFuncion(funcion.getId(), funcion.getFecha(), funcion.getSala(), funcion.getPelicula(),
 				funcion.getEstado(), funcion.getHora());
 		actualizarCache(funcion);
-
+		*/
 	}
 
 	@Override
@@ -73,11 +92,24 @@ public class ControladorFuncion implements Cache {
 		}
 		return null;
 	}
+	
+	private List<Funcion> buscarEnCachePor(Integer cuitEstablecimiento, String nombrePelicula) {
+
+		List<Funcion> funcionesBuscadas = new ArrayList<>();
+		
+		for (Funcion funcion : funciones) {
+			
+			if (funcion.getSala().getEstablecimiento().getCuit() == cuitEstablecimiento && funcion.getPelicula().getNombre().equals(nombrePelicula)) {
+				funcionesBuscadas.add(funcion);
+			} 
+		}
+
+		return funcionesBuscadas;
+	}
 
 	@Override
 	public void agregarACache(Object entidad) {
 		funciones.add((Funcion) entidad);
-
 	}
 
 	@Override
@@ -102,9 +134,9 @@ public class ControladorFuncion implements Cache {
 		agregarACache(funcionModificada);
 	}
 
-	public Funcion buscarPeliculaPorDiaYHora(Integer idEstablecimiento, String nombrePelicula ) {
+	public Funcion buscarPeliculaPorDiaYHora(Integer idEstablecimiento, String nombrePelicula) {
 
 		Funcion funcion = new Funcion();
-		return funcion.buscarPeliculaPorDiaYHora(idEstablecimiento,nombrePelicula);
+		return funcion.buscarPeliculaPorDiaYHora(idEstablecimiento, nombrePelicula);
 	}
 }

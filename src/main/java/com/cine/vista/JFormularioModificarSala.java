@@ -150,17 +150,17 @@ public class JFormularioModificarSala extends JFormularioBase {
 			
 			comboEstados.removeAllItems();
 			
-			ComboEstado activo = new ComboEstado(Estado.ACTIVO.estado(), 1);
+			ComboEstado activo = new ComboEstado(Estado.ACTIVO.getLabel(), 1);
 			comboEstados.addItem(activo);
 			
-			if (sala.getEstado().estado().equals(Estado.ACTIVO.estado())) {
+			if (sala.getEstado().getLabel().equals(Estado.ACTIVO.getLabel())) {
 				comboEstados.setSelectedItem(activo);
 			}
 
-			ComboEstado inactivo = new ComboEstado(Estado.INACTIVO.estado(), 1);
+			ComboEstado inactivo = new ComboEstado(Estado.INACTIVO.getLabel(), 1);
 			comboEstados.addItem(inactivo);
 
-			if (sala.getEstado().estado().equals(Estado.INACTIVO.estado())) {
+			if (sala.getEstado().getLabel().equals(Estado.INACTIVO.getLabel())) {
 				comboEstados.setSelectedItem(inactivo);
 			}
 		}

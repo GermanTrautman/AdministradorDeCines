@@ -4,6 +4,9 @@ import com.cine.dao.AsientoVirtualPersistente;
 import com.cine.utilidades.EstadoVirtual;
 
 public class AsientoVirtual {
+	
+	public static final Integer FILAS = 100;
+	public static final Integer ASIENTOSPORFILA = 100;
 
 	private AsientoFisico fisicoAsociado;
 	private EstadoVirtual estado;

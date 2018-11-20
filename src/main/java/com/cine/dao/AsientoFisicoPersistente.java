@@ -15,7 +15,7 @@ public class AsientoFisicoPersistente implements Persistencia {
 		
 		try {
 			
-			AsientoFisico[][] asientos = new AsientoFisico[100][100]; 
+			AsientoFisico[][] asientos = new AsientoFisico[AsientoFisico.FILAS][AsientoFisico.ASIENTOSPORFILA]; 
             
             PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.AsientoFisico WHERE NombreSala = ?");
 			preparedStatement.setString(1, (String) nombreSala);
@@ -56,7 +56,7 @@ public class AsientoFisicoPersistente implements Persistencia {
 			preparedStatement.setString(1, asientoFisico.getNombreSala());
 			preparedStatement.setInt(2, asientoFisico.getFila());
 			preparedStatement.setInt(3, asientoFisico.getNumeroDeAsiento());
-			preparedStatement.setString(4, asientoFisico.getEstado().estado());
+			preparedStatement.setString(4, asientoFisico.getEstado().getLabel());
 			
 			preparedStatement.executeUpdate();
 			
@@ -75,7 +75,7 @@ public class AsientoFisicoPersistente implements Persistencia {
 			AsientoFisico asientoFisico = (AsientoFisico) objetoAsientoFisico;
 			
 			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.AsientoFisico SET Estado = ? WHERE NombreSala = ? AND Fila = ? AND NumeroDeAsiento = ?");
-			preparedStatement.setString(1, asientoFisico.getEstado().estado());
+			preparedStatement.setString(1, asientoFisico.getEstado().getLabel());
 			preparedStatement.setString(2, asientoFisico.getNombreSala());
 			preparedStatement.setInt(3, asientoFisico.getFila());
 			preparedStatement.setInt(4, asientoFisico.getNumeroDeAsiento());
