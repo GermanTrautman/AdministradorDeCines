@@ -23,7 +23,7 @@ public class JFormularioAsientosModificacionSala extends JFormularioBase {
 
 	private static final long serialVersionUID = 2848016781743397417L;
 
-	private AsientoFisico[][] asientos = new AsientoFisico[100][100];
+	private AsientoFisico[][] asientosFisicos = new AsientoFisico[AsientoFisico.FILAS][AsientoFisico.ASIENTOSPORFILA];
 	
 	private JPanel panelDeAsientos = new JPanel();
 	
@@ -84,7 +84,7 @@ public class JFormularioAsientosModificacionSala extends JFormularioBase {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				ControladorSala.getInstance().modificarAsientos(nombreDeSala, asientos);
+				ControladorSala.getInstance().modificarAsientos(nombreDeSala, asientosFisicos);
 				
 				JOptionPane.showMessageDialog(null, "Se han guardado los asientos");
 				
@@ -128,12 +128,12 @@ public class JFormularioAsientosModificacionSala extends JFormularioBase {
 		
 		AsientoFisico asientoFisico = new AsientoFisico(nombreDeSala, fila, numeroDeAsiento, Estado.ACTIVO);
 		
-		if (asientos != null) {
+		if (asientosFisicos != null) {
 			
-			if (asientos[fila][numeroDeAsiento] == null) {
-				asientos[fila][numeroDeAsiento] = asientoFisico;
+			if (asientosFisicos[fila][numeroDeAsiento] == null) {
+				asientosFisicos[fila][numeroDeAsiento] = asientoFisico;
 			} else {
-				asientos[fila][numeroDeAsiento] = null;
+				asientosFisicos[fila][numeroDeAsiento] = null;
 			}
 		}
 	}

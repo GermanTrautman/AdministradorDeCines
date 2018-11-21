@@ -3,8 +3,14 @@ package com.cine.vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -16,13 +22,19 @@ import javax.swing.SwingConstants;
 import com.cine.controlador.ControladorEstablecimiento;
 import com.cine.controlador.ControladorFuncion;
 import com.cine.controlador.ControladorPelicula;
+import com.cine.modelo.AsientoVirtual;
 import com.cine.modelo.Establecimiento;
 import com.cine.modelo.Funcion;
 import com.cine.modelo.Pelicula;
-import com.cine.vista.modelo.ModeloAsientosCompraEntrada;
-
-import javax.swing.JComboBox;
-import javax.swing.JTable;
+import com.cine.modelo.Tarjeta;
+import com.cine.modelo.Usuario;
+import com.cine.modelo.Venta;
+import com.cine.utilidades.Banco;
+import com.cine.utilidades.FormaDePago;
+import com.cine.vista.modelo.ComboBancos;
+import com.cine.vista.modelo.ComboFecha;
+import com.cine.vista.modelo.ComboFormaDePago;
+import com.cine.vista.modelo.ComboHorario;
 
 public class JFormularioComprarEntradas extends JFormularioBase {
 
@@ -30,27 +42,33 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 	
 	private JTextField cuitEstablecimiento = new JTextField();
 	private JTextField nombreEstablecimiento = new JTextField();
-	
 	private JTextField nombrePelicula = new JTextField();
+	private JTextField numeroTarjeta;
 	
-	private JSpinner vencimientoTarjeta;
-	private JTable asientosVirtuales;
-	private JTextField textField;
-	private JTextField textField_1;
-	JComboBox cantidadDeEntradas = new JComboBox();
-
-	JComboBox fecha = new JComboBox();
-	JComboBox hora = new JComboBox();
+	private	JComboBox<ComboFecha> fecha = new JComboBox<>();
+	private JComboBox<ComboHorario> horario = new JComboBox<>();
+	private JComboBox<Integer> cantidadDeEntradas = new JComboBox<>();
+	private JComboBox<ComboFormaDePago> formaDePago = new JComboBox<>();
+	private JComboBox <ComboBancos>bancos = new JComboBox<>();
 	
-	public JFormularioComprarEntradas() {
+	private JButton seleccionarAsientos = new JButton("Seleccionar asientos");
+	private JButton continuar = new JButton("Continuar");
+	
+	private JSpinner mesYAnioVencimientoTarjeta;
+	
+	private Pelicula peliculaSeleccionada = null;
+	private List<Funcion> funcionesSeleccionadas = new ArrayList<>(); 
+	private Funcion funcionSeleccionada = null;
+	
+	public JFormularioComprarEntradas(Usuario usuario) {
 		
 		getContentPane().setLayout(null);
 		
-		JLabel lblAltasalas = new JLabel("Comprar entradas");
-		lblAltasalas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAltasalas.setFont(new Font("Tahoma", Font.BOLD, 26));
-		lblAltasalas.setBounds(0, 13, 1024, 38);
-		this.getContentPane().add(lblAltasalas);
+		JLabel lblComprarEntradas = new JLabel("Comprar entradas");
+		lblComprarEntradas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblComprarEntradas.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblComprarEntradas.setBounds(0, 13, 1024, 38);
+		this.getContentPane().add(lblComprarEntradas);
 		
 		JLabel lblCuit = new JLabel("CUIT establecimiento");
 		lblCuit.setBounds(223, 64, 229, 26);
@@ -67,7 +85,7 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 				if (cuitEstablecimiento.getText() != null) {
 
 					Establecimiento establecimiento = ControladorEstablecimiento.getInstance().buscar(Integer.parseInt(cuitEstablecimiento.getText()));
-					popularCampo(establecimiento);
+					popularEstablecimiento(establecimiento);
 					
 					JOptionPane.showMessageDialog(null, "Establecimiento encontrado.");
 					
@@ -102,19 +120,22 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Pelicula pelicula = (Pelicula) ControladorPelicula.getInstance().buscarEnCache(nombrePelicula.getText());
 				
-				if (pelicula != null) {
+				peliculaSeleccionada = (Pelicula) ControladorPelicula.getInstance().buscarEnCache(nombrePelicula.getText());
+				
+				if (peliculaSeleccionada != null) {
+					
 					JOptionPane.showMessageDialog(null, "Pelicula encontrada.");
-					Funcion funcion = ControladorFuncion.getInstance().buscarPeliculaPorDiaYHora(Integer.parseInt(cuitEstablecimiento.getText()),pelicula.getNombre());
-					popularDiaYHorario(funcion);
+					
+					funcionesSeleccionadas = ControladorFuncion.getInstance().buscarPor(Integer.parseInt(cuitEstablecimiento.getText()), peliculaSeleccionada.getNombre());
+					
+					popularDia();
+					popularHorario();
 					popularCantidadEntradas();
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "Pelicula no encontrada.");
 				}
-
-
-
 			}
 		});
 		btnBuscarPelicula.setBounds(745, 141, 115, 29);
@@ -124,94 +145,175 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		lblDia.setBounds(223, 188, 229, 25);
 		getContentPane().add(lblDia);
 		
+		fecha.setBounds(467, 187, 256, 26);
+		getContentPane().add(fecha);
+
 		JLabel lblNewLabel = new JLabel("Hora");
 		lblNewLabel.setBounds(223, 230, 229, 25);
 		getContentPane().add(lblNewLabel);
 		
-		fecha.setBounds(467, 187, 256, 26);
-		getContentPane().add(fecha);
-
-		hora.setBounds(467, 230, 256, 25);
-		getContentPane().add(hora);
+		horario.setBounds(467, 230, 256, 25);
+		getContentPane().add(horario);
 		
-		JLabel lblNewLabel_1 = new JLabel("Cantidad de entradas");
-		lblNewLabel_1.setBounds(223, 277, 229, 26);
-		getContentPane().add(lblNewLabel_1);
+		JLabel lblCantidadDeEnetradas = new JLabel("Cantidad de entradas");
+		lblCantidadDeEnetradas.setBounds(223, 277, 229, 26);
+		getContentPane().add(lblCantidadDeEnetradas);
 		
-
 		cantidadDeEntradas.setBounds(467, 277, 256, 26);
 		getContentPane().add(cantidadDeEntradas);
+		seleccionarAsientos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JFrame formularioAsientoCompra = new JFormularioAsientoCompra(funcionSeleccionada);
+				formularioAsientoCompra.setVisible(true);
+			}
+		});
 		
-		JLabel lblUbicacion = new JLabel("Ubicacion");
-		lblUbicacion.setBounds(223, 326, 229, 26);
-		getContentPane().add(lblUbicacion);
-		
-		asientosVirtuales = new JTable(new ModeloAsientosCompraEntrada());
-		asientosVirtuales.setBounds(221, 353, 506, 400);
-		getContentPane().add(asientosVirtuales);
+		seleccionarAsientos.setBounds(223, 335, 177, 25);
+		getContentPane().add(seleccionarAsientos);
 		
 		JLabel lblFormaDePago = new JLabel("Forma de pago");
-		lblFormaDePago.setBounds(223, 773, 229, 25);
+		lblFormaDePago.setBounds(223, 387, 229, 25);
 		getContentPane().add(lblFormaDePago);
 		
-		JComboBox formaDePago = new JComboBox();
-		formaDePago.setBounds(467, 772, 256, 26);
+		formaDePago.setBounds(467, 386, 256, 26);
 		getContentPane().add(formaDePago);
 		
+		popularFormaDePago();
+		
 		JLabel lblBanco = new JLabel("Banco");
-		lblBanco.setBounds(223, 811, 77, 26);
+		lblBanco.setBounds(223, 439, 229, 26);
 		getContentPane().add(lblBanco);
 		
-		textField = new JTextField();
-		textField.setBounds(467, 813, 256, 22);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		bancos.setBounds(467, 437, 256, 26);
+		getContentPane().add(bancos);
+		
+		popularBancos();
 		
 		JLabel lblNumeroDeTarjeta = new JLabel("Numero de tarjeta");
-		lblNumeroDeTarjeta.setBounds(223, 850, 229, 20);
+		lblNumeroDeTarjeta.setBounds(223, 489, 229, 20);
 		getContentPane().add(lblNumeroDeTarjeta);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(467, 848, 256, 22);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		numeroTarjeta = new JTextField();
+		numeroTarjeta.setBounds(467, 489, 256, 22);
+		getContentPane().add(numeroTarjeta);
+		numeroTarjeta.setColumns(10);
 		
 		JLabel lblMesYAo = new JLabel("Mes y a\u00F1o de vencimiento");
-		lblMesYAo.setBounds(223, 889, 229, 20);
+		lblMesYAo.setBounds(223, 543, 229, 20);
 		getContentPane().add(lblMesYAo);
 		
 		SpinnerDateModel SFecha = new SpinnerDateModel();
-		vencimientoTarjeta = new JSpinner(SFecha);
-		DateEditor dateEditor = new DateEditor(vencimientoTarjeta, "MM/yyyy");
-		vencimientoTarjeta.setEditor(dateEditor);
-		vencimientoTarjeta.setBounds(467, 884, 256, 25);
-		this.getContentPane().add(vencimientoTarjeta);
+		mesYAnioVencimientoTarjeta = new JSpinner(SFecha);
+		DateEditor dateEditor = new DateEditor(mesYAnioVencimientoTarjeta, "MM/yyyy");
+		mesYAnioVencimientoTarjeta.setEditor(dateEditor);
+		mesYAnioVencimientoTarjeta.setBounds(467, 541, 256, 25);
+		this.getContentPane().add(mesYAnioVencimientoTarjeta);
 		
-		JButton btnNewButton = new JButton("Continuar");
-		btnNewButton.addActionListener(new ActionListener() {
+		continuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				Venta venta = new Venta(usuario, funcionSeleccionada, 100.0, FormaDePago.TARJETA);
+				venta = obtenerDatosTarjeta(venta);
+				
+				JFrame formularioResumenDePago = new JFormularioResumenDePago(venta);
+				formularioResumenDePago.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(223, 953, 115, 25);
-		getContentPane().add(btnNewButton);
+		continuar.setBounds(223, 766, 115, 25);
+		getContentPane().add(continuar);
 	}
 
-	private void popularCantidadEntradas() {
-
-		for(int i = 1; i < 11; i++)
-		cantidadDeEntradas.addItem(i);
-	}
-
-	private void popularDiaYHorario(Funcion funcion) {
-		fecha.addItem(funcion.getFecha());
-		hora.addItem(funcion.getHora());
-
-	}
-
-	private void popularCampo(Establecimiento establecimiento) {
-
+	private void popularEstablecimiento(Establecimiento establecimiento) {
+		
 		if (establecimiento != null) {
 			this.nombreEstablecimiento.setText(establecimiento.getNombre());
 		}
+	}
+	
+	private void popularDia() {
+		
+		Integer id = 0;
+		
+		for (Funcion funcion : funcionesSeleccionadas) {
+			fecha.addItem(new ComboFecha(funcion.getFecha(), id++));
+		}
+	}
+	
+	private void popularHorario() {
+		
+		Integer id = 0;
+		
+		for (Funcion funcion : funcionesSeleccionadas) {
+			horario.addItem(new ComboHorario(funcion.getHora(), id++));
+		}
+	}
+	
+	private void popularFormaDePago() {
+		
+		Integer id = 0;
+		
+		for (FormaDePago itemFormaDePago : FormaDePago.values()) {
+			formaDePago.addItem(new ComboFormaDePago(itemFormaDePago, id++));
+		}
+	}
+	
+	private void popularBancos() {
+		
+		Integer id = 0;
+		
+		for (Banco itemBanco : Banco.values()) {
+			bancos.addItem(new ComboBancos(itemBanco, id++));
+		}
+	}
+
+	private void popularCantidadEntradas() {
+		
+		ComboFecha fechaSeleccionada = (ComboFecha) this.fecha.getSelectedItem();
+		ComboHorario horarioSeleccionado = (ComboHorario) this.horario.getSelectedItem();
+		
+		funcionSeleccionada = buscarFuncionPorFechaYHora(fechaSeleccionada.getFecha(), horarioSeleccionado.getHorario());
+		
+		Integer asientosLibres = 0;
+		
+		for (int i = 1; i < AsientoVirtual.FILAS; i++) {
+			
+			for (int j = 1; j < AsientoVirtual.ASIENTOSPORFILA; j++) {
+				
+				if (funcionSeleccionada.getAsientoVirtual()[i][j] != null) {
+					
+					asientosLibres++;
+					cantidadDeEntradas.addItem(asientosLibres);
+				}
+			}
+		}
+	}
+	
+	private Funcion buscarFuncionPorFechaYHora(Date fecha, LocalTime hora) {
+		
+		Funcion funcionBuscada = null;
+		
+		for (Funcion funcion : funcionesSeleccionadas) {
+			
+			if (funcion.getFecha().equals(fecha) && funcion.getHora().equals(hora)) {
+				funcionBuscada = funcion;
+			} 
+		}
+		
+		return funcionBuscada;
+	}
+	
+	private Venta obtenerDatosTarjeta(Venta venta) {
+		
+		ComboFormaDePago formaDePagoSeleccionada = (ComboFormaDePago) formaDePago.getSelectedItem();
+		ComboBancos bancoSeleccionado = (ComboBancos) bancos.getSelectedItem();
+		Long numeroDeTarjeta = Long.parseLong(numeroTarjeta.getText());
+		Date mesYAnioVencimientoSeleccionado = (Date) mesYAnioVencimientoTarjeta.getValue();
+		
+		Tarjeta tarjeta = new Tarjeta(bancoSeleccionado.getBanco(), numeroDeTarjeta, mesYAnioVencimientoSeleccionado);
+		
+		venta.setTarjeta(tarjeta);
+
+		return venta;
 	}
 }

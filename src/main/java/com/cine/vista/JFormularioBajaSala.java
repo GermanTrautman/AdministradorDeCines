@@ -112,7 +112,7 @@ public class JFormularioBajaSala extends JFormularioBase {
 		comboEstablecimientos.addItem(new ComboEstablecimiento(sala.getEstablecimiento().getCuit(), sala.getEstablecimiento().getNombre()));
 		
 		comboEstados.removeAllItems();
-		comboEstados.addItem(new ComboEstado(sala.getEstado().estado(), 1));
+		comboEstados.addItem(new ComboEstado(sala.getEstado().getLabel(), 1));
 	}
 	
 	private void resetCampos() {

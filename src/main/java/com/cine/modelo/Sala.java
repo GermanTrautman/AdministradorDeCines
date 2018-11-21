@@ -6,7 +6,7 @@ import com.cine.utilidades.Estado;
 public class Sala {
 
 	private String nombre;
-	private AsientoFisico[][] asientosFisicos = new AsientoFisico[100][100]; 
+	private AsientoFisico[][] asientosFisicos = new AsientoFisico[AsientoFisico.FILAS][AsientoFisico.ASIENTOSPORFILA]; 
 	private Establecimiento establecimiento;
 	private Estado estado;
 

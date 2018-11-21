@@ -1,7 +1,7 @@
 package com.cine.modelo;
 
 import com.cine.dao.PeliculaPersistente;
-import com.cine.utilidades.EstadoActivoInactivo;
+import com.cine.utilidades.Estado;
 
 public class Pelicula {
 
@@ -14,10 +14,10 @@ public class Pelicula {
 	private Boolean subtitulos;
 	private Float calificacion;
 	private String observaciones;
-	private EstadoActivoInactivo estado;
+	private Estado estado;
 
 	public Pelicula(String nombre, String director, String genero, Integer duracion, String idioma, Boolean subtitulos,
-			Float calificacion, String observaciones, EstadoActivoInactivo estado) {
+			Float calificacion, String observaciones, Estado estado) {
 //        this.setId(id);
 		this.nombre = nombre;
 		this.director = director;
@@ -103,11 +103,11 @@ public class Pelicula {
 		this.observaciones = observaciones;
 	}
 
-	public EstadoActivoInactivo getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadoActivoInactivo estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 
@@ -121,7 +121,7 @@ public class Pelicula {
 	}
 
 	public void actualizarPelicula(Integer id,String nombre, String director, String genero, Integer duracion, String idioma,
-            Boolean subtitulos, Float calificacion, String observaciones, EstadoActivoInactivo estado) {
+            Boolean subtitulos, Float calificacion, String observaciones, Estado estado) {
     	Pelicula p = new Pelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion, observaciones, estado);
     	p.setId(id);
     	PeliculaPersistente.getInstance().actualizar(p);

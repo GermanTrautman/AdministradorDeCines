@@ -1,6 +1,9 @@
 package com.cine.vista;
 
 import javax.swing.*;
+
+import com.cine.modelo.Usuario;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,7 +11,8 @@ public class JFormularioPrincipal extends JFormularioBase {
 
     private static final long serialVersionUID = 1L;
 
-    public JFormularioPrincipal(String roleName) {
+    public JFormularioPrincipal(String roleName, Usuario usuario) {
+    	
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JMenuBar menu = new JMenuBar();
@@ -204,7 +208,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mntmComprar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
-                JFrame formularioComprarEntradas = new JFormularioComprarEntradas();
+                JFrame formularioComprarEntradas = new JFormularioComprarEntradas(usuario);
                 formularioComprarEntradas.setVisible(true);
             }
         });

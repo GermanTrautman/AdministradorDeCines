@@ -107,8 +107,8 @@ public class ControladorSala implements Cache {
 
 	public void modificarAsientos(String nombreSala, AsientoFisico[][] asientosModificados) {
 
-		AsientoFisico[][] asientosAAgregar = new AsientoFisico[100][100];
-		AsientoFisico[][] asientosABorrar = new AsientoFisico[100][100];
+		AsientoFisico[][] asientosAAgregar = new AsientoFisico[AsientoFisico.FILAS][AsientoFisico.ASIENTOSPORFILA];
+		AsientoFisico[][] asientosABorrar = new AsientoFisico[AsientoFisico.FILAS][AsientoFisico.ASIENTOSPORFILA];
 
 		for (int i = 1; i < asientosModificados.length; i++) {
 
@@ -144,7 +144,6 @@ public class ControladorSala implements Cache {
 
 	@Override
 	public Object buscarEnCache(Object nombre) {
-
 		return salas.stream().filter(sala -> sala.getNombre().equals(nombre)).findAny().orElse(null);
 	}
 

@@ -85,7 +85,7 @@ public class SalaPersistente implements Persistencia {
 			PreparedStatement preparedStatement = conectarDb().prepareStatement("INSERT INTO TPO.dbo.Sala (Nombre, CUITEstablecimiento, Estado) values (?, ?, ?)");
 			preparedStatement.setString(1, sala.getNombre());
 			preparedStatement.setInt(2, sala.getEstablecimiento().getCuit());
-			preparedStatement.setString(3, sala.getEstado().estado());
+			preparedStatement.setString(3, sala.getEstado().getLabel());
 			
 			preparedStatement.executeUpdate();
 			
@@ -105,7 +105,7 @@ public class SalaPersistente implements Persistencia {
 			
 			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.Sala SET CUITEstablecimiento = ?, Estado = ? WHERE Nombre = ?");
 			preparedStatement.setInt(1, sala.getEstablecimiento().getCuit());
-			preparedStatement.setString(2, sala.getEstado().estado());
+			preparedStatement.setString(2, sala.getEstado().getLabel());
 			preparedStatement.setString(3, sala.getNombre());
 			
 			preparedStatement.executeUpdate();

@@ -11,7 +11,7 @@ public enum Estado {
 		this.estado = estado;
 	}
 	
-	public String estado() {
+	public String getLabel() {
 		return estado;
 	}
 }

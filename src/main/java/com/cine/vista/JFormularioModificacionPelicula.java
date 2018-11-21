@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 
 import com.cine.controlador.ControladorPelicula;
 import com.cine.modelo.Pelicula;
-import com.cine.utilidades.EstadoActivoInactivo;
+import com.cine.utilidades.Estado;
 
 public class JFormularioModificacionPelicula extends JFormularioBase {
 
@@ -31,7 +31,7 @@ public class JFormularioModificacionPelicula extends JFormularioBase {
 	private JTextField txtObservaciones = new JTextField();
 	JComboBox<String> comboBoxSubtitulo = new JComboBox<String>();
 	JSpinner spinnerCalificacion = new JSpinner();
-	JComboBox<EstadoActivoInactivo> comboBoxEstado = new JComboBox<EstadoActivoInactivo>();
+	JComboBox<Estado> comboBoxEstado = new JComboBox<>();
 	private JButton btnModificarPelicula = new JButton("Modificar Pelicula");
 	private ControladorPelicula controladorPelicula = ControladorPelicula.getInstance();
 
@@ -142,7 +142,7 @@ public class JFormularioModificacionPelicula extends JFormularioBase {
 		comboBoxEstado.setEnabled(false);
 		comboBoxEstado.setBounds(467, 571, 256, 26);
 		this.getContentPane().add(comboBoxEstado);
-		comboBoxEstado.setModel(new DefaultComboBoxModel<>(EstadoActivoInactivo.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel<>(Estado.values()));
 
 //		popularCampos(pelicula);
 
@@ -164,7 +164,7 @@ public class JFormularioModificacionPelicula extends JFormularioBase {
 				Boolean subtitulos = (StringSubtitulos == "Si");
 				Float calificacion = (Float) spinnerCalificacion.getValue();
 				String observaciones = txtObservaciones.getText();
-				EstadoActivoInactivo estado = (EstadoActivoInactivo) comboBoxEstado.getSelectedItem();
+				Estado estado = (Estado) comboBoxEstado.getSelectedItem();
 				if (nombre != null && director != null && genero != null && duracion != null && idioma != null
 						&& subtitulos != null && calificacion != null) {
 					controladorPelicula.modificarPelicula(id, nombre, director, genero, duracion, idioma, subtitulos,
