@@ -53,11 +53,6 @@ public class ControladorRolUsuario implements Cache {
                 .orElse(null);
     }
 
-    public Rol buscarRolEnDb(Integer dni) {
-        return null;
-    }
-
-
     @Override
     public void agregarACache(Object entidad) {
         this.rolUsuarioList.add((RolUsuario) entidad);

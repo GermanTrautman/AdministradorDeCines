@@ -188,14 +188,27 @@ public class JFormularioPrincipal extends JFormularioBase {
         JMenu mnDescuentos = new JMenu("Descuentos");
         menu.add(mnDescuentos);
 
-        JMenuItem mntmAlta_5 = new JMenuItem("Alta");
-        mnDescuentos.add(mntmAlta_5);
+        JMenuItem formAltaDescuento = new JMenuItem("Alta");
+        mnDescuentos.add(formAltaDescuento);
+        formAltaDescuento.addActionListener(e -> {
 
-        JMenuItem mntmBaja_5 = new JMenuItem("Baja");
-        mnDescuentos.add(mntmBaja_5);
+            JFormularioBase j = new JFormularioAltaDescuento();
+            j.setVisible(true);
+        });
 
-        JMenuItem mntmModificacion_5 = new JMenuItem("Modificacion");
-        mnDescuentos.add(mntmModificacion_5);
+        JMenuItem formBajaDescuento = new JMenuItem("Baja");
+        mnDescuentos.add(formBajaDescuento);
+        formBajaDescuento.addActionListener(e -> {
+            JFormularioBase j = new JFormularioBajaDescuento();
+            j.setVisible(true);
+        });
+
+        JMenuItem formModificacionDescuento = new JMenuItem("Modificacion");
+        mnDescuentos.add(formModificacionDescuento);
+        formModificacionDescuento.addActionListener(e -> {
+            JFormularioBase j = new JFormularioModificarDescuento();
+            j.setVisible(true);
+        });
 
         JMenu mnEntradas = new JMenu("Entradas");
         menu.add(mnEntradas);
