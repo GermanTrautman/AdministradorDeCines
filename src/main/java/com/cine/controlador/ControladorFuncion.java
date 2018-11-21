@@ -23,7 +23,7 @@ public class ControladorFuncion implements Cache {
 	private AsientoVirtualPersistente asientoVirtualPersistente = new AsientoVirtualPersistente();
 
 	private ControladorFuncion() {
-		this.funciones = new ArrayList<Funcion>();
+		this.funciones = new ArrayList<>();
 	}
 
 	public static ControladorFuncion getInstance() {
@@ -61,7 +61,7 @@ public class ControladorFuncion implements Cache {
 
 	private Funcion buscarPor(Integer idFuncion) {
 
-		Funcion funcionBuscada = buscarEnCachePor(idFuncion);
+		Funcion funcionBuscada = null;
 
 		if (funcionBuscada == null) {
 
@@ -115,7 +115,7 @@ public class ControladorFuncion implements Cache {
 
 					if (!asientosModificados[i][j].getEstado().equals(funcion.getAsientoVirtual()[i][j].getEstado())) {
 
-						asientosModificados[i][j].vender();
+						 asientosModificados[i][j].vender();
 					}
 				}
 			}

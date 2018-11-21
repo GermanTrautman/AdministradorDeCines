@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.cine.modelo.AsientoFisico;
 import com.cine.modelo.AsientoVirtual;
+import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
 import com.cine.utilidades.EstadoVirtual;
 
@@ -32,6 +33,7 @@ public class AsientoVirtualPersistente implements Persistencia {
 				AsientoVirtual asientoVirtual = new AsientoVirtual(asientoFisicoAsociado,
 						resultSet.getInt("IdFuncion"));
 				asientoVirtual.setEstado(estado);
+				asientoVirtual.setId(resultSet.getInt("id"));
 
 				asientosVirtuales[asientoVirtual.getFisicoAsociado().getFila()][asientoVirtual.getFisicoAsociado()
 						.getNumeroDeAsiento()] = asientoVirtual;
@@ -117,12 +119,26 @@ public class AsientoVirtualPersistente implements Persistencia {
 		} finally {
 			liberarConexion();
 		}
-		
+
 	}
 
 	@Override
 	public void actualizar(Object entidad) {
-		// TODO Auto-generated method stub
+
+		try {
+
+			AsientoVirtual asientoVirtual = (AsientoVirtual) entidad;
+
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("UPDATE TPO.dbo.AsientoVirtual SET Estado = ? WHERE Id = ?");
+			preparedStatement.setString(1, asientoVirtual.getEstado().estado());
+			preparedStatement.setInt(2, asientoVirtual.getId());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			liberarConexion();
+		}
 
 	}
 

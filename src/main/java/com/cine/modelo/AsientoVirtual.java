@@ -8,6 +8,7 @@ public class AsientoVirtual {
 	public static final Integer FILAS = 100;
 	public static final Integer ASIENTOSPORFILA = 100;
 
+	private Integer id;
 	private AsientoFisico fisicoAsociado;
 	private EstadoVirtual estado;
 	private Integer idFuncion;
@@ -51,12 +52,22 @@ public class AsientoVirtual {
 	
 	public void vender() {
 		this.setEstado(EstadoVirtual.OCUPADO);
+
 		AsientoVirtualPersistente asientoVirtualPersistente = new AsientoVirtualPersistente();
+
 		asientoVirtualPersistente.actualizar(this);
 	}
 
 	public void borrar() {
 		AsientoVirtualPersistente asientoVirtualPersistente = new AsientoVirtualPersistente();
 		asientoVirtualPersistente.borrar(this);
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
