@@ -35,7 +35,7 @@ public class JFormularioLogin extends JFormularioBase {
             Rol role = rol.buscarRolPorId(rol.getIdRol());
             if (usuario != null && (usuario.getNombreDeUsuario().equals(txtNombreDeUsuario.getText()) && usuario.getPassword().equals(txtPassword.getText()))){
 
-                JFrame j = new JFormularioPrincipal(role.getNombre());
+                JFrame j = new JFormularioPrincipal(role.getNombre(), usuario);
                 j.setVisible(true);
                 hide();
             }else {

@@ -17,7 +17,7 @@ public class AsientoVirtualPersistente implements Persistencia {
 	public Object buscar(Object idFuncion) {
 		try {
 
-			AsientoVirtual[][] asientosVirtuales = new AsientoVirtual[25][25];
+			AsientoVirtual[][] asientosVirtuales = new AsientoVirtual[AsientoVirtual.FILAS][AsientoVirtual.ASIENTOSPORFILA];
 
 			PreparedStatement preparedStatement = conectarDb()
 					.prepareStatement("SELECT * FROM TPO.dbo.AsientoVirtual WHERE IdFuncion = ?");

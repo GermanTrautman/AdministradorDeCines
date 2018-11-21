@@ -36,9 +36,10 @@ public class Funcion {
 	 * @param asientosVirtuales
 	 * @param estado
 	 */
-	public Funcion(LocalTime horario, Pelicula pelicula, Sala sala, Date fecha, Estado estado) {
+	public Funcion(Integer id, LocalTime horario, Pelicula pelicula, Sala sala, Date fecha, Estado estado) {
 		
 		super();
+		this.id = id;
 		this.horario = horario;
 		this.pelicula = pelicula;
 		this.sala = sala;

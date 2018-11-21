@@ -1,17 +1,20 @@
 package com.cine.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 import com.cine.controlador.ControladorPelicula;
 import com.cine.controlador.ControladorSala;
-import com.cine.modelo.*;
+import com.cine.modelo.Establecimiento;
+import com.cine.modelo.Funcion;
+import com.cine.modelo.Pelicula;
+import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
 
 public class FuncionPersistente implements Persistencia {
@@ -83,14 +86,47 @@ public class FuncionPersistente implements Persistencia {
             	Sala sala = ControladorSala.getInstance().buscar(resultSet.getString("NombreSala"));
             	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
             	
-            	funciones.add(new Funcion(resultSet.getTime("Horario").toLocalTime(), pelicula, sala, resultSet.getDate("Fecha"), estado));
+            	funciones.add(new Funcion(resultSet.getInt("Id"), resultSet.getTime("Horario").toLocalTime(), pelicula, sala, resultSet.getDate("Fecha"), estado));
             }
             
             return funciones;
             
         } catch (SQLException e) {
+        	
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar la funcion con cuitEstablecimiento: " + cuitEstablecimiento + " y nombrePelicula: " + nombrePelicula);
+            
+        } finally {
+			liberarConexion();
+		}
+	}
+	
+	public Funcion buscarPor(Integer idFuncion) {
+		
+		try {
+			
+            Funcion funcion = null;
+			
+			PreparedStatement preparedStatement = conectarDb().prepareStatement("SELECT * FROM TPO.dbo.Funcion_vw WHERE Id = ?");
+			preparedStatement.setInt(1, idFuncion);
+			ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+            	
+            	Pelicula pelicula = (Pelicula) ControladorPelicula.getInstance().buscarEnCache(resultSet.getString("NombrePelicula"));
+            	Sala sala = ControladorSala.getInstance().buscar(resultSet.getString("NombreSala"));
+            	Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
+            	
+            	funcion = new Funcion(resultSet.getInt("Id"), resultSet.getTime("Horario").toLocalTime(), pelicula, sala, resultSet.getDate("Fecha"), estado);
+            }
+            
+            return funcion;
+            
+        } catch (SQLException e) {
+        	
+            System.out.println("Error Query: " + e.getMessage());
+            throw new RuntimeException("Error intentando buscar la funcion con id: " + idFuncion);
+            
         } finally {
 			liberarConexion();
 		}
