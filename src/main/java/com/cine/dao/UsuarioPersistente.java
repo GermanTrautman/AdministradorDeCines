@@ -1,6 +1,5 @@
 package com.cine.dao;
 
-import com.cine.controlador.ControladorUsuario;
 import com.cine.modelo.Usuario;
 
 import java.sql.*;
@@ -41,17 +40,8 @@ public class UsuarioPersistente implements Persistencia {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario");
             List<Object> usuarioList = new ArrayList<>();
             while (resultSet.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setDni(resultSet.getInt("dni"));
-                usuario.setNombreDeUsuario(resultSet.getString("nombreDeUsuario"));
-                usuario.setEmail(resultSet.getString("email"));
-                usuario.setPassword(resultSet.getString("password"));
-                usuario.setNombre(resultSet.getString("nombre"));
-                usuario.setDomicilio(resultSet.getString("domicilio"));
-                usuario.setFechaDeNacimiento(resultSet.getString("fechaDeNacimiento"));
-                usuarioList.add(usuario);
+                usuarioList.add(construirUsuario(resultSet));
             }
-
 
             return usuarioList;
         } catch (Exception e) {
