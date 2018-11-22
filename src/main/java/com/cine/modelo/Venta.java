@@ -1,20 +1,24 @@
 package com.cine.modelo;
 
+import java.util.List;
+
 import com.cine.utilidades.FormaDePago;
 
 public class Venta {
 	
 	private Usuario usuario;
 	private Funcion funcion;
+	private List<AsientoVirtual> asientosAdquiridos;
 	private Double monto;
 	private FormaDePago formaDePago;
 	private Tarjeta tarjeta;
 
-	public Venta(Usuario usuario, Funcion funcion, Double monto, FormaDePago formaDePago) {
+	public Venta(Usuario usuario, Funcion funcion, List<AsientoVirtual> asientosAdquiridos, Double monto, FormaDePago formaDePago) {
 		
 		super();
 		this.usuario = usuario;
 		this.funcion = funcion;
+		this.asientosAdquiridos = asientosAdquiridos;
 		this.monto = monto;
 		this.formaDePago = formaDePago;
 	}
@@ -33,6 +37,14 @@ public class Venta {
 
 	public void setFuncion(Funcion funcion) {
 		this.funcion = funcion;
+	}
+
+	public List<AsientoVirtual> getAsientosAdquiridos() {
+		return asientosAdquiridos;
+	}
+
+	public void setAsientosAdquiridos(List<AsientoVirtual> asientosAdquiridos) {
+		this.asientosAdquiridos = asientosAdquiridos;
 	}
 
 	public Double getMonto() {

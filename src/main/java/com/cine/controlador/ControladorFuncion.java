@@ -9,7 +9,6 @@ import java.util.List;
 import com.cine.dao.AsientoVirtualPersistente;
 import com.cine.dao.Cache;
 import com.cine.dao.FuncionPersistente;
-import com.cine.modelo.AsientoFisico;
 import com.cine.modelo.AsientoVirtual;
 import com.cine.modelo.Funcion;
 import com.cine.modelo.Pelicula;
@@ -61,7 +60,7 @@ public class ControladorFuncion implements Cache {
 
 	private Funcion buscarPor(Integer idFuncion) {
 
-		Funcion funcionBuscada = null;
+		Funcion funcionBuscada = buscarEnCachePor(idFuncion);
 
 		if (funcionBuscada == null) {
 
@@ -104,7 +103,7 @@ public class ControladorFuncion implements Cache {
 	}
 
 	public void modificarAsientos(Integer idFuncion, AsientoVirtual[][] asientosModificados) {
-		
+
 		Funcion funcion = buscarPor(idFuncion);
 
 		for (int i = 1; i < AsientoVirtual.FILAS; i++) {
@@ -114,8 +113,10 @@ public class ControladorFuncion implements Cache {
 				if (asientosModificados[i][j] != null && funcion.getAsientoVirtual()[i][j] != null) {
 
 					if (!asientosModificados[i][j].getEstado().equals(funcion.getAsientoVirtual()[i][j].getEstado())) {
+						
+						funcion.getAsientoVirtual()[i][j].setEstado(asientosModificados[i][j].getEstado());
 
-						 asientosModificados[i][j].vender();
+						asientosModificados[i][j].vender();
 					}
 				}
 			}
