@@ -58,7 +58,7 @@ public class ControladorFuncion implements Cache {
 		return funcionesBuscadas;
 	}
 
-	private Funcion buscarPor(Integer idFuncion) {
+	public Funcion buscarPor(Integer idFuncion) {
 
 		Funcion funcionBuscada = buscarEnCachePor(idFuncion);
 

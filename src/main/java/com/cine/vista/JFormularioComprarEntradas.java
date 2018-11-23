@@ -32,6 +32,7 @@ import com.cine.modelo.Venta;
 import com.cine.utilidades.Banco;
 import com.cine.utilidades.EstadoVirtual;
 import com.cine.utilidades.FormaDePago;
+import com.cine.utilidades.TipoVenta;
 import com.cine.vista.modelo.ComboBancos;
 import com.cine.vista.modelo.ComboFecha;
 import com.cine.vista.modelo.ComboFormaDePago;
@@ -219,7 +220,8 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 
 				ComboFormaDePago formaDePagoSeleccionada = (ComboFormaDePago) formaDePago.getSelectedItem();
 				//To-do: Hay que obtener los asientos virtuales seleccionados de la pantalla de seleccion y calcular el monto
-				Venta venta = new Venta(usuario, funcionSeleccionada, new ArrayList<>(), 100.0, formaDePagoSeleccionada.getFormaDePago());
+				Venta venta = new Venta(usuario, funcionSeleccionada, new ArrayList<>(), 100.0, formaDePagoSeleccionada.getFormaDePago(), TipoVenta.WEB);
+				venta.setCodigo(venta.stringAleatorio(8));
 				venta = obtenerDatosTarjeta(venta);
 
 				JFrame formularioResumenDePago = new JFormularioResumenDePago(venta);
