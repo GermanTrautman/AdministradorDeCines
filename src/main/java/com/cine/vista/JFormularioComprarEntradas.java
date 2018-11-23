@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 public class JFormularioComprarEntradas extends JFormularioBase implements IObservador {
-
 	private static final long serialVersionUID = -763706419019323146L;
 
 	private JTextField cuitEstablecimiento = new JTextField();
@@ -227,8 +226,9 @@ public class JFormularioComprarEntradas extends JFormularioBase implements IObse
 						.calcularMonto((Double.parseDouble(cantidadDeEntradas.getSelectedItem().toString())*100),comboDescuentos.getDescuentoProvider().getPorcentaje());
 
 				ComboFormaDePago formaDePagoSeleccionada = (ComboFormaDePago) formaDePago.getSelectedItem();
-				//To-do: Hay que obtener los asientos virtuales seleccionados de la pantalla de seleccion
-				Venta venta = new Venta(usuario, funcionSeleccionada, new ArrayList<>(), monto, formaDePagoSeleccionada.getFormaDePago());
+				//To-do: Hay que obtener los asientos virtuales seleccionados de la pantalla de seleccion y calcular el monto
+				Venta venta = new Venta(usuario, funcionSeleccionada, new ArrayList<>(), monto, formaDePagoSeleccionada.getFormaDePago(), TipoVenta.WEB);
+				venta.setCodigo(venta.stringAleatorio(8));
 				venta = obtenerDatosTarjeta(venta);
 
 				JFrame formularioResumenDePago = new JFormularioResumenDePago(venta);

@@ -226,6 +226,20 @@ public class JFormularioPrincipal extends JFormularioBase {
             }
         });
         mnEntradas.add(mntmComprar);
+        
+        JMenu mnRetirar = new JMenu("Retirar entradas");
+        menu.add(mnRetirar);
+
+        JMenuItem mntmImprimir = new JMenuItem("Imprimir");
+        mntmImprimir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                JFrame formularioImprimir = new JFormularioImprimir();
+                formularioImprimir.setVisible(true);
+            }
+        });
+        mnRetirar.add(mntmImprimir);
+        
         menu.add(itemOpcion);
     }
 }

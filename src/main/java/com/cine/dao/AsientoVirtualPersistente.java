@@ -7,11 +7,25 @@ import java.util.List;
 
 import com.cine.modelo.AsientoFisico;
 import com.cine.modelo.AsientoVirtual;
-import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
 import com.cine.utilidades.EstadoVirtual;
 
 public class AsientoVirtualPersistente implements Persistencia {
+	
+	public static AsientoVirtualPersistente instancia;
+	
+    public AsientoVirtualPersistente() {
+    }
+
+    public static AsientoVirtualPersistente getInstance() {
+    	
+        if (instancia == null) {
+        
+        	instancia = new AsientoVirtualPersistente();
+        }
+        
+        return instancia;
+    }
 
 	// Busca todos los asientos virtuales de una determinada funcion
 	@Override
@@ -46,6 +60,42 @@ public class AsientoVirtualPersistente implements Persistencia {
 			System.out.println("Error Query: " + e.getMessage());
 			throw new RuntimeException("Error intentando buscar asientos de la funcion" + idFuncion);
 		} finally {
+			liberarConexion();
+		}
+	}
+	
+	public AsientoVirtual buscarPor(Integer id) {
+		
+		try {
+
+			AsientoVirtual asientoVirtual = null;
+
+			PreparedStatement preparedStatement = conectarDb()
+					.prepareStatement("SELECT * FROM TPO.dbo.AsientoVirtual WHERE IdFuncion = ?");
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+
+				EstadoVirtual estado = EstadoVirtual.valueOf(resultSet.getString("Estado").toUpperCase());
+				
+				Integer idAsientoFisico = resultSet.getInt("IdAsientoFisico");
+				AsientoFisico asientoFisicoAsociado = buscarAsientoFisico(idAsientoFisico);
+
+				asientoVirtual = new AsientoVirtual(asientoFisicoAsociado, resultSet.getInt("IdFuncion"));
+				asientoVirtual.setEstado(estado);
+				asientoVirtual.setId(resultSet.getInt("Id"));
+			}
+
+			return asientoVirtual;
+
+		} catch (SQLException e) {
+			
+			System.out.println("Error Query: " + e.getMessage());
+			throw new RuntimeException("Error intentando buscar el asiento " + id);
+			
+		} finally {
+			
 			liberarConexion();
 		}
 	}
