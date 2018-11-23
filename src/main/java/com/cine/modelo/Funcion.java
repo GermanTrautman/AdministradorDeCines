@@ -5,28 +5,19 @@ import com.cine.utilidades.Estado;
 
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
+
 import java.util.List;
 
 public class Funcion {
 
     private Integer id = null;
-    private LocalTime horario;
+    private Time horario;
     private Pelicula pelicula;
     private Sala sala;
-    private Date fecha;
+    private LocalDate fecha;
     private AsientoVirtual[][] asientosVirtuales = new AsientoVirtual[AsientoVirtual.FILAS][AsientoVirtual.ASIENTOSPORFILA];
     private Estado estado;
 
-    public Funcion(LocalDate fecha2, Sala sala, Pelicula pelicula, Estado estado, Time hora) {
-        //this.fecha = fecha2;
-        this.sala = sala;
-        this.pelicula = pelicula;
-        this.estado = estado;
-       // this.horario = hora;
-//		cargarAsientosVirtuales();
-    }
     
     /**
 	 * @param horario
@@ -36,10 +27,9 @@ public class Funcion {
 	 * @param
 	 * @param estado
 	 */
-	public Funcion(Integer id, LocalTime horario, Pelicula pelicula, Sala sala, Date fecha, Estado estado) {
+	public Funcion(Time horario, Pelicula pelicula, Sala sala, LocalDate fecha, Estado estado) {
 		
 		super();
-		this.id = id;
 		this.horario = horario;
 		this.pelicula = pelicula;
 		this.sala = sala;
@@ -62,19 +52,19 @@ public class Funcion {
         return null;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public LocalTime getHora() {
+    public Time getHora() {
         return horario;
     }
 
-    public void setHora(LocalTime hora) {
+    public void setHora(Time hora) {
         this.horario = hora;
     }
 
@@ -127,6 +117,7 @@ public class Funcion {
     public void insertarFuncion() {
         FuncionPersistente.getInstance().insertar(this);
         //To-do this.setId(FuncionPersistente.getInstance().getIdFuncion(this.getFecha(), this.getSala(), this.getPelicula(), this.getHora()));
+        this.setId(FuncionPersistente.getInstance().getIdFuncion(fecha, sala, pelicula, horario));
         this.cargarAsientosVirtuales();
 
     }
@@ -136,7 +127,8 @@ public class Funcion {
     }
 
     public void actualizarFuncion(Integer id, LocalDate fecha, Sala sala, Pelicula pelicula, Estado estado, Time hora) {
-        Funcion f = new Funcion(fecha, sala, pelicula, estado, hora);
+
+    	Funcion f = new Funcion(hora,pelicula, sala, fecha,estado);//(id,fecha, sala, pelicula, estado, hora);
         f.setId(id);
         FuncionPersistente.getInstance().actualizar(f);
     }

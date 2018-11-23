@@ -1,22 +1,20 @@
 package com.cine.vista.modelo;
 
-import java.util.Date;
-
-import com.cine.utilidades.Calendario;
-import com.cine.utilidades.Calendario.Formato;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ComboFecha {
 
-	private Date fecha;
+	private LocalDate fecha;
 	private Integer id;
 
-	public ComboFecha(Date fecha, Integer id) {
+	public ComboFecha(LocalDate fecha, Integer id) {
 
 		this.id = id;
 		this.fecha = fecha;
 	}
 
-	public Date getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
@@ -26,9 +24,10 @@ public class ComboFecha {
 	
 	@Override
 	public String toString() {
-		
-		Calendario calendario = new Calendario();
-		
-		return calendario.formatear(Formato.DIA_MES_ANIO, this.fecha);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return fecha.format(formatter);
+//		Calendario calendario = new Calendario();
+//		
+//		return calendario.formatear(Formato.DIA_MES_ANIO, this.fecha);
 	}
 }

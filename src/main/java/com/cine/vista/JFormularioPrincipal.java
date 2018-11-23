@@ -185,9 +185,28 @@ public class JFormularioPrincipal extends JFormularioBase {
 
         JMenuItem mntmBaja_3 = new JMenuItem("Baja");
         mnFunciones.add(mntmBaja_3);
-
+        mntmBaja_3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame formularioBajaFuncion = new JFormularioBajaFuncion();
+				formularioBajaFuncion.setVisible(true);
+				
+			}
+		});
+        
+        
         JMenuItem mntmModificacion_3 = new JMenuItem("Modificacion");
         mnFunciones.add(mntmModificacion_3);
+        mntmModificacion_3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame formularioModificarFuncion = new JFormularioModificarFuncion();
+				formularioModificarFuncion.setVisible(true);
+				
+			}
+		});
 
         JMenu mnDescuentos = new JMenu("Descuentos");
         menu.add(mnDescuentos);
