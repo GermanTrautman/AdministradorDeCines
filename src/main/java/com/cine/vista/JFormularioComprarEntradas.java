@@ -3,6 +3,7 @@ package com.cine.vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -245,7 +246,7 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		Integer id = 0;
 		
 		for (Funcion funcion : funcionesSeleccionadas) {
-			horario.addItem(new ComboHorario(funcion.getHora(), id++));
+			horario.addItem(new ComboHorario(funcion.getHora().toLocalTime(), id++));
 		}
 	}
 	
@@ -289,13 +290,13 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		}
 	}
 	
-	private Funcion buscarFuncionPorFechaYHora(Date fecha, LocalTime hora) {
+	private Funcion buscarFuncionPorFechaYHora(LocalDate fecha, LocalTime hora) {
 		
 		Funcion funcionBuscada = null;
 		
 		for (Funcion funcion : funcionesSeleccionadas) {
 			
-			if (funcion.getFecha().equals(fecha) && funcion.getHora().equals(hora)) {
+			if (funcion.getFecha().equals(fecha) && funcion.getHora().toLocalTime().equals(hora)) {
 				funcionBuscada = funcion;
 			} 
 		}

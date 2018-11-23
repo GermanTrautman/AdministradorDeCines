@@ -1,5 +1,6 @@
 package com.cine.controlador;
 
+//import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.List;
 import com.cine.dao.AsientoVirtualPersistente;
 import com.cine.dao.Cache;
 import com.cine.dao.FuncionPersistente;
-import com.cine.modelo.AsientoFisico;
 import com.cine.modelo.AsientoVirtual;
 import com.cine.modelo.Funcion;
 import com.cine.modelo.Pelicula;
@@ -78,13 +78,13 @@ public class ControladorFuncion implements Cache {
 
 	public void altaFuncion(LocalDate fecha, Sala sala, Pelicula pelicula, Estado estado, Time hora) {
 
-		Funcion funcion = new Funcion(fecha, sala, pelicula, estado, hora);
+		Funcion funcion = new Funcion(hora,pelicula,sala,fecha,estado);//(fecha, sala, pelicula, estado, hora);
 		funcion.insertarFuncion();
 		agregarACache(funcion);
 	}
 
-	public void bajaFuncion(Funcion funcionAEliminar) {
-		Funcion funcion = (Funcion) buscarEnCache(funcionAEliminar);
+	public void bajaFuncion(Integer idFuncion) {
+		Funcion funcion = (Funcion) buscarPor(idFuncion);
 
 		if (funcion != null) {
 			funcion.eliminarFuncion();
@@ -94,13 +94,12 @@ public class ControladorFuncion implements Cache {
 
 	public void modificarFuncion(Funcion funcionAModificar) {
 
-		Funcion funcion = (Funcion) buscarEnCache(funcionAModificar);
+		Funcion funcion = buscarEnCachePor(funcionAModificar.getId());
+		// Funcion funcion = (Funcion) buscarEnCache(funcionAModificar);
 
-		/*
-		 * To-do funcion.actualizarFuncion(funcion.getId(), funcion.getFecha(),
-		 * funcion.getSala(), funcion.getPelicula(), funcion.getEstado(),
-		 * funcion.getHora()); actualizarCache(funcion);
-		 */
+		funcion.actualizarFuncion(funcion.getId(), funcionAModificar.getFecha(), funcion.getSala(),
+				funcion.getPelicula(), funcionAModificar.getEstado(), funcionAModificar.getHora());
+		actualizarCache(funcion);
 	}
 
 	public void modificarAsientos(Integer idFuncion, AsientoVirtual[][] asientosModificados) {
@@ -155,18 +154,22 @@ public class ControladorFuncion implements Cache {
 		return funcionesBuscadas;
 	}
 
-	private Funcion buscarEnCachePor(Integer idFuncion) {
+	public Funcion buscarEnCachePor(Integer idFuncion) {
 
 		Funcion funcionBuscada = null;
 
 		for (Funcion funcion : funciones) {
 
 			if (funcion.getId() == idFuncion) {
-				funcionBuscada = funcion;
+				return funcion;
 			}
 		}
-
-		return funcionBuscada;
+		funcionBuscada = (Funcion) FuncionPersistente.getInstance().buscarPor(idFuncion);
+		if(funcionBuscada != null) {
+			funciones.add(funcionBuscada);
+			return funcionBuscada;
+		}
+		return null;
 	}
 
 	@Override
@@ -189,7 +192,7 @@ public class ControladorFuncion implements Cache {
 	@Override
 	public void actualizarCache(Object entidad) {
 		Funcion funcionModificada = (Funcion) entidad;
-		Funcion funcionSinModificar = (Funcion) buscarEnCache(funcionModificada.getId());
+		Funcion funcionSinModificar = (Funcion) buscarEnCachePor(funcionModificada.getId());
 		borrarDeCache(funcionSinModificar);
 		agregarACache(funcionModificada);
 	}

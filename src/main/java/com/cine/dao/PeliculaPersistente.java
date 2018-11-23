@@ -144,10 +144,7 @@ public class PeliculaPersistente implements Persistencia {
 				preparedStatement.setInt(6, 0);
 			preparedStatement.setFloat(7, pelicula.getCalificacion());
 			preparedStatement.setString(8, pelicula.getObservaciones());
-			if (pelicula.getEstado().equals(Estado.ACTIVO)) {
-				preparedStatement.setInt(9, 1);
-			} else
-				preparedStatement.setInt(9, 0);
+			preparedStatement.setString(9, pelicula.getEstado().getLabel());
 			preparedStatement.setInt(10, pelicula.getId());
 			preparedStatement.executeUpdate();
 
