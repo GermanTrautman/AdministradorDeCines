@@ -74,6 +74,7 @@ public class ControladorVenta implements Cache {
             Descuento descuento = new Descuento(nombre, porcentaje,cantidad, tipo);
             agregarACache(descuento);
             descuento.insertarDescuento(descuento);
+
         } else {
             throw new RuntimeException("No se permiten usuarios duplicados");
         }

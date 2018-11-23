@@ -1,8 +1,10 @@
 package com.cine.modelo;
 
 import com.cine.dao.EstablecimientoDescuentoPersistente;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class EstablecimientoDescuento {
 
@@ -55,5 +57,10 @@ public class EstablecimientoDescuento {
 
     public void insertarEstablecimientoDescuento(EstablecimientoDescuento establecimientoDescuento){
         EstablecimientoDescuentoPersistente.getInstance().insertar(establecimientoDescuento);
+    }
+
+
+    public List<Descuento> obtenerDescuentosPorEstablecimiento(Integer cuitEstablecimiento){
+        return EstablecimientoDescuentoPersistente.getInstance().obtenerDescuentosPorEstablecimiento(cuitEstablecimiento);
     }
 }
