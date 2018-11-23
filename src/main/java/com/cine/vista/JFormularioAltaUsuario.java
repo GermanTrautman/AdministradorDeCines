@@ -27,7 +27,6 @@ public class JFormularioAltaUsuario extends JFormularioBase {
     private JPasswordField password;
     private JTextField nombre;
     private JTextField domicilio;
-    private JComboBox<Rol> comboRoles = new JComboBox<>();
     private List<String> roles;
 
     private JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Cliente");

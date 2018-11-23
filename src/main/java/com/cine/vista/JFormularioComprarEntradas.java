@@ -1,6 +1,17 @@
 package com.cine.vista;
 
-import java.awt.Font;
+import com.cine.controlador.ControladorDescuentoEstablecimiento;
+import com.cine.controlador.ControladorEstablecimiento;
+import com.cine.controlador.ControladorFuncion;
+import com.cine.controlador.ControladorPelicula;
+import com.cine.modelo.*;
+import com.cine.observer.IObservador;
+import com.cine.utilidades.*;
+import com.cine.vista.modelo.*;
+
+import javax.swing.*;
+import javax.swing.JSpinner.DateEditor;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
@@ -8,36 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.JSpinner.DateEditor;
-import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
-import javax.swing.SwingConstants;
-
-import com.cine.controlador.ControladorEstablecimiento;
-import com.cine.controlador.ControladorFuncion;
-import com.cine.controlador.ControladorPelicula;
-import com.cine.modelo.AsientoVirtual;
-import com.cine.modelo.Establecimiento;
-import com.cine.modelo.Funcion;
-import com.cine.modelo.Pelicula;
-import com.cine.modelo.Tarjeta;
-import com.cine.modelo.Usuario;
-import com.cine.modelo.Venta;
-import com.cine.utilidades.Banco;
-import com.cine.utilidades.EstadoVirtual;
-import com.cine.utilidades.FormaDePago;
-import com.cine.vista.modelo.ComboBancos;
-import com.cine.vista.modelo.ComboFecha;
-import com.cine.vista.modelo.ComboFormaDePago;
-import com.cine.vista.modelo.ComboHorario;
-
-public class JFormularioComprarEntradas extends JFormularioBase {
+public class JFormularioComprarEntradas extends JFormularioBase implements IObservador {
 
 	private static final long serialVersionUID = -763706419019323146L;
 
@@ -45,11 +27,13 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 	private JTextField nombreEstablecimiento = new JTextField();
 	private JTextField nombrePelicula = new JTextField();
 	private JTextField numeroTarjeta;
+	private JTextField asientosSeleccionados;
 
 	private JComboBox<ComboFecha> fecha = new JComboBox<>();
 	private JComboBox<ComboHorario> horario = new JComboBox<>();
 	private JComboBox<Integer> cantidadDeEntradas = new JComboBox<>();
 	private JComboBox<ComboFormaDePago> formaDePago = new JComboBox<>();
+	private JComboBox<ComboDescuentos> descuentos = new JComboBox<>();
 	private JComboBox<ComboBancos> bancos = new JComboBox<>();
 
 	private JButton seleccionarAsientos = new JButton("Seleccionar asientos");
@@ -60,6 +44,7 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 	private Pelicula peliculaSeleccionada = null;
 	private List<Funcion> funcionesSeleccionadas = new ArrayList<>();
 	private Funcion funcionSeleccionada = null;
+
 
 	public JFormularioComprarEntradas(Usuario usuario) {
 
@@ -88,7 +73,7 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 					Establecimiento establecimiento = ControladorEstablecimiento.getInstance()
 							.buscar(Integer.parseInt(cuitEstablecimiento.getText()));
 					popularEstablecimiento(establecimiento);
-
+					popularDescuentos(Integer.parseInt(cuitEstablecimiento.getText()));
 					JOptionPane.showMessageDialog(null, "Establecimiento encontrado.");
 
 				} else {
@@ -168,13 +153,23 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		seleccionarAsientos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				JFrame formularioAsientoCompra = new JFormularioAsientoCompra(funcionSeleccionada);
+				JFrame formularioAsientoCompra = new JFormularioAsientoCompra(funcionSeleccionada,usuario);
 				formularioAsientoCompra.setVisible(true);
+
+
 			}
+
 		});
+		seleccionarAsientos.addChangeListener(changeEvent -> actualizar());
 
 		seleccionarAsientos.setBounds(223, 335, 177, 25);
 		getContentPane().add(seleccionarAsientos);
+
+		this.asientosSeleccionados = new JTextField();
+		this.asientosSeleccionados.setEnabled(false);
+		this.asientosSeleccionados.setBounds(467, 335, 256, 35);
+		this.asientosSeleccionados.setColumns(10);
+		this.getContentPane().add(this.asientosSeleccionados);
 
 		JLabel lblFormaDePago = new JLabel("Forma de pago");
 		lblFormaDePago.setBounds(223, 387, 229, 25);
@@ -214,18 +209,33 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		mesYAnioVencimientoTarjeta.setBounds(467, 541, 256, 25);
 		this.getContentPane().add(mesYAnioVencimientoTarjeta);
 
+		JLabel lblDescuentos = new JLabel("Forma de pago");
+		lblDescuentos.setBounds(223, 650, 229, 25);
+		getContentPane().add(lblDescuentos);
+
+		descuentos.setBounds(467, 650, 256, 26);
+		getContentPane().add(descuentos);
+
+
+
 		continuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				DescuentoStrategy descuentoStrategy = new DescuentoStrategy();
+				ComboDescuentos comboDescuentos =(ComboDescuentos) descuentos.getModel().getSelectedItem();
+				Double monto = descuentoStrategy.getStrategy(DescuentoProvider.valueOf(comboDescuentos.getDescuentoProvider().getTipo().toString()))
+						.calcularMonto((Double.parseDouble(cantidadDeEntradas.getSelectedItem().toString())*100),comboDescuentos.getDescuentoProvider().getPorcentaje());
+
 				ComboFormaDePago formaDePagoSeleccionada = (ComboFormaDePago) formaDePago.getSelectedItem();
-				//To-do: Hay que obtener los asientos virtuales seleccionados de la pantalla de seleccion y calcular el monto
-				Venta venta = new Venta(usuario, funcionSeleccionada, new ArrayList<>(), 100.0, formaDePagoSeleccionada.getFormaDePago());
+				//To-do: Hay que obtener los asientos virtuales seleccionados de la pantalla de seleccion
+				Venta venta = new Venta(usuario, funcionSeleccionada, new ArrayList<>(), monto, formaDePagoSeleccionada.getFormaDePago());
 				venta = obtenerDatosTarjeta(venta);
 
 				JFrame formularioResumenDePago = new JFormularioResumenDePago(venta);
 				formularioResumenDePago.setVisible(true);
 			}
 		});
+
 		continuar.setBounds(223, 766, 115, 25);
 		getContentPane().add(continuar);
 	}
@@ -261,6 +271,18 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 
 		for (FormaDePago itemFormaDePago : FormaDePago.values()) {
 			formaDePago.addItem(new ComboFormaDePago(itemFormaDePago, id++));
+		}
+	}
+
+	List<Descuento> desc;
+
+	private void popularDescuentos(Integer cuitEstablecimiento) {
+
+		Integer id = 0;
+		desc = ControladorDescuentoEstablecimiento.getInstance().obtenerDescuentosPorEstablecimiento(cuitEstablecimiento);
+
+		for (Descuento itemDescuentos : desc) {
+			descuentos.addItem(new ComboDescuentos(itemDescuentos, id++));
 		}
 	}
 
@@ -312,7 +334,7 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 	}
 
 	private Venta obtenerDatosTarjeta(Venta venta) {
-		
+
 		ComboBancos bancoSeleccionado = (ComboBancos) bancos.getSelectedItem();
 		Long numeroDeTarjeta = Long.parseLong(numeroTarjeta.getText());
 		Date mesYAnioVencimientoSeleccionado = (Date) mesYAnioVencimientoTarjeta.getValue();
@@ -321,5 +343,10 @@ public class JFormularioComprarEntradas extends JFormularioBase {
 		venta.setTarjeta(tarjeta);
 
 		return venta;
+	}
+
+	@Override
+	public void actualizar() {
+		asientosSeleccionados.setText(ControladorFuncion.getInstance().getAsientoVirtuals().values().toString());
 	}
 }

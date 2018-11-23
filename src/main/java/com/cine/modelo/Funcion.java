@@ -33,7 +33,7 @@ public class Funcion {
 	 * @param pelicula
 	 * @param sala
 	 * @param fecha
-	 * @param asientosVirtuales
+	 * @param
 	 * @param estado
 	 */
 	public Funcion(Integer id, LocalTime horario, Pelicula pelicula, Sala sala, Date fecha, Estado estado) {

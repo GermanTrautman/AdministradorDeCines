@@ -3,6 +3,7 @@ package com.cine.controlador;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,10 +20,15 @@ public class ControladorFuncion implements Cache {
 
 	private static ControladorFuncion instancia;
 	private List<Funcion> funciones;
+	private HashMap<Integer,List<AsientoVirtual>> asientoVirtuals = new HashMap<>();
 	private AsientoVirtualPersistente asientoVirtualPersistente = new AsientoVirtualPersistente();
 
 	private ControladorFuncion() {
 		this.funciones = new ArrayList<>();
+	}
+
+	public void agregarAsientosVirtuales(Integer dni,List<AsientoVirtual> asientoVirtualList){
+		this.asientoVirtuals.put(dni,asientoVirtualList);
 	}
 
 	public static ControladorFuncion getInstance() {
@@ -200,4 +206,9 @@ public class ControladorFuncion implements Cache {
 		Funcion funcion = new Funcion();
 		return funcion.buscarPeliculaPorDiaYHora(idEstablecimiento, nombrePelicula);
 	}
+
+	public HashMap<Integer, List<AsientoVirtual>> getAsientoVirtuals() {
+		return asientoVirtuals;
+	}
+
 }

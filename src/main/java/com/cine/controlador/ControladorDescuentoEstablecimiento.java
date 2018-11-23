@@ -1,6 +1,7 @@
 package com.cine.controlador;
 
 import com.cine.dao.Cache;
+import com.cine.modelo.Descuento;
 import com.cine.modelo.EstablecimientoDescuento;
 import com.cine.modelo.Rol;
 import com.cine.modelo.RolUsuario;
@@ -83,6 +84,11 @@ public class ControladorDescuentoEstablecimiento implements Cache {
     public Rol buscarRolPorId(Integer idRol) {
         RolUsuario rolUsuario = new RolUsuario();
         return rolUsuario.buscarRolPorId(idRol);
+    }
+
+    public List<Descuento> obtenerDescuentosPorEstablecimiento(Integer cuitEstablecimiento){
+        EstablecimientoDescuento establecimientoDescuento = new EstablecimientoDescuento();
+        return establecimientoDescuento.obtenerDescuentosPorEstablecimiento(cuitEstablecimiento);
     }
 
 
