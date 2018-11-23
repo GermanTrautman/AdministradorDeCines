@@ -4,6 +4,7 @@ package com.cine.controlador;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,10 +21,15 @@ public class ControladorFuncion implements Cache {
 
 	private static ControladorFuncion instancia;
 	private List<Funcion> funciones;
+	private HashMap<Integer,List<AsientoVirtual>> asientoVirtuals = new HashMap<>();
 	private AsientoVirtualPersistente asientoVirtualPersistente = new AsientoVirtualPersistente();
 
 	private ControladorFuncion() {
 		this.funciones = new ArrayList<>();
+	}
+
+	public void agregarAsientosVirtuales(Integer dni,List<AsientoVirtual> asientoVirtualList){
+		this.asientoVirtuals.put(dni,asientoVirtualList);
 	}
 
 	public static ControladorFuncion getInstance() {
@@ -59,9 +65,9 @@ public class ControladorFuncion implements Cache {
 		return funcionesBuscadas;
 	}
 
-	private Funcion buscarPor(Integer idFuncion) {
+	public Funcion buscarPor(Integer idFuncion) {
 
-		Funcion funcionBuscada = null;
+		Funcion funcionBuscada = buscarEnCachePor(idFuncion);
 
 		if (funcionBuscada == null) {
 
@@ -103,7 +109,7 @@ public class ControladorFuncion implements Cache {
 	}
 
 	public void modificarAsientos(Integer idFuncion, AsientoVirtual[][] asientosModificados) {
-		
+
 		Funcion funcion = buscarPor(idFuncion);
 
 		for (int i = 1; i < AsientoVirtual.FILAS; i++) {
@@ -113,8 +119,10 @@ public class ControladorFuncion implements Cache {
 				if (asientosModificados[i][j] != null && funcion.getAsientoVirtual()[i][j] != null) {
 
 					if (!asientosModificados[i][j].getEstado().equals(funcion.getAsientoVirtual()[i][j].getEstado())) {
+						
+						funcion.getAsientoVirtual()[i][j].setEstado(asientosModificados[i][j].getEstado());
 
-						 asientosModificados[i][j].vender();
+						asientosModificados[i][j].vender();
 					}
 				}
 			}
@@ -202,4 +210,9 @@ public class ControladorFuncion implements Cache {
 		Funcion funcion = new Funcion();
 		return funcion.buscarPeliculaPorDiaYHora(idEstablecimiento, nombrePelicula);
 	}
+
+	public HashMap<Integer, List<AsientoVirtual>> getAsientoVirtuals() {
+		return asientoVirtuals;
+	}
+
 }

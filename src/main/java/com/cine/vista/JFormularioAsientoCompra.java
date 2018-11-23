@@ -4,37 +4,38 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import com.cine.controlador.ControladorFuncion;
 import com.cine.modelo.AsientoVirtual;
 import com.cine.modelo.Funcion;
+import com.cine.modelo.Usuario;
+import com.cine.observer.IObservador;
 import com.cine.utilidades.EstadoVirtual;
 
-public class JFormularioAsientoCompra extends JFormularioBase {
+public class JFormularioAsientoCompra extends JFormularioBase implements IObservador {
 
 	private static final long serialVersionUID = -5861942336470487170L;
 	
 	private AsientoVirtual[][] asientosVirtualesTemporales = new AsientoVirtual[AsientoVirtual.FILAS][AsientoVirtual.ASIENTOSPORFILA];
-	
+	List<AsientoVirtual> asientoVirtualList = new ArrayList<>();
 	private JPanel panelDeAsientos = new JPanel();
 	
 	private JButton btnGuardar = new JButton();
 
+	private Usuario usuario;
 	private Integer cantidadMinimaDeFilas = AsientoVirtual.FILAS;
 	private Integer cantidadMinimaDeAsientosPorFila = AsientoVirtual.ASIENTOSPORFILA;
 	private Integer cantidadMaximaDeFilas = 1;
 	private Integer cantidadMaximaDeAsientosPorFila = 1;
 	
-	public JFormularioAsientoCompra(Funcion funcion) {
-		
+	public JFormularioAsientoCompra(Funcion funcion, Usuario usuario) {
+		this.usuario = usuario;
 		clonarMatriz(funcion);
 		
 		obtenerCantidadDeFilasYAsientos(funcion);
@@ -92,6 +93,7 @@ public class JFormularioAsientoCompra extends JFormularioBase {
 				JOptionPane.showMessageDialog(null, "Se han guardado los asientos");
 				
 				dispose();
+				actualizar();
 			}
 		});
 		
@@ -102,8 +104,14 @@ public class JFormularioAsientoCompra extends JFormularioBase {
 	private void clonarMatriz(Funcion funcion) {
 
 		for (int i = 1; i < AsientoVirtual.FILAS; i++) {
+			
 			for (int j = 1; j < AsientoVirtual.ASIENTOSPORFILA; j++) {
-				asientosVirtualesTemporales[i][j] = funcion.getAsientoVirtual()[i][j];
+				
+				if (funcion.getAsientoVirtual()[i][j] != null) {
+					AsientoVirtual asientoVirtual = new AsientoVirtual(funcion.getAsientoVirtual()[i][j].getFisicoAsociado(), funcion.getAsientoVirtual()[i][j].getId());
+					asientosVirtualesTemporales[i][j] = asientoVirtual;
+					asientosVirtualesTemporales[i][j].setId(funcion.getAsientoVirtual()[i][j].getId());
+				}
 			}
 		}
 	}
@@ -146,12 +154,18 @@ public class JFormularioAsientoCompra extends JFormularioBase {
 			
 			if (asientosVirtualesTemporales[fila][numeroDeAsiento].getEstado().equals(EstadoVirtual.LIBRE)) {
 				
-				asientosVirtualesTemporales[fila][numeroDeAsiento].setEstado(EstadoVirtual.OCUPADO);
-				
+				 asientosVirtualesTemporales[fila][numeroDeAsiento].setEstado(EstadoVirtual.OCUPADO);
+				asientoVirtualList.add(asientosVirtualesTemporales[fila][numeroDeAsiento]);
 			} else {
 				
 				asientosVirtualesTemporales[fila][numeroDeAsiento].setEstado(EstadoVirtual.LIBRE);
 			}
 		}
+	}
+
+	@Override
+	public void actualizar() {
+		ControladorFuncion.getInstance().agregarAsientosVirtuales(usuario.getDni(),asientoVirtualList);
+
 	}
 }

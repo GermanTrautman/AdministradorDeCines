@@ -24,7 +24,7 @@ public class Funcion {
 	 * @param pelicula
 	 * @param sala
 	 * @param fecha
-	 * @param asientosVirtuales
+	 * @param
 	 * @param estado
 	 */
 	public Funcion(Time horario, Pelicula pelicula, Sala sala, LocalDate fecha, Estado estado) {

@@ -2,15 +2,17 @@ package com.cine.modelo;
 
 import java.util.Date;
 
+import com.cine.dao.TarjetaPersistente;
 import com.cine.utilidades.Banco;
 
 public class Tarjeta {
 
+	private Integer id;
 	private Banco banco;
-	private float numero;
+	private Long numero;
 	private Date mesYAnioDeVencimiento;
 	
-	public Tarjeta(Banco banco, float numero, Date mesYAnioDeVencimiento) {
+	public Tarjeta(Banco banco, Long numero, Date mesYAnioDeVencimiento) {
 		
 		super();
 		this.banco = banco;
@@ -18,6 +20,14 @@ public class Tarjeta {
 		this.mesYAnioDeVencimiento = mesYAnioDeVencimiento;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public Banco getBanco() {
 		return banco;
 	}
@@ -26,11 +36,11 @@ public class Tarjeta {
 		this.banco = banco;
 	}
 
-	public float getNumero() {
+	public Long getNumero() {
 		return numero;
 	}
 
-	public void setNumero(float numero) {
+	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
 
@@ -40,5 +50,13 @@ public class Tarjeta {
 
 	public void setMesYAnioDeVencimiento(Date mesYAnioDeVencimiento) {
 		this.mesYAnioDeVencimiento = mesYAnioDeVencimiento;
+	}
+	
+    public Tarjeta buscar(Long numero) {
+        return (Tarjeta) TarjetaPersistente.getInstance().buscar(numero);
+     }
+
+	public void insertar() {
+		 TarjetaPersistente.getInstance().insertar(this);
 	}
 }
