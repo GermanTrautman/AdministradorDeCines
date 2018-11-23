@@ -102,8 +102,14 @@ public class JFormularioAsientoCompra extends JFormularioBase {
 	private void clonarMatriz(Funcion funcion) {
 
 		for (int i = 1; i < AsientoVirtual.FILAS; i++) {
+			
 			for (int j = 1; j < AsientoVirtual.ASIENTOSPORFILA; j++) {
-				asientosVirtualesTemporales[i][j] = funcion.getAsientoVirtual()[i][j];
+				
+				if (funcion.getAsientoVirtual()[i][j] != null) {
+					AsientoVirtual asientoVirtual = new AsientoVirtual(funcion.getAsientoVirtual()[i][j].getFisicoAsociado(), funcion.getAsientoVirtual()[i][j].getId());
+					asientosVirtualesTemporales[i][j] = asientoVirtual;
+					asientosVirtualesTemporales[i][j].setId(funcion.getAsientoVirtual()[i][j].getId());
+				}
 			}
 		}
 	}
