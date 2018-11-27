@@ -64,12 +64,12 @@ public class JFormularioResumenDePago extends JFormularioBase {
 		horario.setBounds(509, 280, 224, 16);
 		getContentPane().add(horario);
 
-		JLabel lblNewLabel_5 = new JLabel("Entradas");
-		lblNewLabel_5.setBounds(257, 321, 211, 16);
-		getContentPane().add(lblNewLabel_5);
+		//JLabel lblNewLabel_5 = new JLabel("Entradas");
+		//lblNewLabel_5.setBounds(257, 321, 211, 16);
+		//getContentPane().add(lblNewLabel_5);
 
-		entradas.setBounds(509, 321, 224, 16);
-		getContentPane().add(entradas);
+		//entradas.setBounds(509, 321, 224, 16);
+		//getContentPane().add(entradas);
 
 		JLabel lblNewLabel_7 = new JLabel("Monto");
 		lblNewLabel_7.setBounds(257, 362, 211, 16);
