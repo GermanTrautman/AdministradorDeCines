@@ -104,7 +104,9 @@ public class JFormularioPrincipal extends JFormularioBase {
         mnEstablecimientos.add(mntmModificacion);
 
         JMenu mnNewMenu = new JMenu("Salas");
-        menu.add(mnNewMenu);
+        if (roleName == "Administrador") {
+            menu.add(mnNewMenu);
+        }
 
         JMenuItem mntmAlta_1 = new JMenuItem("Alta");
         mntmAlta_1.addActionListener(new ActionListener() {
@@ -114,7 +116,9 @@ public class JFormularioPrincipal extends JFormularioBase {
                 formularioAltaSala.setVisible(true);
             }
         });
-        mnNewMenu.add(mntmAlta_1);
+        if (roleName == "Administrador") {
+            mnNewMenu.add(mntmAlta_1);
+        }
 
         JMenuItem mntmBaja_1 = new JMenuItem("Baja");
         mntmBaja_1.addActionListener(new ActionListener() {
@@ -137,7 +141,7 @@ public class JFormularioPrincipal extends JFormularioBase {
         mnNewMenu.add(mntmModificacion_1);
 
         JMenu mnPeliculas = new JMenu("Peliculas");
-        menu.add(mnPeliculas);
+
 
         JMenuItem mntmAlta_2 = new JMenuItem("Alta");
         mntmAlta_2.addActionListener(new ActionListener() {
@@ -147,7 +151,10 @@ public class JFormularioPrincipal extends JFormularioBase {
                 formularioAltaPelicula.setVisible(true);
             }
         });
-        mnPeliculas.add(mntmAlta_2);
+
+        if (roleName == "Administrador") {
+            mnPeliculas.add(mntmAlta_2);
+        }
 
         JMenuItem mntmBaja_2 = new JMenuItem("Baja");
         mntmBaja_2.addActionListener(new ActionListener() {
@@ -170,7 +177,9 @@ public class JFormularioPrincipal extends JFormularioBase {
         mnPeliculas.add(mntmModificacion_2);
 
         JMenu mnFunciones = new JMenu("Funciones");
-        menu.add(mnFunciones);
+        if (roleName == "Administrador") {
+            menu.add(mnFunciones);
+        }
 
         JMenuItem mntmAlta_3 = new JMenuItem("Alta");
         mntmAlta_3.addActionListener(new ActionListener() {
@@ -209,7 +218,9 @@ public class JFormularioPrincipal extends JFormularioBase {
 		});
 
         JMenu mnDescuentos = new JMenu("Descuentos");
-        menu.add(mnDescuentos);
+        if (roleName == "Administrador") {
+            menu.add(mnDescuentos);
+        }
 
         JMenuItem formAltaDescuento = new JMenuItem("Alta");
         mnDescuentos.add(formAltaDescuento);

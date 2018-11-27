@@ -1,19 +1,19 @@
 package com.cine.vista.modelo;
 
-import java.time.LocalTime;
+import java.sql.Time;
 
 public class ComboHorario {
 
-	private LocalTime horario;
+	private Time horario;
 	private Integer id;
 
-	public ComboHorario(LocalTime horario, Integer id) {
+	public ComboHorario(Time horario, Integer id) {
 
 		this.id = id;
 		this.horario = horario;
 	}
 
-	public LocalTime getHorario() {
+	public Time getHorario() {
 		return horario;
 	}
 
