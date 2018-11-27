@@ -1,7 +1,6 @@
 package com.cine.main;
 
 import com.cine.vista.JFormularioLogin;
-import com.cine.vista.JFormularioPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +13,8 @@ public class Main {
                 try {
                     JFrame panel = new JFormularioLogin();
                     panel.setVisible(true);
+                    //JFormularioBase j = new JFormularioPrincipal("Administrador");
+                    //j.setVisible(true);
 
                 } catch (Exception e) {
                     e.printStackTrace();

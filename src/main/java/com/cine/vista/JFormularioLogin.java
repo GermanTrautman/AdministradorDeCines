@@ -1,6 +1,5 @@
 package com.cine.vista;
 
-import com.cine.controlador.ControladorRolUsuario;
 import com.cine.controlador.ControladorUsuario;
 import com.cine.modelo.Rol;
 import com.cine.modelo.RolUsuario;
@@ -8,8 +7,6 @@ import com.cine.modelo.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class JFormularioLogin extends JFormularioBase {
     private JTextField txtNombreDeUsuario;
@@ -30,22 +27,19 @@ public class JFormularioLogin extends JFormularioBase {
         btnIngresar.setBounds(223, 670, 115, 29);
         add(btnIngresar);
 
-        btnIngresar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnIngresar.addActionListener(e -> {
 
-                Usuario usuario = ControladorUsuario.getInstance().buscarPorNombreUsuarioYPass(txtNombreDeUsuario.getText(), txtPassword.getText());
-                RolUsuario rol = new RolUsuario();
-                rol = rol.buscarRolUsuario(usuario.getDni());
-                Rol role = rol.buscarRolPorId(rol.getIdRol());
-                if (usuario != null){
+            Usuario usuario = ControladorUsuario.getInstance().buscarPorNombreUsuarioYPass(txtNombreDeUsuario.getText(), txtPassword.getText());
+            RolUsuario rol = new RolUsuario();
+            rol = rol.buscarRolUsuario(usuario.getDni());
+            Rol role = rol.buscarRolPorId(rol.getIdRol());
+            if (usuario != null && (usuario.getNombreDeUsuario().equals(txtNombreDeUsuario.getText()) && usuario.getPassword().equals(txtPassword.getText()))){
 
-                    JFrame j = new JFormularioPrincipal(role.getNombre());
-                    j.setVisible(true);
-                    hide();
-                }else {
-                    JOptionPane.showMessageDialog(null, "Nombre de Usuario o Contraseña incorrectos");
-                }
+                JFrame j = new JFormularioPrincipal(role.getNombre(), usuario);
+                j.setVisible(true);
+                hide();
+            }else {
+                JOptionPane.showMessageDialog(null, "Nombre de Usuario o Contraseña incorrectos");
             }
         });
 
@@ -70,6 +64,10 @@ public class JFormularioLogin extends JFormularioBase {
         JButton btnRegistrarse = new JButton("Registrarse");
         btnRegistrarse.setBounds(608, 670, 115, 29);
         add(btnRegistrarse);
+        btnRegistrarse.addActionListener(e -> {
+            JFormularioBase j = new JFormularioRegistrarse();
+            j.setVisible(true);
+        });
 
     }
 

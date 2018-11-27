@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -111,6 +112,17 @@ public class JFormularioModificarSala extends JFormularioBase {
 		});
 		this.btnGuardar.setBounds(223, 670, 115, 29);
 		this.getContentPane().add(btnGuardar);
+		
+		JButton btnAsientos = new JButton("Asientos");
+		btnAsientos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JFrame asientos = new JFormularioAsientosModificacionSala(nombre.getText());
+				asientos.setVisible(true);
+			}
+		});
+		btnAsientos.setBounds(223, 343, 115, 29);
+		getContentPane().add(btnAsientos);
 	}
 	
 	private void popularEstados(Sala sala) {
@@ -138,17 +150,17 @@ public class JFormularioModificarSala extends JFormularioBase {
 			
 			comboEstados.removeAllItems();
 			
-			ComboEstado activo = new ComboEstado(Estado.ACTIVO.estado(), 1);
+			ComboEstado activo = new ComboEstado(Estado.ACTIVO.getLabel(), 1);
 			comboEstados.addItem(activo);
 			
-			if (sala.getEstado().estado().equals(Estado.ACTIVO.estado())) {
+			if (sala.getEstado().getLabel().equals(Estado.ACTIVO.getLabel())) {
 				comboEstados.setSelectedItem(activo);
 			}
 
-			ComboEstado inactivo = new ComboEstado(Estado.INACTIVO.estado(), 1);
+			ComboEstado inactivo = new ComboEstado(Estado.INACTIVO.getLabel(), 1);
 			comboEstados.addItem(inactivo);
 
-			if (sala.getEstado().estado().equals(Estado.INACTIVO.estado())) {
+			if (sala.getEstado().getLabel().equals(Estado.INACTIVO.getLabel())) {
 				comboEstados.setSelectedItem(inactivo);
 			}
 		}

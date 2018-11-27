@@ -3,7 +3,7 @@ package com.cine.vista.modelo;
 import javax.swing.table.AbstractTableModel;
 
 import com.cine.controlador.ControladorPelicula;
-import com.cine.utilidades.EstadoActivoInactivo;
+import com.cine.utilidades.Estado;
 
 public class ModeloTablePelicula extends AbstractTableModel {
 
@@ -91,7 +91,7 @@ public class ModeloTablePelicula extends AbstractTableModel {
 				return ((String) ControladorPelicula.getInstance().getPeliculas().get(fila-1).getObservaciones());
 			}
 			case 9: {
-				return ((EstadoActivoInactivo) ControladorPelicula.getInstance().getPeliculas().get(fila-1).getEstado());
+				return ((Estado) ControladorPelicula.getInstance().getPeliculas().get(fila-1).getEstado());
 			}
 
 			default:

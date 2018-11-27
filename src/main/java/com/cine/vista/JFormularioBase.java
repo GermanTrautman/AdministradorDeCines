@@ -1,9 +1,11 @@
 package com.cine.vista;
 
+import com.cine.observer.IObservador;
+
 import javax.swing.*;
 
 public abstract class JFormularioBase
-        extends JFrame{
+        extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
@@ -12,4 +14,5 @@ public abstract class JFormularioBase
         this.setSize(1400, 1050);
         this.setLocationRelativeTo(null);
     }
+
 }

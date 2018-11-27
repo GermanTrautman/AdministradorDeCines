@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cine.modelo.Pelicula;
-import com.cine.utilidades.EstadoActivoInactivo;
+import com.cine.utilidades.Estado;
 
 public class PeliculaPersistente implements Persistencia {
 
@@ -24,8 +24,7 @@ public class PeliculaPersistente implements Persistencia {
 		return instancia;
 	}
 
-	
-	//Busco en la base la pelicula con el nombre recibido
+	// Busco en la base la pelicula con el nombre recibido
 	@Override
 	public Object buscar(Object nombre) {
 		try {
@@ -38,11 +37,8 @@ public class PeliculaPersistente implements Persistencia {
 				preparedStatement.setString(1, (String) nombre);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
-					EstadoActivoInactivo estadoPelicula;
-					if (resultSet.getInt("Estado") == 1) {
-						estadoPelicula = EstadoActivoInactivo.ACTIVO;
-					} else
-						estadoPelicula = EstadoActivoInactivo.INACTIVO;
+
+					Estado estadoPelicula = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
 
 					pelicula = new Pelicula(resultSet.getString("Nombre"), resultSet.getString("Director"),
 							resultSet.getString("Genero"), resultSet.getInt("Duracion"), resultSet.getString("Idioma"),
@@ -71,11 +67,8 @@ public class PeliculaPersistente implements Persistencia {
 			ResultSet resultSet = ejecutarSelect("SELECT * FROM Pelicula");
 
 			while (resultSet.next()) {
-				EstadoActivoInactivo estadoPelicula;
-				if (resultSet.getInt("Estado") == 1) {
-					estadoPelicula = EstadoActivoInactivo.ACTIVO;
-				} else
-					estadoPelicula = EstadoActivoInactivo.INACTIVO;
+
+				Estado estadoPelicula = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
 
 				pelicula = new Pelicula(resultSet.getString("Nombre"), resultSet.getString("Director"),
 						resultSet.getString("Genero"), resultSet.getInt("Duracion"), resultSet.getString("Idioma"),
@@ -96,8 +89,8 @@ public class PeliculaPersistente implements Persistencia {
 
 	}
 
-	//Inserto en la base la pelicula recibida por parametro
-	
+	// Inserto en la base la pelicula recibida por parametro
+
 	@Override
 	public void insertar(Object objetoPelicula) {
 		try {
@@ -105,7 +98,7 @@ public class PeliculaPersistente implements Persistencia {
 			Pelicula pelicula = (Pelicula) objetoPelicula;
 
 			PreparedStatement preparedStatement = conectarDb().prepareStatement(
-					"INSERT INTO TPO.dbo.Pelicula (Nombre, Director, Genero, Duracion, Idioma, Subtitulos, Calificacion, Observaciones, Estado ) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					"INSERT INTO TPO.dbo.Pelicula (Nombre, Director, Genero, Duracion, Idioma, Subtitulos, Calificacion, Observaciones, Estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			preparedStatement.setString(1, pelicula.getNombre());
 			preparedStatement.setString(2, pelicula.getDirector());
@@ -114,15 +107,12 @@ public class PeliculaPersistente implements Persistencia {
 			preparedStatement.setString(5, pelicula.getIdioma());
 			if (pelicula.getSubtitulos()) {
 				preparedStatement.setInt(6, 1);
-
-			} else
+			} else {
 				preparedStatement.setInt(6, 0);
+			}
 			preparedStatement.setFloat(7, pelicula.getCalificacion());
 			preparedStatement.setString(8, pelicula.getObservaciones());
-			if (pelicula.getEstado().equals(EstadoActivoInactivo.ACTIVO)) {
-				preparedStatement.setInt(9, 1);
-			} else
-				preparedStatement.setInt(9, 0);
+			preparedStatement.setString(9, pelicula.getEstado().getLabel());
 
 			preparedStatement.executeUpdate();
 
@@ -133,7 +123,7 @@ public class PeliculaPersistente implements Persistencia {
 		}
 	}
 
-	//Actualizo en la base la pelicula recibida por parametro
+	// Actualizo en la base la pelicula recibida por parametro
 	@Override
 	public void actualizar(Object objetoPelicula) {
 		try {
@@ -154,10 +144,7 @@ public class PeliculaPersistente implements Persistencia {
 				preparedStatement.setInt(6, 0);
 			preparedStatement.setFloat(7, pelicula.getCalificacion());
 			preparedStatement.setString(8, pelicula.getObservaciones());
-			if (pelicula.getEstado().equals(EstadoActivoInactivo.ACTIVO)) {
-				preparedStatement.setInt(9, 1);
-			} else
-				preparedStatement.setInt(9, 0);
+			preparedStatement.setString(9, pelicula.getEstado().getLabel());
 			preparedStatement.setInt(10, pelicula.getId());
 			preparedStatement.executeUpdate();
 
@@ -168,7 +155,7 @@ public class PeliculaPersistente implements Persistencia {
 		}
 	}
 
-	//Elimino de la base la pelicula con el nombre recibido por parametro
+	// Elimino de la base la pelicula con el nombre recibido por parametro
 	@Override
 	public void borrar(Object nombre) {
 		try {
@@ -184,20 +171,25 @@ public class PeliculaPersistente implements Persistencia {
 	}
 
 	public Integer getIdPelicula(String nombre) {
+		
 		Integer id = null;
+		
 		try {
 
 			PreparedStatement preparedStatement = conectarDb()
 					.prepareStatement("SELECT Id FROM Pelicula WHERE Nombre = ?");
 			preparedStatement.setString(1, nombre);
 			ResultSet resultSet = preparedStatement.executeQuery();
-//			ResultSet resultset = ejecutarSelect("Select Id FROM Pelicula WHERE Nombre = " + nombre);
+
 			if (resultSet.next()) {
 				id = resultSet.getInt("Id");
 			}
+
 		} catch (SQLException e) {
+
 			System.out.println("Error Query: " + e.getMessage());
 			throw new RuntimeException("Error intentando buscar Pelicula con nombre " + nombre);
+
 		} finally {
 			cerrarConexion();
 		}
@@ -237,6 +229,5 @@ public class PeliculaPersistente implements Persistencia {
 //		}
 //
 //	}
-	
-	
+
 }

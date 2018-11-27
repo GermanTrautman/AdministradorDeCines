@@ -4,13 +4,17 @@ import com.cine.dao.AsientoFisicoPersistente;
 import com.cine.utilidades.Estado;
 
 public class AsientoFisico {
+	
+	public static final Integer FILAS = 100;
+	public static final Integer ASIENTOSPORFILA = 100;
 
 	private String nombreSala;
 	private Integer fila;
-    private Integer numeroDeAsiento;
-    private Estado estado;
-	
+	private Integer numeroDeAsiento;
+	private Estado estado;
+
 	public AsientoFisico(String nombreSala, Integer fila, Integer numeroDeAsiento, Estado estado) {
+		
 		super();
 		this.nombreSala = nombreSala;
 		this.fila = fila;
@@ -29,11 +33,11 @@ public class AsientoFisico {
 	public Integer getFila() {
 		return fila;
 	}
-	
-    public void setFila(Integer fila) {
+
+	public void setFila(Integer fila) {
 		this.fila = fila;
 	}
-	
+
 	public Integer getNumeroDeAsiento() {
 		return numeroDeAsiento;
 	}
@@ -55,10 +59,32 @@ public class AsientoFisico {
 		AsientoFisicoPersistente asientoFisicoPersistente = new AsientoFisicoPersistente();
 		asientoFisicoPersistente.insertar(this);
 	}
-	
+
 	public void borrar() {
-		
+
 		AsientoFisicoPersistente asientoFisicoPersistente = new AsientoFisicoPersistente();
 		asientoFisicoPersistente.borrar(this);
+	}
+
+    public int hashCode(){
+
+    	int hashcode = 0;
+    	
+        hashcode = fila*numeroDeAsiento;
+        hashcode += fila.hashCode();
+        
+        return hashcode;
+    }
+	
+	public boolean equals(Object obj) {
+
+		if (obj instanceof AsientoFisico) {
+		
+			AsientoFisico pp = (AsientoFisico) obj;
+			return (pp.fila.equals(this.fila) && pp.numeroDeAsiento == this.numeroDeAsiento);
+			
+		} else {
+			return false;
+		}
 	}
 }

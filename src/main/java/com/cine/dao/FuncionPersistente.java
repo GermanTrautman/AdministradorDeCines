@@ -1,5 +1,6 @@
 package com.cine.dao;
 
+//import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +12,11 @@ import java.util.List;
 
 import com.cine.controlador.ControladorPelicula;
 import com.cine.controlador.ControladorSala;
-import com.cine.modelo.*;
+import com.cine.modelo.Establecimiento;
+import com.cine.modelo.Funcion;
+import com.cine.modelo.Pelicula;
+import com.cine.modelo.Sala;
 import com.cine.utilidades.Estado;
-import com.cine.utilidades.EstadoActivoInactivo;
 
 public class FuncionPersistente implements Persistencia {
 
@@ -40,30 +43,100 @@ public class FuncionPersistente implements Persistencia {
 						"SELECT * FROM Funcion_vw WHERE NombrePelicula = ? AND NombreSala = ? AND Fecha = ? AND Horario = ?");
 				preparedStatement.setString(1, ((Funcion) funcionBuscada).getPelicula().getNombre());
 				preparedStatement.setString(2, ((Funcion) funcionBuscada).getSala().getNombre());
-				preparedStatement.setObject(3, ((Funcion) funcionBuscada).getFecha());
-				preparedStatement.setTime(4, ((Funcion) funcionBuscada).getHora());
+				preparedStatement.setString(3, ((Funcion) funcionBuscada).getFecha().toString());
 				ResultSet resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
 					Sala salaDeFuncion = ControladorSala.getInstance().buscar(resultSet.getString("NombreSala"));
 					Pelicula peliculaDeFuncion = (Pelicula) ControladorPelicula.getInstance()
 							.buscarEnCache(resultSet.getString("NombrePelicula"));
-					Estado estadoFuncion;
-					if (resultSet.getInt("Estado") == 1) {
-						estadoFuncion = Estado.ACTIVO;
-					} else
-						estadoFuncion = Estado.INACTIVO;
-					LocalDate fecha = resultSet.getObject("Fecha", LocalDate.class);
-					funcion = new Funcion(fecha, salaDeFuncion, peliculaDeFuncion, estadoFuncion,
-							resultSet.getTime("Horario"));
+					Estado estadoFuncion = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
+					Date date = resultSet.getDate("Fecha");
+					LocalDate localDate = date.toLocalDate();
+					funcion = new Funcion(resultSet.getTime("Horario"), peliculaDeFuncion, salaDeFuncion, localDate,
+							estadoFuncion);
 					funcion.setId(resultSet.getInt("Id"));
 				}
 			}
-			return null;
+			return funcion;
 		} catch (SQLException e) {
 			System.out.println("Error Query: " + e.getMessage());
 			throw new RuntimeException("Error intentando buscar Funcion deseada");
 		} finally {
-			cerrarConexion();
+			liberarConexion();
+		}
+	}
+
+	public List<Funcion> buscarPor(Integer cuitEstablecimiento, String nombrePelicula) {
+
+		try {
+
+			List<Funcion> funciones = new ArrayList<>();
+
+			PreparedStatement preparedStatement = conectarDb().prepareStatement(
+					"SELECT * FROM TPO.dbo.Funcion_vw WHERE NombrePelicula = ? AND CUITEstablecimiento = ?");
+			preparedStatement.setString(1, nombrePelicula);
+			preparedStatement.setInt(2, cuitEstablecimiento);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+
+				Pelicula pelicula = (Pelicula) ControladorPelicula.getInstance()
+						.buscarEnCache(resultSet.getString("NombrePelicula"));
+				Sala sala = ControladorSala.getInstance().buscar(resultSet.getString("NombreSala"));
+				Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
+				Date date = resultSet.getDate("Fecha");
+				LocalDate localDate = date.toLocalDate();
+				Funcion funcion = new Funcion(resultSet.getTime("Horario"), pelicula, sala, localDate, estado);
+				funcion.setId(resultSet.getInt("Id"));
+				funciones.add(funcion);
+
+			}
+
+			return funciones;
+
+		} catch (SQLException e) {
+
+			System.out.println("Error Query: " + e.getMessage());
+			throw new RuntimeException("Error intentando buscar la funcion con cuitEstablecimiento: "
+					+ cuitEstablecimiento + " y nombrePelicula: " + nombrePelicula);
+
+		} finally {
+			liberarConexion();
+		}
+	}
+
+	public Funcion buscarPor(Integer idFuncion) {
+
+		try {
+
+			Funcion funcion = null;
+
+			PreparedStatement preparedStatement = conectarDb()
+					.prepareStatement("SELECT * FROM TPO.dbo.Funcion_vw WHERE Id = ?");
+			preparedStatement.setInt(1, idFuncion);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+
+				Pelicula pelicula = (Pelicula) ControladorPelicula.getInstance()
+						.buscarEnCache(resultSet.getString("NombrePelicula"));
+				Sala sala = ControladorSala.getInstance().buscar(resultSet.getString("NombreSala"));
+				Estado estado = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
+				Date date = resultSet.getDate("Fecha");
+				LocalDate localDate = date.toLocalDate();
+				funcion = new Funcion(resultSet.getTime("Horario"), pelicula, sala, localDate, estado);
+				funcion.setId(resultSet.getInt("Id"));
+			}
+
+			return funcion;
+
+		} catch (SQLException e) {
+
+			System.out.println("Error Query: " + e.getMessage());
+			throw new RuntimeException("Error intentando buscar la funcion con id: " + idFuncion);
+
+		} finally {
+			liberarConexion();
 		}
 	}
 
@@ -82,16 +155,14 @@ public class FuncionPersistente implements Persistencia {
 			preparedStatement.setTime(1, funcion.getHora());
 			preparedStatement.setInt(2, funcion.getPelicula().getId());
 			preparedStatement.setString(3, funcion.getSala().getNombre());
-			if (funcion.getEstado().equals(Estado.ACTIVO)) {
-				preparedStatement.setInt(4, 1);
-			} else
-				preparedStatement.setInt(4, 0);
-			preparedStatement.setDate(5, Date.valueOf(funcion.getFecha()));
+			preparedStatement.setString(4, funcion.getEstado().getLabel());
+
+			preparedStatement.setString(5, funcion.getFecha().toString());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			cerrarConexion();
+			liberarConexion();
 		}
 	}
 
@@ -104,16 +175,14 @@ public class FuncionPersistente implements Persistencia {
 			preparedStatement.setTime(1, funcion.getHora());
 			preparedStatement.setInt(2, funcion.getPelicula().getId());
 			preparedStatement.setString(3, funcion.getSala().getNombre());
-			if (funcion.getEstado().equals(Estado.ACTIVO)) {
-				preparedStatement.setInt(4, 1);
-			} else
-				preparedStatement.setInt(4, 0);
-			preparedStatement.setObject(5, funcion.getFecha());
+			preparedStatement.setString(4, funcion.getEstado().getLabel());
+			preparedStatement.setString(5, funcion.getFecha().toString());
 			preparedStatement.setInt(6, funcion.getId());
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			cerrarConexion();
+			liberarConexion();
 		}
 
 	}
@@ -128,12 +197,12 @@ public class FuncionPersistente implements Persistencia {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			cerrarConexion();
+			liberarConexion();
 		}
 
 	}
 
-	public Integer getIdFuncion(LocalDate fecha, Sala sala, Pelicula pelicula, Time hora) {
+	public Integer getIdFuncion(LocalDate fecha, Sala sala, Pelicula pelicula, Time horario) {
 		try {
 			Integer id = null;
 			if (fecha != null && sala != null && pelicula != null) {
@@ -142,7 +211,7 @@ public class FuncionPersistente implements Persistencia {
 				preparedStatement.setString(1, pelicula.getNombre());
 				preparedStatement.setString(2, sala.getNombre());
 				preparedStatement.setString(3, fecha.toString());
-				preparedStatement.setString(4, hora.toString());
+				preparedStatement.setString(4, horario.toString());
 				ResultSet resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
 					id = resultSet.getInt("Id");
@@ -153,7 +222,7 @@ public class FuncionPersistente implements Persistencia {
 			System.out.println("Error Query: " + e.getMessage());
 			throw new RuntimeException("Error intentando buscar Funcion deseada");
 		} finally {
-			cerrarConexion();
+			liberarConexion();
 		}
 	}
 
@@ -208,14 +277,11 @@ public class FuncionPersistente implements Persistencia {
 
 			List<Pelicula> peliculas = new ArrayList<Pelicula>();
 			Pelicula pelicula = null;
-			ResultSet resultSet = ejecutarSelect("SELECT * FROM Pelicula WHERE Estado = 1");
+			ResultSet resultSet = ejecutarSelect("SELECT * FROM Pelicula WHERE Estado = 'Activo'");
 
 			while (resultSet.next()) {
-				EstadoActivoInactivo estadoPelicula;
-				if (resultSet.getInt("Estado") == 1) {
-					estadoPelicula = EstadoActivoInactivo.ACTIVO;
-				} else
-					estadoPelicula = EstadoActivoInactivo.INACTIVO;
+
+				Estado estadoPelicula = Estado.valueOf(resultSet.getString("Estado").toUpperCase());
 
 				pelicula = new Pelicula(resultSet.getString("Nombre"), resultSet.getString("Director"),
 						resultSet.getString("Genero"), resultSet.getInt("Duracion"), resultSet.getString("Idioma"),
@@ -235,19 +301,20 @@ public class FuncionPersistente implements Persistencia {
 		}
 	}
 
-    public Funcion buscarPeliculaPorDiaYHora(Integer idEstablecimiento, String nombrePelicula) {
+	public Funcion buscarPeliculaPorDiaYHora(Integer idEstablecimiento, String nombrePelicula) {
 
 		try {
-			ResultSet resultSet = ejecutarSelect("SELECT top 1 * FROM Funcion_vw WHERE CUITEstablecimiento=" +
-					idEstablecimiento+ " AND NombrePelicula='"+nombrePelicula+"'");
+			ResultSet resultSet = ejecutarSelect("SELECT top 1 * FROM Funcion_vw WHERE CUITEstablecimiento="
+					+ idEstablecimiento + " AND NombrePelicula='" + nombrePelicula + "'");
 			Funcion funcion = new Funcion();
 			if (resultSet.next()) {
 
 				Date date = resultSet.getDate("Fecha");
-				LocalDate localD = date.toLocalDate();
-
-				funcion.setFecha(localD);
+				LocalDate localDate = date.toLocalDate();
+				funcion.setFecha(localDate);
 				funcion.setHora(resultSet.getTime("Horario"));
+				// To-do funcion.setFecha(localD);
+				// To-do funcion.setHora(resultSet.getTime("Horario"));
 			}
 
 			return funcion;
@@ -255,7 +322,7 @@ public class FuncionPersistente implements Persistencia {
 			System.out.println("Error Query: " + e.getMessage());
 			throw new RuntimeException("Error intentando buscar usuario con dni " + idEstablecimiento + nombrePelicula);
 		} finally {
-			cerrarConexion();
+			liberarConexion();
 		}
-    }
+	}
 }

@@ -1,6 +1,5 @@
 package com.cine.dao;
 
-import com.cine.controlador.ControladorUsuario;
 import com.cine.modelo.Usuario;
 
 import java.sql.*;
@@ -25,18 +24,7 @@ public class UsuarioPersistente implements Persistencia {
     public Object buscar(Object dni) {
         try {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE dni=" + dni);
-            Usuario usuario = new Usuario();
-            if (resultSet.next()) {
-                usuario.setDni(resultSet.getInt("DNI"));
-                usuario.setNombre(resultSet.getString("NombreDeUsuario"));
-                usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
-                usuario.setEmail(resultSet.getString("Email"));
-                usuario.setDomicilio(resultSet.getString("Domicilio"));
-                usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
-            }
-
-
-            return usuario;
+            return construirUsuario(resultSet);
         } catch (SQLException e) {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar usuario con dni " + dni);
@@ -52,17 +40,8 @@ public class UsuarioPersistente implements Persistencia {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario");
             List<Object> usuarioList = new ArrayList<>();
             while (resultSet.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setDni(resultSet.getInt("dni"));
-                usuario.setNombreDeUsuario(resultSet.getString("nombreDeUsuario"));
-                usuario.setEmail(resultSet.getString("email"));
-                usuario.setPassword(resultSet.getString("password"));
-                usuario.setNombre(resultSet.getString("nombre"));
-                usuario.setDomicilio(resultSet.getString("domicilio"));
-                usuario.setFechaDeNacimiento(resultSet.getString("fechaDeNacimiento"));
-                usuarioList.add(usuario);
+                usuarioList.add(construirUsuario(resultSet));
             }
-
 
             return usuarioList;
         } catch (Exception e) {
@@ -127,22 +106,27 @@ public class UsuarioPersistente implements Persistencia {
     public Usuario buscarUsuarioPorUsrAndPass(String nombreDeUsuario, String password) {
         try {
             ResultSet resultSet = ejecutarSelect("SELECT * FROM Usuario WHERE NombreDeUsuario='" + nombreDeUsuario + "'" + "and Password='" + password + "'");
-            Usuario usuario = new Usuario();
-            if (resultSet.next()) {
-                usuario.setDni(resultSet.getInt("DNI"));
-                usuario.setNombre(resultSet.getString("NombreDeUsuario"));
-                usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
-                usuario.setEmail(resultSet.getString("Email"));
-                usuario.setDomicilio(resultSet.getString("Domicilio"));
-                usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
-            }
-
-            return usuario;
+            return construirUsuario(resultSet);
         } catch (SQLException e) {
             System.out.println("Error Query: " + e.getMessage());
             throw new RuntimeException("Error intentando buscar usuario con usr " + nombreDeUsuario);
         } finally {
             cerrarConexion();
         }
+    }
+
+    private Usuario construirUsuario(ResultSet resultSet) throws SQLException {
+        Usuario usuario = new Usuario();
+        if (resultSet.next()) {
+            usuario.setDni(resultSet.getInt("DNI"));
+            usuario.setNombre(resultSet.getString("NombreDeUsuario"));
+            usuario.setNombreDeUsuario(resultSet.getString("NombreDeUsuario"));
+            usuario.setPassword(resultSet.getString("Password"));
+            usuario.setEmail(resultSet.getString("Email"));
+            usuario.setDomicilio(resultSet.getString("Domicilio"));
+            usuario.setFechaDeNacimiento(resultSet.getString("FechaDeNacimiento"));
+        }
+
+        return usuario;
     }
 }

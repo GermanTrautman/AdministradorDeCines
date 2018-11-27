@@ -27,7 +27,6 @@ public class JFormularioAltaUsuario extends JFormularioBase {
     private JPasswordField password;
     private JTextField nombre;
     private JTextField domicilio;
-    private JComboBox<Rol> comboRoles = new JComboBox<>();
     private List<String> roles;
 
     private JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Cliente");
@@ -97,7 +96,7 @@ public class JFormularioAltaUsuario extends JFormularioBase {
                     controladorUsuario.altaUsuario(Integer.parseInt(dni.getText()), nombreDeUsuario.getText(), email.getText(), password.getText(),
                             nombre.getText(), domicilio.getText(), fecha.getText());
 
-                    controladorRolUsuario.altaRolUsuario(Integer.parseInt(dni.getText()),isSelected() );
+                    controladorRolUsuario.altaRolUsuario(Integer.parseInt(dni.getText()),isSelected());
 
                 }
                 JOptionPane.showMessageDialog(null, "Usuario creado correctamente");

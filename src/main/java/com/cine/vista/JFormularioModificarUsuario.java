@@ -77,10 +77,10 @@ public class JFormularioModificarUsuario extends JFormularioBase {
         btnModificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Usuario usuario = new Usuario(Integer.parseInt(dni.getText()), nombreDeUsuario.getText(), email.getText(), password.getText(),
+                Usuario usuario = new Usuario();
+                ControladorUsuario.getInstance().modificacionUsuario(Integer.parseInt(dni.getText()), nombreDeUsuario.getText(), email.getText(), password.getText(),
                         nombre.getText(), domicilio.getText(), fechaDeNacimiento.getText());
-                ControladorRolUsuario.getInstance().bajaRolUsuario(usuario.getDni());
-                ControladorUsuario.getInstance().actualizarCache(usuario);
+
                 ControladorRolUsuario.getInstance().altaRolUsuario(Integer.parseInt(dni.getText()), isSelected());
                 reset();
                 JOptionPane.showMessageDialog(null, "Usuario modificado correctamente");

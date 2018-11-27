@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 
 import com.cine.controlador.ControladorPelicula;
 import com.cine.modelo.Pelicula;
-import com.cine.utilidades.EstadoActivoInactivo;
+import com.cine.utilidades.Estado;
 
 public class JFormularioBajaPelicula extends JFormularioBase {
 
@@ -33,7 +33,7 @@ public class JFormularioBajaPelicula extends JFormularioBase {
 	private JComboBox<String> comboBoxSubtitulo = new JComboBox<>();
 	private JSpinner spinnerCalificacion = new JSpinner();
 	private JTextField txtObservaciones = new JTextField();
-	private JComboBox<EstadoActivoInactivo> comboBoxEstado = new JComboBox<>();
+	private JComboBox<Estado> comboBoxEstado = new JComboBox<>();
 	private ControladorPelicula controladorPelicula = ControladorPelicula.getInstance();
 	private JButton btnBajaPelicula = new JButton("Eliminar Pelicula");
 	
@@ -148,7 +148,7 @@ public class JFormularioBajaPelicula extends JFormularioBase {
 		comboBoxEstado.setEnabled(false);
 		comboBoxEstado.setBounds(467, 571, 256, 26);
 		this.getContentPane().add(comboBoxEstado);
-		comboBoxEstado.setModel(new DefaultComboBoxModel<>(EstadoActivoInactivo.values()));
+		comboBoxEstado.setModel(new DefaultComboBoxModel<>(Estado.values()));
 
 //		popularCampos(pelicula);
 

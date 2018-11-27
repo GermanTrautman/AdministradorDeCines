@@ -11,13 +11,28 @@ import com.cine.utilidades.Estado;
 import com.cine.utilidades.EstadoVirtual;
 
 public class AsientoVirtualPersistente implements Persistencia {
+	
+	public static AsientoVirtualPersistente instancia;
+	
+    public AsientoVirtualPersistente() {
+    }
+
+    public static AsientoVirtualPersistente getInstance() {
+    	
+        if (instancia == null) {
+        
+        	instancia = new AsientoVirtualPersistente();
+        }
+        
+        return instancia;
+    }
 
 	// Busca todos los asientos virtuales de una determinada funcion
 	@Override
 	public Object buscar(Object idFuncion) {
 		try {
 
-			AsientoVirtual[][] asientosVirtuales = new AsientoVirtual[25][25];
+			AsientoVirtual[][] asientosVirtuales = new AsientoVirtual[AsientoVirtual.FILAS][AsientoVirtual.ASIENTOSPORFILA];
 
 			PreparedStatement preparedStatement = conectarDb()
 					.prepareStatement("SELECT * FROM TPO.dbo.AsientoVirtual WHERE IdFuncion = ?");
@@ -29,9 +44,11 @@ public class AsientoVirtualPersistente implements Persistencia {
 				EstadoVirtual estado = EstadoVirtual.valueOf(resultSet.getString("Estado").toUpperCase());
 				Integer idAsientoFisico = resultSet.getInt("IdAsientoFisico");
 				AsientoFisico asientoFisicoAsociado = buscarAsientoFisico(idAsientoFisico);
+
 				AsientoVirtual asientoVirtual = new AsientoVirtual(asientoFisicoAsociado,
 						resultSet.getInt("IdFuncion"));
 				asientoVirtual.setEstado(estado);
+				asientoVirtual.setId(resultSet.getInt("Id"));
 
 				asientosVirtuales[asientoVirtual.getFisicoAsociado().getFila()][asientoVirtual.getFisicoAsociado()
 						.getNumeroDeAsiento()] = asientoVirtual;
@@ -43,6 +60,42 @@ public class AsientoVirtualPersistente implements Persistencia {
 			System.out.println("Error Query: " + e.getMessage());
 			throw new RuntimeException("Error intentando buscar asientos de la funcion" + idFuncion);
 		} finally {
+			liberarConexion();
+		}
+	}
+	
+	public AsientoVirtual buscarPor(Integer id) {
+		
+		try {
+
+			AsientoVirtual asientoVirtual = null;
+
+			PreparedStatement preparedStatement = conectarDb()
+					.prepareStatement("SELECT * FROM TPO.dbo.AsientoVirtual WHERE IdFuncion = ?");
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+
+				EstadoVirtual estado = EstadoVirtual.valueOf(resultSet.getString("Estado").toUpperCase());
+				
+				Integer idAsientoFisico = resultSet.getInt("IdAsientoFisico");
+				AsientoFisico asientoFisicoAsociado = buscarAsientoFisico(idAsientoFisico);
+
+				asientoVirtual = new AsientoVirtual(asientoFisicoAsociado, resultSet.getInt("IdFuncion"));
+				asientoVirtual.setEstado(estado);
+				asientoVirtual.setId(resultSet.getInt("Id"));
+			}
+
+			return asientoVirtual;
+
+		} catch (SQLException e) {
+			
+			System.out.println("Error Query: " + e.getMessage());
+			throw new RuntimeException("Error intentando buscar el asiento " + id);
+			
+		} finally {
+			
 			liberarConexion();
 		}
 	}
@@ -113,16 +166,31 @@ public class AsientoVirtualPersistente implements Persistencia {
 			return idAsientoFisico;
 		} catch (SQLException e) {
 			System.out.println("Error Query: " + e.getMessage());
-            throw new RuntimeException("Error intentando buscar asiento");
+			throw new RuntimeException("Error intentando buscar asiento");
 		} finally {
 			liberarConexion();
 		}
-		
+
 	}
 
 	@Override
 	public void actualizar(Object entidad) {
-		// TODO Auto-generated method stub
+
+		try {
+
+			AsientoVirtual asientoVirtual = (AsientoVirtual) entidad;
+
+			PreparedStatement preparedStatement = conectarDb()
+					.prepareStatement("UPDATE TPO.dbo.AsientoVirtual SET Estado = ? WHERE Id = ?");
+			preparedStatement.setString(1, asientoVirtual.getEstado().estado());
+			preparedStatement.setInt(2, asientoVirtual.getId());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			liberarConexion();
+		}
 
 	}
 

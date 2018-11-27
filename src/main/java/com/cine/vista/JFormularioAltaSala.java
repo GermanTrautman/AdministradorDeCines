@@ -12,15 +12,13 @@ import javax.swing.SwingConstants;
 
 import com.cine.controlador.ControladorEstablecimiento;
 import com.cine.controlador.ControladorSala;
-import com.cine.modelo.AsientoFisico;
 import com.cine.modelo.Establecimiento;
 import com.cine.utilidades.Estado;
 import com.cine.vista.modelo.ComboEstablecimiento;
 import com.cine.vista.modelo.ComboEstado;
-import com.cine.vista.modelo.TablaAltaAsientos;
 
 import javax.swing.JComboBox;
-import javax.swing.JTable;
+import javax.swing.JFrame;
 
 public class JFormularioAltaSala extends JFormularioBase {
 
@@ -31,10 +29,9 @@ public class JFormularioAltaSala extends JFormularioBase {
 	private JComboBox<ComboEstablecimiento> comboEstablecimientos = new JComboBox<>();
 	private JComboBox<ComboEstado> comboEstados = new JComboBox<>();
 
-	private JTable tblAsientos;
-	private TablaAltaAsientos tablaAltaAsientos = new TablaAltaAsientos();
-
-	private JButton btnGuardar = new JButton("Guardar");
+	private JButton btnGuardar = new JButton("Seleccionar asientos");
+	private JTextField txtbxCantidadDeFilas;
+	private JTextField txtbxCantidadDeAsientosPorFila;
 
 	public JFormularioAltaSala() {
 
@@ -64,7 +61,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 		popularComboEstablecimientos();
 
 		JLabel lblNewLabel = new JLabel("Estado");
-		lblNewLabel.setBounds(223, 169, 229, 23);
+		lblNewLabel.setBounds(223, 169, 229, 26);
 		this.getContentPane().add(lblNewLabel);
 
 		this.comboEstados.setBounds(464, 167, 256, 26);
@@ -72,31 +69,24 @@ public class JFormularioAltaSala extends JFormularioBase {
 
 		popularEstado();
 
-		JLabel lblNewLabel_1 = new JLabel("Asientos");
-		lblNewLabel_1.setBounds(223, 228, 56, 16);
-		getContentPane().add(lblNewLabel_1);
-
-		tblAsientos = new JTable(tablaAltaAsientos);
-		tblAsientos.setBounds(223, 257, 502, 400);
-		tblAsientos.setRowSelectionAllowed(false);
-		tblAsientos.addMouseListener(new java.awt.event.MouseAdapter() {
-			@Override
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-
-				int fila = tblAsientos.rowAtPoint(evt.getPoint());
-				int columna = tblAsientos.columnAtPoint(evt.getPoint());
-
-				AsientoFisico asientoFisico = new AsientoFisico(nombre.getText(), fila, columna, Estado.ACTIVO);
-
-				if (ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] == null) {
-					ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] = asientoFisico;
-				} else {
-					ControladorSala.getInstance().getAsientosFisicosTemporales()[fila][columna] = null;
-				}
-			}
-		});
-		getContentPane().add(tblAsientos);
-
+		JLabel lblCantidadDeFilas = new JLabel("Cantidad de filas");
+		lblCantidadDeFilas.setBounds(223, 228, 229, 26);
+		getContentPane().add(lblCantidadDeFilas);
+		
+		txtbxCantidadDeFilas = new JTextField();
+		txtbxCantidadDeFilas.setBounds(464, 228, 256, 26);
+		getContentPane().add(txtbxCantidadDeFilas);
+		txtbxCantidadDeFilas.setColumns(10);
+		
+		JLabel lblCantidadDeColumnas = new JLabel("Cantidad de asientos por fila");
+		lblCantidadDeColumnas.setBounds(223, 282, 229, 26);
+		getContentPane().add(lblCantidadDeColumnas);
+		
+		txtbxCantidadDeAsientosPorFila = new JTextField();
+		txtbxCantidadDeAsientosPorFila.setBounds(464, 282, 256, 26);
+		getContentPane().add(txtbxCantidadDeAsientosPorFila);
+		txtbxCantidadDeAsientosPorFila.setColumns(10);
+		
 		this.btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -107,19 +97,23 @@ public class JFormularioAltaSala extends JFormularioBase {
 				String estadoEnletras = ((ComboEstado) itemEstado).getEstado();
 
 				if (nombre.getText() != null && comboEstablecimientos.getSelectedItem() != null
-						&& comboEstados.getSelectedItem() != null) {
+						&& comboEstados.getSelectedItem() != null && txtbxCantidadDeFilas.getText() != null && txtbxCantidadDeAsientosPorFila.getText() != null ) {
 
-					ControladorSala.getInstance().alta(nombre.getText(),
-							ControladorSala.getInstance().getAsientosFisicosTemporales(), idEstablecimiento,
-							estadoEnletras);
+					ControladorSala.getInstance().alta(nombre.getText(), idEstablecimiento, estadoEnletras);
+					
+					JOptionPane.showMessageDialog(null, "Se ha guardado la sala");
+					
+					dispose();
 
-					JOptionPane.showMessageDialog(null, "Sala creada correctamente");
-
-					reset();
+					JFrame asientos = new JFormularioAsientosAltaSala(nombre.getText(), Integer.parseInt(txtbxCantidadDeFilas.getText()), Integer.parseInt(txtbxCantidadDeAsientosPorFila.getText()));
+					asientos.setVisible(true);
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "Se produjo un error creando la sala. Verifique los campos");
 				}
 			}
 		});
-		this.btnGuardar.setBounds(223, 679, 115, 29);
+		this.btnGuardar.setBounds(223, 679, 169, 26);
 		this.getContentPane().add(btnGuardar);
 	}
 
@@ -142,7 +136,7 @@ public class JFormularioAltaSala extends JFormularioBase {
 
 	private void popularEstado() {
 
-		comboEstados.addItem(new ComboEstado(Estado.ACTIVO.estado(), 1));
-		comboEstados.addItem(new ComboEstado(Estado.INACTIVO.estado(), 2));
+		comboEstados.addItem(new ComboEstado(Estado.ACTIVO.getLabel(), 1));
+		comboEstados.addItem(new ComboEstado(Estado.INACTIVO.getLabel(), 2));
 	}
 }
